@@ -104,6 +104,7 @@ In this POC we use Azure so we can share a live demo.
     - [1 Role Directory Structure](#1-role-directory-structure)
     - [playbooks/deploy\_mysql\_check.yml](#playbooksdeploy_mysql_checkyml)
     - [playbooks/deploy\_mysql.yml --limit mysql01](#playbooksdeploy_mysqlyml---limit-mysql01)
+  - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
 - [Create a Windows host](#create-a-windows-host)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
@@ -2105,6 +2106,12 @@ You can read about them in the playbook comments.
 
 
 ![install mysql](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/install_mysql.png)
+
+
+## playbooks/deploy_mysql.yml --limit mysql01 Ansible Vault
+
+What we did is bad, password in file?na
+
 
 
 ## Playbook linux tbd.yml --check or limit or hosts:groups
