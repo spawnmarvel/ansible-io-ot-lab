@@ -101,6 +101,9 @@ In this POC we use Azure so we can share a live demo.
   - [5. Custom Facts and Block/Rescue Error Handling](#5-custom-facts-and-blockrescue-error-handling)
 - [Let's start Enterprise Ansible Scalability](#lets-start-enterprise-ansible-scalability)
   - [Playbook install\_mysql.yml with Roles --check or limit or hosts:groups](#playbook-install_mysqlyml-with-roles---check-or-limit-or-hostsgroups)
+    - [1 Role Directory Structure](#1-role-directory-structure)
+    - [playbooks/deploy\_mysql\_check.yml](#playbooksdeploy_mysql_checkyml)
+    - [playbooks/deploy\_mysql.yml --limit mysql01](#playbooksdeploy_mysqlyml---limit-mysql01)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
 - [Create a Windows host](#create-a-windows-host)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
@@ -1964,7 +1967,7 @@ Custom Facts: You can gather environment-specific variables dynamically during t
 
 ## Playbook install_mysql.yml with Roles --check or limit or hosts:groups
 
-1. Role Directory Structure
+### 1 Role Directory Structure
 Create the following directory layout inside your repository root (roles/mysql/):
 
 A standard role organizes tasks, variables, defaults, templates, files, and handlers into a dedicated subfolder:
@@ -1989,19 +1992,19 @@ d----          13.11.2026    21:55                vars
 
 ```
 
-2. Role Configuration and Tasks
+1. Role Configuration and Tasks
    
 * roles/mysql/defaults/main.yml
   
-Defines default variables for the root password and binding address.
+2. Defines default variables for the root password and binding address.
 
 * roles/mysql/handlers/main.yml
   
-Handles event-driven service restarts when configuration files are modified.
+3. Handles event-driven service restarts when configuration files are modified.
 
 * roles/mysql/templates/override.cnf.j2
   
-Configures custom binding and paths for the server.
+4. Configures custom binding and paths for the server.
 
 * roles/mysql/tasks/main.yml
   
@@ -2028,10 +2031,12 @@ get_linux_version.yml    ping_hosts.yml             verify_isolation.yml
 
 The directory structure is fully populated and correctly aligned with the roles/ directory containing your MySQL setup.
 
+### playbooks/deploy_mysql_check.yml
+
 Let's run our playbook for check candidate on ubunt 26.04, mysql is shipped default!
 
 ```bash
- ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql_check.yml
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql_check.yml
 ```
 
 log
@@ -2072,7 +2077,7 @@ To allow remote hosts (such as zabbix01 at 10.68.68.5) to connect to your MySQL 
 
 2. User Privileges: MySQL user accounts must be granted access from remote hosts (either a specific IP like 10.68.68.5, a subnet like 10.68.68.%, or globally via %).
 
-Install Mysql
+### playbooks/deploy_mysql.yml --limit mysql01
 
 ```bash
 ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
