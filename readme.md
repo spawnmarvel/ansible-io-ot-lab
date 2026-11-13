@@ -2094,7 +2094,12 @@ ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql
 
 ```
 
+Then we are done with installing myql, we introduced a lot of new key words.
 
+You can read about them in the playbook comments.
+
+
+![install mysql](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/install_mysql.png)
 
 
 ## Playbook linux tbd.yml --check or limit or hosts:groups
