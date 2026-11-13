@@ -18,6 +18,7 @@ In this POC we use Azure so we can share a live demo.
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
+- [IT Automation in OT](#it-automation-in-ot)
 - [Introduction](#introduction)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
 - [1. Topology for the future](#1-topology-for-the-future)
@@ -104,6 +105,7 @@ In this POC we use Azure so we can share a live demo.
 - [Create a Windows host](#create-a-windows-host)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
 
+# IT Automation in OT
 
 # Introduction
 
