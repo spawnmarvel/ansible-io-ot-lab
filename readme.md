@@ -116,6 +116,9 @@ Day-2 automation begins immediately after IP and credential handover.
 
 This is the final set up (ip may change but the concept is the same)
 
+1. Team 1 can use Terraform / Ansible or do it manually for network, firewall, provision servers etc.
+2. Tema 2 will use Ansible for configuration management, install, montitoring, patching etc.
+
 ![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
 
 # Ansible
