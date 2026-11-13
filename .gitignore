@@ -219,5 +219,5 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Vault password file ansible-vault
+# Vault password file ans
 .vault_pass.txt
