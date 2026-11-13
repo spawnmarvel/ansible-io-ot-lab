@@ -1,10 +1,20 @@
-# Ansible stack in Azure POC
+# Ansible stack in Azure Proof of Concept (PoC) 
 
 Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
+It does not matter what hypervisor we run, the concept is the same.
 
+
+If you want to check out the same with KVM:
+
+* KVM (Kernel-based Virtual Machine) is a free and open-source full-virtualization module built directly into the Linux kernel. It turns a standard Linux operating system into a high-performance Type-1 hypervisor.
+
+*  https://www.redhat.com/en/topics/virtualization/what-is-KVM
+
+
+Learning kvm linux and ansible tutorial https://github.com/spawnmarvel/kvm-lab/blob/main/readme.md
 
 ## Table of content
-- [Ansible stack in Azure POC](#ansible-stack-in-azure-poc)
+- [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
 - [Introduction](#introduction)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
@@ -30,7 +40,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
   - [VM's Azure Retirement of default outbound access: scope and impact](#vms-azure-retirement-of-default-outbound-access-scope-and-impact)
   - [Virtual machines in Rg-swc-ansiblestack-01](#virtual-machines-in-rg-swc-ansiblestack-01)
   - [Virtual machines in Rg-swc-vms-01](#virtual-machines-in-rg-swc-vms-01)
-- [Ansible configuration](#ansible-configuration)
+- [Ansible configuration POC](#ansible-configuration-poc)
   - [Create ansiblectr01 Subnet 1 (iDMZ / Management)](#create-ansiblectr01-subnet-1-idmz--management)
   - [Install Ansible on ansiblectr01](#install-ansible-on-ansiblectr01)
     - [Create folder structure](#create-folder-structure)
@@ -44,7 +54,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
     - [Veriy manual update on zabbix01](#veriy-manual-update-on-zabbix01)
   - [Playbook linux update\_apt.yml with callbacks\_enabled = profile\_tasks, timer](#playbook-linux-update_aptyml-with-callbacks_enabled--profile_tasks-timer)
   - [Current vms](#current-vms)
-- [Semaphore UI](#semaphore-ui)
+- [Semaphore UI POC](#semaphore-ui-poc)
   - [Install Semaphore UI on ansiblectr01](#install-semaphore-ui-on-ansiblectr01)
     - [We could do it with Ansible playbook also/ this is manual install to get to know it](#we-could-do-it-with-ansible-playbook-also-this-is-manual-install-to-get-to-know-it)
     - [Accessing Semaphore UI](#accessing-semaphore-ui)
@@ -321,7 +331,7 @@ https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outb
 * zabbix02, 10.68.20.15, no outbund internet by default
 
 
-# Ansible configuration
+# Ansible configuration POC
 
 ## Create ansiblectr01 Subnet 1 (iDMZ / Management)
 
@@ -831,7 +841,7 @@ Now we have more output for time and date and more.
 ![vms0](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/vms0.png)
 
 
-# Semaphore UI
+# Semaphore UI POC
 
 ## Install Semaphore UI on ansiblectr01
 
