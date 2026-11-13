@@ -23,4 +23,7 @@
         msg: "MySQL login output: {{ mysql_version_output.stdout }}"
     - name: print the output of the MySQL login attempt
       ansible.builtin.debug:
-      msg: "RC: {{ mysql_version_output.rc }} | STDOUT: {{ mysql_version_output.stdout }} | STDERR: {{ mysql_version_output.stderr }}"
+        msg: "RC: {{ mysql_version_output.rc }} 
+    - name: print the output of the MySQL login attempt
+      ansible.builtin.debug:
+        msg: "STDERR: {{ mysql_version_output.stderr }}"
