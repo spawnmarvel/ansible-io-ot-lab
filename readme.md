@@ -2167,7 +2167,7 @@ But we need to change step two steps.
 # Version: 1.0.0
 # Description: Default variables for MySQL role deployment.
 
-mysql_root_password: "SecureLabRootPassword123!"
+mysql_root_password: "it-is-a-secret-not-this"
 # add this so we can reference it in new playbooks
 zabbix_password: "ZabbixSecurePassword123!"
 mysql_bind_address: "0.0.0.0"
@@ -2182,7 +2182,7 @@ mysql_port: 3306
 
 - name: Create remote-accessible Zabbix database user and database
   ansible.builtin.command: >
-    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'10.68.68.%' IDENTIFIED BY '{{ zabbix_password }}'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'10.68.68.%'; FLUSH PRIVILEGES;"
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'%' IDENTIFIED BY '{{ zabbix_password }}'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%'; FLUSH PRIVILEGES;"
   when: zabbix_user_check.rc != 0 or zabbix_user_check.stdout == ""
   changed_when: true
 
