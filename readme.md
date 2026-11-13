@@ -2154,6 +2154,49 @@ ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql
 ansible-playbook -i inventory/hosts.ini playbooks/login_mysql_user_zabbix.yml --limit mysql01
 ```
 
+
+And the result is again success.
+
+login_mysql_user_zabbix.yml
+
+```yml
+---
+# Version: 1.4.0
+# Description: Login to MySQL as the Zabbix user to verify that the user has been created and can access the database.
+# aspen
+- name: Login to MySQL as Zabbix user
+  hosts: db_servers
+  become: true
+  # here we are using vars_files to include the default variables from the mysql role, which contains the zabbix_password variable
+  vars_files:
+    - roles/mysql/defaults/main.yml
+  tasks:
+    - name: Print the Zabbix user password for debugging purposes
+      ansible.builtin.debug:
+        msg: "Zabbix user password is: {{ zabbix_password }}"
+    - name: Try logging in to MySQL as the Zabbix user to verify access
+      ansible.builtin.command: mysql -h 10.68.68.6 -u zabbix -p'{{ zabbix_password }}' -e "SELECT CURRENT_USER();"
+      register: mysql_version_output
+      failed_when: false
+      changed_when: false
+
+    - name: Print the output of the MySQL login attempt
+      ansible.builtin.debug:
+        msg: "MySQL login output: {{ mysql_version_output.stdout }}"
+
+```
+
+Here we learned to:
+
+1. Reference roles/mysql/defaults/main.yml with the password
+2. Use ansible.builtin.debug and print it
+3. Capture SQL output and print it with same method
+   
+Result:
+
+
+
+
 ## playbooks/deploy_mysql.yml --limit mysql01 Ansible Vault
 
 What we did is bad, password in file?na
