@@ -10,6 +10,7 @@
   ansible.builtin.apt:
     name:
       - mysql-server
+    # The 'state: present' directive ensures that the MySQL server package is installed on the target system. If the package is already installed, Ansible will not attempt to reinstall it, maintaining idempotency.
     state: present
     update_cache: true
 
@@ -31,6 +32,8 @@
     dest: /etc/mysql/mysql.conf.d/99-override.cnf
     owner: root
     group: root
+    # The 'mode: 0644' directive sets the file permissions for the configuration file, allowing read and write access for the owner (root) and read-only access for the group and others. 
+    # This ensures that the configuration file is secure while still being accessible to the MySQL service.
     mode: '0644'
   notify: Restart MySQL
   check_mode: false
@@ -38,6 +41,9 @@
 - name: Ensure correct ownership on MySQL data directory
   ansible.builtin.file:
     path: /var/lib/mysql
+    # The 'state: directory' directive ensures that the specified path is treated as a directory. 
+    # If the path does not exist, Ansible will create it as a directory. 
+    #If it exists but is not a directory (e.g., it's a file), Ansible will raise an error.
     state: directory
     owner: mysql
     group: mysql
@@ -50,8 +56,13 @@
 
 - name: Check if root password is already configured
   ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT 1;"
+  # The 'register: root_password_check' directive captures the output and return code of the command into a variable named 'root_password_check'.
   register: root_password_check
+  # failed_when: false: Normally, if a shell command exits with a non-zero error code (e.g., trying to query MySQL before the password is set), 
+  # Ansible halts the playbook. Setting this to false tells Ansible: 
+  # "Even if this command fails, don't crash the playbook; just record the failure code so we can inspect it."
   failed_when: false
+  # The 'changed_when: false' directive is used here to indicate that this task should not be marked as "changed" in the Ansible output, regardless of the command's success or failure.
   changed_when: false
 
 - name: Set root password for MySQL root user on localhost
@@ -70,6 +81,7 @@
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
   when: root_loopback_check.rc != 0 or root_loopback_check.stdout == ""
+  # The 'changed_when: true' directive is used here to indicate that this task should be marked as "changed" in the Ansible output, even if the command itself does not produce any output or changes.
   changed_when: true
 
 
