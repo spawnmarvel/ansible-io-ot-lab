@@ -26,9 +26,9 @@ In this POC we use Azure so we can share a live demo.
     - [Ansible cheat sheet](#ansible-cheat-sheet)
     - [Ansible quick guide](#ansible-quick-guide)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
-      - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
-      - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
-    - [The Bottom Line](#the-bottom-line)
+    - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
+    - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
+  - [The Bottom Line](#the-bottom-line)
       - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
       - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
       - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -176,7 +176,7 @@ You can go all the way to full-scale enterprise production with the open-source 
 
 
 
-#### What You Can Do for Free 🆓
+### What You Can Do for Free 🆓
 
 * Unlimited Scale: You can automate 5 servers or 50,000 servers without paying a dime.
 * Full Automation Power: Every core capability—like configuring servers, deploying apps, managing cloud infrastructure (AWS, Azure, Google Cloud), and configuring network hardware—works out of the box.
@@ -186,7 +186,7 @@ You can go all the way to full-scale enterprise production with the open-source 
 
 
 
-#### Where You Hit a Wall (The Trade-offs) 💸
+### Where You Hit a Wall (The Trade-offs) 💸
 
 While there are no technical walls, you will eventually face operational trade-offs as your team grows:
 
@@ -196,7 +196,7 @@ While there are no technical walls, you will eventually face operational trade-o
 
 
 
-### The Bottom Line
+## The Bottom Line
 
 If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
 
