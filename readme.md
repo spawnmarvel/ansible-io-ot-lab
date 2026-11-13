@@ -99,8 +99,8 @@ In this POC we use Azure so we can share a live demo.
   - [4. Ansible Vault (Secure Secret Management)](#4-ansible-vault-secure-secret-management)
   - [5. Custom Facts and Block/Rescue Error Handling](#5-custom-facts-and-blockrescue-error-handling)
 - [Let's start Enterprise Ansible Scalability](#lets-start-enterprise-ansible-scalability)
+  - [Playbook install\_mysql.yml --check or limit or hosts:groups](#playbook-install_mysqlyml---check-or-limit-or-hostsgroups)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
-  - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups-1)
 - [Create a Windows host](#create-a-windows-host)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
 
@@ -1888,6 +1888,8 @@ Settings in Ui
 
 # Introduction to Enterprise Ansible Scalability
 
+Ok, we have done a lot, let's sti back for some moments and recap and go into the right direction.
+
 Up to this point, our proof-of-concept has relied on flat, linear playbooks containing tasks and inline variables. 
 
 While this is efficient for bootstrapping and basic operations (like updating packages or mounting a secondary disk), scaling up to install MySQL 8.4 LTS, Zabbix Server, Zabbix Proxies, and configuring Windows VMs requires a more structured, production-grade approach.
@@ -1919,7 +1921,7 @@ Custom Facts: You can gather environment-specific variables dynamically during t
 
 # Let's start Enterprise Ansible Scalability
 
-## Playbook linux tbd.yml --check or limit or hosts:groups
+## Playbook install_mysql.yml --check or limit or hosts:groups
 
 
 ```bash
