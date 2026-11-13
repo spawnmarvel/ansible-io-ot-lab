@@ -2246,7 +2246,13 @@ Result:
 
 ## playbooks/deploy_mysql.yml --limit mysql01 Ansible Vault
 
-What we did is bad, password in file?na
+What we did is bad, password in file....
+
+To eliminate plain-text passwords from your repository, the industry-standard approach in Ansible is Ansible Vault. Vault allows you to encrypt sensitive variable files (like your role defaults or dedicated secret files) while keeping them fully transparent to Ansible during execution.
+
+```bash
+
+```
 
 
 
