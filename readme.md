@@ -89,13 +89,15 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
 2. Day 2 to day 3: Team 2 install monitoring stack with Ansible
 3. Day 3 to day n: Team 2 automate install, update and support operations with ansible.
 
-Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI. 
+Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI..
 
 Day-2 automation begins immediately after IP and credential handover, set up stack with Ansible.
 
 ## Team 1
 
 ![haha_2](https://github.com/spawnmarvel/ansible-io-ot-lab/tree/main/haha_2.png)
+
+
 
 ## Team 2 starts with ansiblectr01
 
