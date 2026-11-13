@@ -1,6 +1,10 @@
 ---
-# Version: 1.2.0
-# Description: Main task file for installing, securing, and configuring MySQL 8.4 LTS with remote access support.
+# Version: 1.4.0
+# Description: Idempotent main task file for installing, securing, and configuring MySQL 8.4 LTS.
+
+# ==============================================================================
+# Subsection 1: Package Installation & Service Bootstrap
+# ==============================================================================
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -15,6 +19,11 @@
     state: started
     enabled: true
   check_mode: false
+
+
+# ==============================================================================
+# Subsection 2: Configuration & Storage Alignment
+# ==============================================================================
 
 - name: Apply custom MySQL configuration override
   ansible.builtin.template:
@@ -34,28 +43,77 @@
     group: mysql
     mode: '0751'
 
+
+# ==============================================================================
+# Subsection 3: Root Password & Access Initialization
+# ==============================================================================
+
+- name: Check if root password is already configured
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT 1;"
+  register: root_password_check
+  failed_when: false
+  changed_when: false
+
 - name: Set root password for MySQL root user on localhost
   ansible.builtin.command: >
     mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
+  when: root_password_check.rc != 0
   changed_when: true
-  ignore_errors: true
+
+- name: Check if root@127.0.0.1 user exists and is configured
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='root' AND Host='127.0.0.1';"
+  register: root_loopback_check
+  failed_when: false
+  changed_when: false
 
 - name: Create root user for 127.0.0.1 and ::1
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+  when: root_loopback_check.rc != 0 or root_loopback_check.stdout == ""
   changed_when: true
 
-- name: Create remote-accessible Zabbix database user
+
+# ==============================================================================
+# Subsection 4: Remote Database & User Provisioning
+# ==============================================================================
+
+- name: Check if Zabbix database user exists
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='zabbix' AND Host='10.68.68.%';"
+  register: zabbix_user_check
+  failed_when: false
+  changed_when: false
+
+- name: Create remote-accessible Zabbix database user and database
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'10.68.68.%' IDENTIFIED BY 'ZabbixSecurePassword123!'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'10.68.68.%'; FLUSH PRIVILEGES;"
+  when: zabbix_user_check.rc != 0 or zabbix_user_check.stdout == ""
   changed_when: true
+
+
+# ==============================================================================
+# Subsection 5: Security Hardening & Cleanup
+# ==============================================================================
+
+- name: Check if anonymous MySQL users exist
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='';"
+  register: anon_user_check
+  failed_when: false
+  changed_when: false
 
 - name: Remove anonymous MySQL users
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "DROP USER IF EXISTS ''@'localhost'; DROP USER IF EXISTS ''@'{{ ansible_facts.hostname }}'; FLUSH PRIVILEGES;"
+  when: anon_user_check.rc == 0 and anon_user_check.stdout | length > 0
   changed_when: true
+
+- name: Check if test database exists
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT SCHEMA_NAME FROM information_schema.schemata WHERE schema_name = 'test';"
+  register: test_db_check
+  failed_when: false
+  changed_when: false
 
 - name: Remove test database
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;"
+  when: test_db_check.rc == 0 and test_db_check.stdout | length > 0
   changed_when: true
