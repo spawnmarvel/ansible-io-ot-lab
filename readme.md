@@ -200,6 +200,8 @@ While there are no technical walls, you will eventually face operational trade-o
 
 If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
 
+---
+
 ![ansible_circle](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle.png)
 
 
