@@ -107,11 +107,11 @@ Day-2 automation begins immediately after IP and credential handover, set up sta
 
 This is the final set up (ip may change but the concept is the same)
 
-![topology](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/topology.png)
+![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
 
 # Ansible
 
-![ansible1](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/ansible1.png)
+![ansible1](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible1.png)
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 
@@ -133,7 +133,7 @@ https://github.com/spawnmarvel/kvm-lab/blob/main/ansible_quickguide.md
 ### Ansible and Red Hat
 
 
-![ansible_circle](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/ansible_circle.png)
+![ansible_circle](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle.png)
 
 
 #### Official Ansible Documentation Portal
@@ -278,7 +278,7 @@ Address range: 10.68.20.0/24
 Covers: ip tbd (zabbix02)
 
 
-![vnet](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/vnet.png)
+![vnet](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/vnet.png)
 
 ## VM's Azure Retirement of default outbound access: scope and impact
 
@@ -313,7 +313,7 @@ https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outb
 
 ## Create ansiblectr01 Subnet 1 (iDMZ / Management)
 
-![ansible](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/ansiblectr01.png)
+![ansible](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansiblectr01.png)
 
 ## Install Ansible on ansiblectr01
 
@@ -322,7 +322,7 @@ ansiblectr01 | Network settings Outbund port rule added
 
 Allow_internet
 
-![nsg inet](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/nsg_inet.png)
+![nsg inet](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/nsg_inet.png)
 
 10.68.68.4
 
@@ -384,7 +384,7 @@ Last login: Wed Nov 11 18:25:27 2026 from 10.68.68.4
 azureuser@zabbix01
 ```
 
-![zabbix01](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/zabbix01.png)
+![zabbix01](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/zabbix01.png)
 
 ## Populate folder structure and verify ssh
 
@@ -713,7 +713,7 @@ sudo apt upgrade
 
 ```
 
-![zabbix01 update](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/zabbix01_update.png)
+![zabbix01 update](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/zabbix01_update.png)
 
 Stop the apt cacher ng and verify no updates possible on zabbix01
 
@@ -731,7 +731,7 @@ The Connection refused error on port 3142 confirms that zabbix01 is actively try
 
 Yes, exactly. The connection refusal error when the proxy service was stopped—followed by the successful package fetch once started—proves that zabbix01 relies entirely on your internal proxy (ansiblectr01 at 10.68.68.4:3142) for package updates.
 
-![zabbix01 update fail](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/zabbix01_update_fail.png)
+![zabbix01 update fail](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/zabbix01_update_fail.png)
 
 
 ## Playbook linux update_apt.yml with callbacks_enabled = profile_tasks, timer
@@ -811,12 +811,12 @@ Playbook run took 0 days, 0 hours, 0 minutes, 4 seconds
 Now we have more output for time and date and more.
 
 
-![playbook progress](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/playbook_progress.png)
+![playbook progress](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/playbook_progress.png)
 
 
 ## Current vms
 
-![vms0](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/vms0.png)
+![vms0](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/vms0.png)
 
 
 # Semaphore UI
@@ -948,7 +948,7 @@ https://semaphoreui.com/
 URL: [http://10.68.68.4:3000](http://10.68.68.4:3000) (or via your controller's accessible IP/port)
 
 
-![sema](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/sema.png)
+![sema](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/sema.png)
 
 ### SSL/TLS Certificates
 
@@ -1081,17 +1081,17 @@ Not After
 Sat, 08 Nov 2036 20:33:20 GMT 
 
 
-![ssl](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/ssl.png)
+![ssl](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ssl.png)
 
 now that Apache is handling SSL termination on port 443 and securely proxying traffic to Semaphore locally, you should clean up and close port 3000 in your Azure Network Security Group (NSG) so external traffic is forced through the secure HTTPS proxy.
 
-![nsg remove](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/nsg_remove.png)
+![nsg remove](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/nsg_remove.png)
 
 https://www.sslshopper.com/ssl-checker.html
 
 Yes we use a self signed cert.
 
-![cert2](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/cert2.png)
+![cert2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/cert2.png)
 
 
 
@@ -1114,7 +1114,7 @@ Verification: You are redirected to the new project dashboard view.
 
 🔵 Create Templates: Link your playbooks (configure_apt_proxy.yml, update_apt.yml) to templates for easy execution directly from the dashboard
 
-![setup sema2](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/setup_sema2.png)
+![setup sema2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/setup_sema2.png)
 
 
 ## Playbooks linux Semaphore run
@@ -1130,24 +1130,24 @@ To start running your automation tasks, you can proceed with creating your execu
 
 ### linux ping_hosts.yml
 
-![play ping](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/play_ping.png)
+![play ping](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/play_ping.png)
 
 Run the playbook
 
-![run sema ping](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/run_sema_ping.png)
+![run sema ping](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/run_sema_ping.png)
 
 Verify in Semaphore
 
-![run sema ping verify](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/run_sema_ping_verify.png)
+![run sema ping verify](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/run_sema_ping_verify.png)
 
 ### linux update_apt.yml
 
-![run sema apt](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/run_sema_apt.png)
+![run sema apt](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/run_sema_apt.png)
 
 Success, we updated zabbix01
 
 
-![run sema apt_Ok](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/run_sema_apt_ok.png)
+![run sema apt_Ok](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/run_sema_apt_ok.png)
 
 
 Success
@@ -1155,7 +1155,7 @@ Success
 
 Status for playbooks
 
-![status sema](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/status_sema.png)
+![status sema](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/status_sema.png)
 
 
 # 2. Topology at this stage
@@ -1202,7 +1202,7 @@ graph TD
 
 This is the final set up (ip may change but the concept is the same)
 
-![topology](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/topology.png)
+![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
 
 # Set up the rest of the stack
 
@@ -1210,29 +1210,29 @@ This is the final set up (ip may change but the concept is the same)
 
 * Create mysql01 and add a extra datadisk with 32 GB
 
-![disk](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/disk.png)
+![disk](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/disk.png)
 
 Vm mysql01 created 10.68.68.6
 
-![vms1](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/vms1.png)
+![vms1](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/vms1.png)
 
 * Create zabbix02
 
-![vms all](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/vms_all.png)
+![vms all](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/vms_all.png)
 
 Azure vms
 
-![azure_vms](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/azure_vms.png)
+![azure_vms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/azure_vms.png)
 
 ## No outbound to internet
 
 Vms
 
-![vms_nsg](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/vms_nsg.png)
+![vms_nsg](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/vms_nsg.png)
 
 Ansible
 
-![vms_nsg_ansible](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/vms_nsg_ansible.png)
+![vms_nsg_ansible](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/vms_nsg_ansible.png)
 
 ## Structure inventory/hosts.ini and align all configurations
 
@@ -1327,32 +1327,32 @@ Playbook run took 0 days, 0 hours, 0 minutes, 1 seconds
 
 It automatically picks up all our new hosts.
 
-![sema ping](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/sema_ping.png)
+![sema ping](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/sema_ping.png)
 
 ### Playbook Linux verify_isolation.yml
 
 verify isolation no internet for linux
 
-![verify_iso](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/verify_iso.png)
+![verify_iso](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/verify_iso.png)
 
 
 ### Playbook Linux configure_apt_proxy.yml
 
 Now run cofigure proxy to apply to new nodes
 
-![conf_proxy_new](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/conf_proxy_new.png)
+![conf_proxy_new](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/conf_proxy_new.png)
 
 
 ### Playbook Linux update_apt.yml patch all hosts with one click
 
 Now update all servers with the apt playbook.
 
-![one_click_update](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/one_click_update.png)
+![one_click_update](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/one_click_update.png)
 
 
 All Playbooks are success and ready
 
-![first_4_play](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/first_4_play.png)
+![first_4_play](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/first_4_play.png)
 
 
 
@@ -1387,9 +1387,9 @@ Verification: Launching this template automatically applies the limit without re
 ## Semaphore statistic
 
 
-![stats](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/stats.png)
+![stats](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/stats.png)
 
-![stats2](https://github.com/spawnmarvel/kvm-lab/blob/main/run_research_2_azure_zabbix_stack_extra_with_windows_vms/images/stats2.png)
+![stats2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/stats2.png)
 
 
 Semaphore does not include a real-time monitoring dashboard or continuous health-status tracking for hosts. Because Semaphore is an automation and orchestration platform rather than a monitoring system, it evaluates host status based on playbook execution results.
