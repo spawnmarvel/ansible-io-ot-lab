@@ -2120,9 +2120,36 @@ We have not installed anything on zabbix01 yet, mysql client will come with zabb
 ssh azureuser@10.68.68.6
 
 sudo mysql
-Welcome to the MySQL monitor.  Commands end with ; or \g
+# Welcome to the MySQL monitor.  Commands end with ; or \g
 
-#  select user, host from mysql.user;
+
+```
+
+sql
+
+```sql
+select user, host from mysql.user;
++------------------+-----------+
+| user             | host      |
++------------------+-----------+
+| zabbix           | %         |
+| root             | 127.0.0.1 |
+| root             | ::1       |
+| debian-sys-maint | localhost |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| root             | localhost |
++------------------+-----------+
+
+
+mysql -u zabbix -p'it-is-a-secret-not-this' -e "SELECT VERSION();"
+mysql: [Warning] Using a password on the command line interface can be insecure.
++-------------------------+
+| VERSION()               |
++-------------------------+
+| 8.4.13-0ubuntu0.26.04.2 |
++-------------------------+
 
 ```
 
@@ -2214,7 +2241,7 @@ Here we learned to:
    
 Result:
 
-
+![logi mysql](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/login_mysql.png)
 
 
 ## playbooks/deploy_mysql.yml --limit mysql01 Ansible Vault
