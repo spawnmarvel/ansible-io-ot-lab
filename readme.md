@@ -104,7 +104,7 @@ In this POC we use Azure so we can share a live demo.
     - [1 Role Directory Structure](#1-role-directory-structure)
     - [playbooks/deploy\_mysql\_check.yml](#playbooksdeploy_mysql_checkyml)
     - [playbooks/deploy\_mysql.yml --limit mysql01](#playbooksdeploy_mysqlyml---limit-mysql01)
-      - [Verify mysql as root via ssh](#verify-mysql-as-root-via-ssh)
+      - [Verify mysql as root and zabbix via ssh on localhost](#verify-mysql-as-root-and-zabbix-via-ssh-on-localhost)
     - [playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
   - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
@@ -2110,8 +2110,9 @@ You can read about them in the playbook comments.
 ![install mysql](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/install_mysql.png)
 
 
-#### Verify mysql as root via ssh
+#### Verify mysql as root and zabbix via ssh on localhost
 
+We have not installed anything on zabbix01 yet, mysql client will come with zabbix, so lest check it.
 
 ```bash
 # Since we created a root user with access only on localhost, w emust test it
@@ -2120,6 +2121,9 @@ ssh azureuser@10.68.68.6
 
 sudo mysql
 Welcome to the MySQL monitor.  Commands end with ; or \g
+
+#  select user, host from mysql.user;
+
 ```
 
 
