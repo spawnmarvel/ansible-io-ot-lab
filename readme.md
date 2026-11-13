@@ -1926,6 +1926,8 @@ Custom Facts: You can gather environment-specific variables dynamically during t
 ## Playbook install_mysql.yml with Roles --check or limit or hosts:groups
 
 
+A standard role organizes tasks, variables, defaults, templates, files, and handlers into a dedicated subfolder:
+
 ```bash
 
 azureuser@ansiblectr01:

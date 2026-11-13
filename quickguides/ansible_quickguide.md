@@ -15,6 +15,7 @@
   - [SSH key-based authentication](#ssh-key-based-authentication)
     - [host\_key\_checking ansible.cfg](#host_key_checking-ansiblecfg)
   - [Ansible Ad-hoc commands](#ansible-ad-hoc-commands)
+  - [Sample Ansible setup](#sample-ansible-setup)
   - [Enable Native Logging](#enable-native-logging)
     - [OS-Level Auditing](#os-level-auditing)
     - [Get progress output, timestamps, and real-time visibility into long-running Ansible playbooks.](#get-progress-output-timestamps-and-real-time-visibility-into-long-running-ansible-playbooks)
@@ -91,6 +92,12 @@ mkdir mkdir io_ot_lab_build
 
 
 ## Ansible Ad-hoc commands
+
+## Sample Ansible setup
+
+This layout organizes most tasks in roles, with a single inventory file for each environment and a few playbooks in the top-level directory:
+
+https://docs.ansible.com/projects/ansible/latest/tips_tricks/sample_setup.html
 
 ## Enable Native Logging
 
