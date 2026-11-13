@@ -1760,8 +1760,31 @@ Now you can do change in VSC local and push to github and pull to ansiblectr01
 
 ```bash
 azureuser@ansiblectr01:~$ 
+
+cd ansible-io-ot-lab/
+
 git pull orgin main
 
+```
+
+log
+
+```console
+
+remote: Enumerating objects: 11, done.
+remote: Counting objects: 100% (11/11), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 8 (delta 5), reused 6 (delta 3), pack-reused 0 (from 0)
+Unpacking objects: 100% (8/8), 32.86 KiB | 311.00 KiB/s, done.
+From github.com:spawnmarvel/ansible-io-ot-lab
+ * branch            main       -> FETCH_HEAD
+   fc278e6..aab8474  main       -> origin/main
+Updating fc278e6..aab8474
+Fast-forward
+ images/rsa.png | Bin 0 -> 34697 bytes
+ readme.md      |  42 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+)
+ create mode 100644 images/rsa.png
 ```
 
 ## Playbook linux tbd.yml --check or limit or hosts:groups
