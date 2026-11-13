@@ -13,6 +13,8 @@ If you want to check out the same with KVM:
 
 Learning kvm linux and ansible tutorial https://github.com/spawnmarvel/kvm-lab/blob/main/readme.md
 
+In this POC we use Azure so we can share a live demo.
+
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
