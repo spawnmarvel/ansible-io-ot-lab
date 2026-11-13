@@ -14,6 +14,7 @@
     name: mysql
     state: started
     enabled: true
+  check_mode: false
 
 - name: Apply custom MySQL configuration override
   ansible.builtin.template:
@@ -23,6 +24,7 @@
     group: root
     mode: '0644'
   notify: Restart MySQL
+  check_mode: false
 
 - name: Ensure correct ownership on MySQL data directory
   ansible.builtin.file:
@@ -34,18 +36,18 @@
 
 - name: Set root password for MySQL root user on localhost
   ansible.builtin.command: >
-    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
   changed_when: true
   ignore_errors: true
 
 - name: Create root user for 127.0.0.1 and ::1
   ansible.builtin.command: >
-    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
   changed_when: true
 
 - name: Create remote-accessible Zabbix database user
   ansible.builtin.command: >
-    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'10.68.68.%' IDENTIFIED WITH mysql_native_password BY 'ZabbixSecurePassword123!'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'10.68.68.%'; FLUSH PRIVILEGES;"
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'10.68.68.%' IDENTIFIED BY 'ZabbixSecurePassword123!'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'10.68.68.%'; FLUSH PRIVILEGES;"
   changed_when: true
 
 - name: Remove anonymous MySQL users
