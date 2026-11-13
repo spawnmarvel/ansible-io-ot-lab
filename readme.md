@@ -1830,5 +1830,40 @@ ansible-playbook -i inventory/hosts.ini playbooks/
 ## Playbook windows tbd
 
 
+Yes, absolutely. Ansible handles Windows updates natively and can target specific Microsoft KB numbers across your Windows VMs (such as your OT target nodes) using the ansible.windows.win_updates module.
+
+The module provides built-in parameters like include_kb to enforce precise patch selection, along with automatic reboot handling if an update requires it.
+
+
+```yml
+---
+# Version: 1.0.0
+# Description: Installs specific Microsoft KB updates on Windows target nodes and handles reboots automatically.
+
+- name: Apply Targeted Windows Updates
+  hosts: ot_windows_nodes
+  gather_facts: false
+  tasks:
+    - name: Install specific Microsoft KB updates
+      ansible.windows.win_updates:
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+          - UpdateRollups
+        include_kb:
+          - KB5034441
+          - KB5034127
+        state: installed
+        reboot: true
+        reboot_timeout: 1200
+      register: kb_install_result
+
+    - name: Display update execution summary
+      ansible.ansible.builtin.debug:
+        msg: >
+          Host {{ inventory_hostname }} update status:
+          Reboot required: {{ kb_install_result.reboot_required }}
+          Updated count: {{ kb_install_result.installed_update_count }}
+```
 
 
