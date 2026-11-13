@@ -1,7 +1,7 @@
 ---
-# Version: 1.1.0
+# Version: 1.2.0
 # Author: aspen
-# Description: Updates package cache, safely upgrades system packages, and displays upgrade counts and details.
+# Description: Updates package cache, safely upgrades system packages, and correctly displays change status and output details.
 
 - name: Update and Upgrade System Packages
   hosts: ot_nodes:idmz_nodes
@@ -22,5 +22,4 @@
         msg: >
           Host {{ inventory_hostname }} upgrade status:
           Changed: {{ apt_upgrade_result.changed }}
-          Upgraded packages count: {{ apt_upgrade_result.get('upgraded', []) | length }}
-          Upgraded packages list: {{ apt_upgrade_result.get('upgraded', []) | join(', ') if apt_upgrade_result.get('upgraded', []) | length > 0 else 'None' }}
+          Stdout output: {{ apt_upgrade_result.stdout_lines | default(['No output']) }}
