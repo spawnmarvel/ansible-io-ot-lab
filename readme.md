@@ -101,7 +101,7 @@ Day-2 automation begins immediately after IP and credential handover, set up sta
 
 ## Team 2 starts with ansiblectr01
 
-![haha](https://github.com/spawnmarvel/ansible-io-ot-lab/tree/main/haha.png)
+![haha](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha.png)
 
 # 1. Topology
 
