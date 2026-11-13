@@ -203,7 +203,7 @@ If you have a skilled technical team willing to manage your own setup, you never
 
 ---
 
-![ansible_circle](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle.png)
+![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
 
 ## You need to learn Ansible right now.
