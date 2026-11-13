@@ -75,7 +75,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
   - [Playbook linux mount\_datadrive.yml](#playbook-linux-mount_datadriveyml)
-  - [Git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git](#git-clone-gitgithubcomspawnmarvelansible-io-ot-labgit)
+- [Git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git git pull orgin main](#git-clone-gitgithubcomspawnmarvelansible-io-ot-labgit-git-pull-orgin-main)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups-1)
 - [Create a Windows host](#create-a-windows-host)
@@ -1724,7 +1724,7 @@ mysql01                    : ok=3    changed=0    unreachable=0    failed=0    s
 The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfully partitioning /dev/sda, creating the ext4 filesystem, provisioning the /var/lib/mysql mount point, and configuring persistent mounting.
 
 
-## Git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git
+# Git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git git pull orgin main
 
 It is better to push new playbooks to githuba and get them on ansiblectr01, then we always have the latest version.
 
@@ -1737,6 +1737,32 @@ cat id_rsa.pub
 ```
 
 ![rsa](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/rsa.png)
+
+
+Clone it andf get all files
+
+
+```bash
+
+azureuser@ansiblectr01:~$ git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git
+Cloning into 'ansible-io-ot-lab'...
+remote: Enumerating objects: 90, done.
+remote: Counting objects: 100% (90/90), done.
+remote: Compressing objects: 100% (79/79), done.
+remote: Total 90 (delta 19), reused 77 (delta 9), pack-reused 0 (from 0)
+Receiving objects: 100% (90/90), 5.48 MiB | 6.46 MiB/s, done.
+Resolving deltas: 100% (19/19), done.
+
+```
+
+Now you can do change in VSC local and push to github and pull to ansiblectr01
+
+
+```bash
+azureuser@ansiblectr01:~$ 
+git pull orgin main
+
+```
 
 ## Playbook linux tbd.yml --check or limit or hosts:groups
 
