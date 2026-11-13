@@ -282,6 +282,12 @@ https://galaxy.ansible.com/ui/
 
 Read more if needed:
 
+We thought about
+
+* IEC 62443-3-3 / ISA-95
+* NIST SP 800-82 Rev. 3 (Guide to OT Security)
+* CIS Controls v8
+
 * https://github.com/spawnmarvel/kvm-lab/blob/main/research_1_IT-OT_zabbix_stack/firewall_rule_matrix.md
 
 
