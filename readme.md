@@ -206,11 +206,11 @@ If you have a skilled technical team willing to manage your own setup, you never
 
 ## Unified Orchestration 🐸🐒🐘
 
-Domain Expertise: Each specialized team focuses on the technical areas they master best—whether configuring network switches and firewalls, managing Linux server deployments and patching, or orchestrating virtual machines and Kubernetes clusters.
+🚀 Domain Expertise: Each specialized team focuses on the technical areas they master best—whether configuring network switches and firewalls, managing Linux server deployments and patching, or orchestrating virtual machines and Kubernetes clusters.
 
-Unified Orchestration: Ansible acts as the central hub that bridges these distinct technical silos, allowing disparate infrastructure layers to be managed through a single automated workflow.
+🌀 Unified Orchestration: Ansible acts as the central hub that bridges these distinct technical silos, allowing disparate infrastructure layers to be managed through a single automated workflow.
 
-End-to-End Delivery: By combining their specialized knowledge and working in close harmony, the teams ensure that the entire technology stack functions reliably, securely, and efficiently as a cohesive end product.
+🚤 End-to-End Delivery: By combining their specialized knowledge and working in close harmony, the teams ensure that the entire technology stack functions reliably, securely, and efficiently as a cohesive end product.
 
 ![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
