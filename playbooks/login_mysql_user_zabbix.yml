@@ -2,9 +2,12 @@
 # Version: 1.4.0
 # Description: Login to MySQL as the Zabbix user to verify that the user has been created and can access the database.
 # aspen
-
-- name: Check if Zabbix database user exists
-  ansible.builtin.command: mysql -h {{ ansible_facts.hostname }} -u zabbix -p'{{ zabbix_password }}';
-  register: zabbix_user_login_check
-  failed_when: false
-  changed_when: false
+- name: Login to MySQL as Zabbix user
+  hosts: db_servers
+  become: true
+  tasks:
+    - name: Try logging in to MySQL as the Zabbix user to verify access
+      ansible.builtin.command: mysql -h {{ ansible_facts.hostname }} -u zabbix -p'{{ zabbix_password }}';
+      register: zabbix_user_login_check
+      failed_when: false
+      changed_when: false
