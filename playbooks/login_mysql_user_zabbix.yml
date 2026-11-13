@@ -8,6 +8,9 @@
   vars_files:
     - ../roles/mysql/vars/main.yml
   tasks:
+    - name: Print the Zabbix user password for debugging purposes
+      ansible.builtin.debug:
+        msg: "Zabbix user password is: {{ zabbix_password }}"
     - name: Try logging in to MySQL as the Zabbix user to verify access
       ansible.builtin.command: mysql -h 10.68.68.6 -u zabbix -p'{{ zabbix_password }}' -e "SELECT CURRENT_USER();"
       register: zabbix_user_login_check
