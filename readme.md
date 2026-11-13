@@ -7,8 +7,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
 - [Ansible stack in Azure](#ansible-stack-in-azure)
   - [Table of content](#table-of-content)
 - [Introduction](#introduction)
-  - [Scenario](#scenario)
-  - [Team 1](#team-1)
+  - [Team 1 scenario](#team-1-scenario)
   - [Team 2 starts with ansiblectr01](#team-2-starts-with-ansiblectr01)
 - [1. Topology](#1-topology)
 - [Ansible](#ansible)
@@ -85,23 +84,37 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
 
 # Introduction
 
-## Scenario
+🎯 Objectives & Key Highlights
 
-1. Day 1: Team 1 build infrastucture and data center.
-2. Day 2 to day 3: Team 2 install monitoring stack with Ansible
-3. Day 3 to day n: Team 2 automate install, update and support operations with ansible.
+* Multi-Zone Network Segregation: Isolates management tasks in an internal DMZ (iDMZ / Zone 2.5) from operational technology targets (OT / Zone 2.0) using Azure Network Security Groups (NSGs).
+
+* Controlled Caching & Software Delivery: Implements an internal caching proxy (apt-cacher-ng) on the control node (ansiblectr01) to safely handle system packages, updates, and repository mirroring without exposing target nodes directly to the public internet.
+
+* Modern Web Orchestration: Deploys Ansible Semaphore UI fronted by an Apache HTTPS reverse proxy with TLS termination for secure, role-based pipeline and playbook execution.
+
+* Infrastructure as Code (IaC): Manages dynamic storage partitioning (ext4 filesystems persistently mounted to /var/lib/mysql), static inventory structures, and cross-platform configuration playbooks entirely through version-controlled automation.
+
+* Multi-Platform Support: Orchestrates management routines across both modern Linux distributions (Ubuntu Server) and Windows Server targets using native Ansible execution modules.
+
+🔄 Operational Scenario
+
+1. Day 1 (Infrastructure Provisioning): The core infrastructure team provisions clean Ubuntu and Windows Server virtual machines within Azure following standard deployment templates.
+
+2. Day 2 (Control Plane & Security Baseline): The automation team establishes ansiblectr01 as the central control node, configures secure SSH key-based authentication, sets up internal package caching, and deploys Semaphore UI.
+
+3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
+
+## Team 1 scenario
 
 Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI..
-
-Day-2 automation begins immediately after IP and credential handover, set up stack with Ansible.
-
-## Team 1
 
 ![haha_2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha.png)
 
 
 
 ## Team 2 starts with ansiblectr01
+
+Day-2 automation begins immediately after IP and credential handover, set up stack with Ansible.
 
 ![haha](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha2.png)
 
