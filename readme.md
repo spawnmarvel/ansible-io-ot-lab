@@ -75,7 +75,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
   - [Playbook linux mount\_datadrive.yml](#playbook-linux-mount_datadriveyml)
-- [Set up githb integration on ansiblectr01 for git pull origin main](#set-up-githb-integration-on-ansiblectr01-for-git-pull-origin-main)
+- [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab](#update-semaphore-to-use-ansible-io-ot-lab)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups-1)
@@ -1725,7 +1725,7 @@ mysql01                    : ok=3    changed=0    unreachable=0    failed=0    s
 The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfully partitioning /dev/sda, creating the ext4 filesystem, provisioning the /var/lib/mysql mount point, and configuring persistent mounting.
 
 
-# Set up githb integration on ansiblectr01 for git pull origin main
+# Set up github integration on ansiblectr01 for git pull origin main
 
 Do Git clone git@github.com:spawnmarvel/ansible-io-ot-lab, so we can do git git pull orgin main from ansiblectr01
 
