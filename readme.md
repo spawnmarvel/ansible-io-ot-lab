@@ -2028,10 +2028,57 @@ get_linux_version.yml    ping_hosts.yml             verify_isolation.yml
 
 The directory structure is fully populated and correctly aligned with the roles/ directory containing your MySQL setup.
 
-Run it
+Let's run our playbook for check candidate on ubunt 26.04, mysql is shipped default!
+
+```bash
+ ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql_check.yml
+```
+
+log
+```console
+[...]
+
+TASK [Check if mysql-server package is available in apt cache] *******************************
+Friday 13 November 2026  21:13:52 +0000 (0:00:10.090)       0:00:12.179 *******
+ok: [mysql01]
+
+TASK [Display available MySQL package versions] **********************************************
+Friday 13 November 2026  21:13:52 +0000 (0:00:00.559)       0:00:12.738 *******
+ok: [mysql01] => {
+    "msg": [
+        "mysql-server:",
+        "  Installed: (none)",
+        "  Candidate: 8.4.13-0ubuntu0.26.04.2",
+        "  Version table:",
+        "     8.4.13-0ubuntu0.26.04.2 500",
+        "        500 http://azure.archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 Packages",
+        "        500 http://azure.archive.ubuntu.com/ubuntu resolute-security/main amd64v3 Packages",
+        "     8.4.8-0ubuntu1 500",
+        "        500 http://azure.archive.ubuntu.com/ubuntu resolute/main amd64v3 Packages"
+    ]
+}
+```
+
+* Package Availability: MySQL 8.4 LTS (8.4.13-0ubuntu0.26.04.2) is fully available via the apt repository cache.
+
+* Service State: Confirmed as not yet installed.
+
+* Storage Mount: The secondary data volume (/dev/sda1) is perfectly partitioned, formatted, and mounted at /var/lib/mysql with 30GB of available space ready for database operations.
+
+
+To allow remote hosts (such as zabbix01 at 10.68.68.5) to connect to your MySQL server (mysql01), two things are required:
+
+1. Network Binding: The MySQL daemon must listen on network interfaces rather than just loopback. We already handled this in our override template (roles/mysql/templates/override.cnf.j2) by setting bind-address = 0.0.0.0.
+
+2. User Privileges: MySQL user accounts must be granted access from remote hosts (either a specific IP like 10.68.68.5, a subnet like 10.68.68.%, or globally via %).
+
+Install Mysql
+
 ```bash
 
 ```
+
+
 ## Playbook linux tbd.yml --check or limit or hosts:groups
 
 

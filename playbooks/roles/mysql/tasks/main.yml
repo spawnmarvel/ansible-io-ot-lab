@@ -1,6 +1,6 @@
 ---
-# Version: 1.1.0
-# Description: Main task file for installing, securing, and configuring MySQL 8.4 LTS using native command execution.
+# Version: 1.2.0
+# Description: Main task file for installing, securing, and configuring MySQL 8.4 LTS with remote access support.
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -41,6 +41,11 @@
 - name: Create root user for 127.0.0.1 and ::1
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+  changed_when: true
+
+- name: Create remote-accessible Zabbix database user
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'10.68.68.%' IDENTIFIED WITH mysql_native_password BY 'ZabbixSecurePassword123!'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'10.68.68.%'; FLUSH PRIVILEGES;"
   changed_when: true
 
 - name: Remove anonymous MySQL users
