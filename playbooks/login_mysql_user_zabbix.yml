@@ -14,6 +14,10 @@
         msg: "Zabbix user password is: {{ zabbix_password }}"
     - name: Try logging in to MySQL as the Zabbix user to verify access
       ansible.builtin.command: mysql -h 10.68.68.6 -u zabbix -p'{{ zabbix_password }}' -e "SELECT CURRENT_USER();"
-      register: zabbix_user_login_check
+      register: mysql_version_output
       failed_when: false
       changed_when: false
+
+    - name: Print the output of the MySQL login attempt
+      ansible.builtin.debug:
+        msg: "MySQL login output: {{ mysql_version_output.stdout }}"
