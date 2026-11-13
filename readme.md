@@ -95,13 +95,13 @@ Day-2 automation begins immediately after IP and credential handover, set up sta
 
 ## Team 1
 
-![haha_2](https://github.com/spawnmarvel/ansible-io-ot-lab/tree/main/haha_2.png)
+![haha_2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha.png)
 
 
 
 ## Team 2 starts with ansiblectr01
 
-![haha](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha.png)
+![haha](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha2.png)
 
 # 1. Topology
 
