@@ -75,6 +75,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
   - [Playbook linux mount\_datadrive.yml](#playbook-linux-mount_datadriveyml)
+  - [Git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git](#git-clone-gitgithubcomspawnmarvelansible-io-ot-labgit)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups-1)
 - [Create a Windows host](#create-a-windows-host)
@@ -1721,6 +1722,21 @@ mysql01                    : ok=3    changed=0    unreachable=0    failed=0    s
 
 
 The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfully partitioning /dev/sda, creating the ext4 filesystem, provisioning the /var/lib/mysql mount point, and configuring persistent mounting.
+
+
+## Git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git
+
+It is better to push new playbooks to githuba and get them on ansiblectr01, then we always have the latest version.
+
+```bash
+azureuser@ansiblectr01:~$ cd ~/.ssh/
+
+# get the id
+cat id_rsa.pub
+
+```
+
+![rsa](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/rsa.png)
 
 ## Playbook linux tbd.yml --check or limit or hosts:groups
 
