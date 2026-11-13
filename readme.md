@@ -29,6 +29,7 @@ In this POC we use Azure so we can share a live demo.
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
   - [The Bottom Line](#the-bottom-line)
+  - [You need to learn Ansible right now.](#you-need-to-learn-ansible-right-now)
       - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
       - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
       - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -203,6 +204,12 @@ If you have a skilled technical team willing to manage your own setup, you never
 ---
 
 ![ansible_circle](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle.png)
+
+
+## You need to learn Ansible right now.
+
+
+https://www.youtube.com/watch?v=5hycyr-8EKs
 
 
 #### Official Ansible Documentation Portal
