@@ -1781,9 +1781,11 @@ Settings in Ui
 * * /home/azureuser/ansible-io-ot-lab
 
 * Inventory was inventory/hosts.ini 
+* * Keep
 
 * Task Templates was playbooks/configure_apt_proxy.yml
-* 
+* Keep
+
 
 
 
