@@ -5,8 +5,9 @@
 - name: Login to MySQL as Zabbix user
   hosts: db_servers
   become: true
+  # here we are using vars_files to include the default variables from the mysql role, which contains the zabbix_password variable
   vars_files:
-    - ../roles/mysql/vars/main.yml
+    - ../roles/mysql/defaults/main.yml
   tasks:
     - name: Print the Zabbix user password for debugging purposes
       ansible.builtin.debug:
