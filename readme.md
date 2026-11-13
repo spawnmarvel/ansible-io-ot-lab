@@ -1,14 +1,13 @@
-# Ansible stack in Azure
+# Ansible stack in Azure POC
 
 Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
 
 
 ## Table of content
-- [Ansible stack in Azure](#ansible-stack-in-azure)
+- [Ansible stack in Azure POC](#ansible-stack-in-azure-poc)
   - [Table of content](#table-of-content)
 - [Introduction](#introduction)
-  - [Team 1 scenario](#team-1-scenario)
-  - [Team 2 starts with ansiblectr01](#team-2-starts-with-ansiblectr01)
+  - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
 - [1. Topology](#1-topology)
 - [Ansible](#ansible)
     - [Ansible idempotent](#ansible-idempotent)
@@ -104,19 +103,14 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
 
 3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
 
-## Team 1 scenario
+## Team 1 and Team 2 scenario
 
 Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI..
 
-![haha_2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha.png)
-
-
-
-## Team 2 starts with ansiblectr01
-
 Day-2 automation begins immediately after IP and credential handover, set up stack with Ansible.
 
-![haha](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/haha2.png)
+![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
+
 
 # 1. Topology
 
