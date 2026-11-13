@@ -7,7 +7,7 @@
   become: true
   tasks:
     - name: Try logging in to MySQL as the Zabbix user to verify access
-      ansible.builtin.command: mysql -h {{ ansible_facts.hostname }} -u zabbix -p'{{ zabbix_password }}';
+      ansible.builtin.command: mysql -h 10.68.68.6 -u zabbix -p'{{ zabbix_password }}' -e "SELECT CURRENT_USER();"
       register: zabbix_user_login_check
       failed_when: false
       changed_when: false
