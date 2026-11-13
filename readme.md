@@ -1787,6 +1787,7 @@ Settings in Ui
 * Keep
 
 
+![sema_ok](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/sema_ok.png)
 
 
 
