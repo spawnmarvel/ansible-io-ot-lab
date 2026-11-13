@@ -25,7 +25,10 @@ In this POC we use Azure so we can share a live demo.
     - [Ansible idempotent](#ansible-idempotent)
     - [Ansible cheat sheet](#ansible-cheat-sheet)
     - [Ansible quick guide](#ansible-quick-guide)
-    - [Ansible and Red Hat](#ansible-and-red-hat)
+    - [Ansible and Red Hat models](#ansible-and-red-hat-models)
+      - [What You Can Do for Free](#what-you-can-do-for-free)
+      - [Where You Hit a Wall (The Trade-offs)](#where-you-hit-a-wall-the-trade-offs)
+    - [The Bottom Line](#the-bottom-line)
       - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
       - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
       - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -145,7 +148,7 @@ Yes, Ansible is idempotent by design when using its built-in modules, meaning yo
 
 ### Ansible cheat sheet
 
-View this folder ansible-it-ot-lab
+View this folder ansible-it-ot-lab/quickguides
 
 ### Ansible quick guide
 
@@ -154,8 +157,48 @@ The quick guide will also be updated as we go.
 https://github.com/spawnmarvel/kvm-lab/blob/main/ansible_quickguide.md
 
 
-### Ansible and Red Hat
+### Ansible and Red Hat models
 
+Ansible is owned by Red Hat, a subsidiary of IBM.
+
+Open-Source Core: The core Ansible project (including Ansible Core) is free and open-source software licensed under the GNU General Public License version 3 (GPL-3.0)
+
+
+
+"The core Ansible project (including Ansible Core)"
+
+* The engine: This refers to the foundational software that actually runs your automation tasks from the command line.
+
+* The essentials: It includes the core engine, basic built-in tools, and the framework needed to automate servers, networks, and cloud setups without any paid add-ons.
+
+
+You can go all the way to full-scale enterprise production with the open-source version of Ansible. There are no artificial limits on the number of servers, features, or automation tasks you can run for free.
+
+
+
+#### What You Can Do for Free
+
+* Unlimited Scale: You can automate 5 servers or 50,000 servers without paying a dime.
+* Full Automation Power: Every core capability—like configuring servers, deploying apps, managing cloud infrastructure (AWS, Azure, Google Cloud), and configuring network hardware—works out of the box.
+* Access Community Modules: You get free access to thousands of pre-built automation scripts (called Collections) created by the community and major tech vendors on Ansible Galaxy.
+* Add a Free Web UI: If you outgrow the command line, you can install AWX (the free, open-source version of Red Hat's visual dashboard) or Semaphore UI (a lightweight, popular open-source web interface for Ansible).
+* Integrate with CI/CD: You can easily plug free Ansible into other free tools like GitLab CI, GitHub Actions, or Jenkins to schedule jobs, store passwords securely, and track who ran what.
+
+
+
+#### Where You Hit a Wall (The Trade-offs)
+
+While there are no technical walls, you will eventually face operational trade-offs as your team grows:
+
+* Maintenance Burden: Running free tools like AWX requires a dedicated Kubernetes cluster and regular manual upgrades, which takes time and expertise to maintain.
+* No Safety Net: If a critical production automation breaks at 2:00 AM, you have to fix it yourself using documentation and community forums rather than calling Red Hat support.
+* Compliance & Auditing: Strict industries (like banking or healthcare) often require legally certified software and guaranteed vendor accountability, which only comes with a paid subscription.
+
+
+
+### The Bottom Line
+
+If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
 
 ![ansible_circle](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle.png)
 
