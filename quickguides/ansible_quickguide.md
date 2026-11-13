@@ -95,6 +95,8 @@ mkdir mkdir io_ot_lab_build
 
 ## Sample Ansible setup
 
+* By default, if you have a roles/ folder sitting in the same directory as your playbook (e.g., playbook.yml and roles/my_role/), Ansible automatically finds and uses the roles there
+
 This layout organizes most tasks in roles, with a single inventory file for each environment and a few playbooks in the top-level directory:
 
 https://docs.ansible.com/projects/ansible/latest/tips_tricks/sample_setup.html
