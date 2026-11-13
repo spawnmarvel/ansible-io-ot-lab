@@ -1742,7 +1742,7 @@ cat id_rsa.pub
 ![rsa](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/rsa.png)
 
 
-Clone it andf get all files
+Clone it and get all files
 
 
 ```bash
@@ -1795,9 +1795,10 @@ Settings in Ui
 
 
 ```bash
-azureuser@ansiblectr01:~/io_ot_lab
 
-cd io_ot_lab/
+azureuser@ansiblectr01:
+
+cd ansible-io-ot-lab/
 
 # if the play is ok, remove --check with --diff and or --limit
 
@@ -1811,9 +1812,10 @@ ansible-playbook -i inventory/hosts.ini playbooks/
 
 
 ```bash
-azureuser@ansiblectr01:~/io_ot_lab
 
-cd io_ot_lab/
+azureuser@ansiblectr01:
+
+cd ansible-io-ot-lab/
 
 # if the play is ok, remove --check with --diff and or --limit
 
