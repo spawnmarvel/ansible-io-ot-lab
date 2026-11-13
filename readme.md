@@ -2078,6 +2078,22 @@ Install Mysql
 ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
 ```
 
+Failed:
+
+How to Fix It
+You have two choices: either enable the legacy plugin in your MySQL override config, or let MySQL use its default secure authentication plugin (recommended for MySQL 8.4).
+
+* Option A: Update Your Role Tasks (playbooks/roles/mysql/tasks/main.yml)
+  
+Remove the plugin specification so MySQL uses its default secure plugin
+
+```bash
+cd ~/ansible-io-ot-lab
+git pull origin main
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
+
+```
+
 
 
 

@@ -52,7 +52,7 @@
 
 - name: Remove anonymous MySQL users
   ansible.builtin.command: >
-    mysql -u root -p'{{ mysql_root_password }}' -e "DROP USER IF EXISTS ''@'localhost'; DROP USER IF EXISTS ''@'{{ ansible_hostname }}'; FLUSH PRIVILEGES;"
+    mysql -u root -p'{{ mysql_root_password }}' -e "DROP USER IF EXISTS ''@'localhost'; DROP USER IF EXISTS ''@'{{ ansible_facts.hostname }}'; FLUSH PRIVILEGES;"
   changed_when: true
 
 - name: Remove test database
