@@ -1751,7 +1751,7 @@ The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfu
 
 Do Git clone git@github.com:spawnmarvel/ansible-io-ot-lab, so we can do git git pull orgin main from ansiblectr01
 
-It is better to push new playbooks to githuba and get them on ansiblectr01, then we always have the latest version.
+It is better to push new playbooks to github and get them on ansiblectr01, then we always have the latest version for this demo.
 
 ```bash
 azureuser@ansiblectr01:~$ cd ~/.ssh/
