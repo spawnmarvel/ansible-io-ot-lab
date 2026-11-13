@@ -107,6 +107,7 @@ In this POC we use Azure so we can share a live demo.
       - [Verify mysql as root and zabbix via ssh on localhost](#verify-mysql-as-root-and-zabbix-via-ssh-on-localhost)
     - [playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
   - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
+    - [1. Encrypt Your Variables File](#1-encrypt-your-variables-file)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
 - [Create a Windows host](#create-a-windows-host)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
@@ -2250,8 +2251,18 @@ What we did is bad, password in file....
 
 To eliminate plain-text passwords from your repository, the industry-standard approach in Ansible is Ansible Vault. Vault allows you to encrypt sensitive variable files (like your role defaults or dedicated secret files) while keeping them fully transparent to Ansible during execution.
 
+### 1. Encrypt Your Variables File
+
+If you want to encrypt your existing role defaults file (roles/mysql/defaults/main.yml), run the following command on your control node:
+
 ```bash
 
+azureuser@ansiblectr01:~/ansible-io-ot-lab
+
+# If you are currently in your project root (~/ansible-io-ot-lab), you do not need to cd into the playbooks directory. 
+# Running the command from the root ensures Ansible finds the correct path to your role's defaults file.
+
+ansible-vault encrypt roles/mysql/defaults/main.yml
 ```
 
 
