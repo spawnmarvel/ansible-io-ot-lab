@@ -1749,12 +1749,12 @@ Clone it andf get all files
 
 azureuser@ansiblectr01:~$ git clone git@github.com:spawnmarvel/ansible-io-ot-lab.git
 Cloning into 'ansible-io-ot-lab'...
-remote: Enumerating objects: 90, done.
-remote: Counting objects: 100% (90/90), done.
-remote: Compressing objects: 100% (79/79), done.
-remote: Total 90 (delta 19), reused 77 (delta 9), pack-reused 0 (from 0)
-Receiving objects: 100% (90/90), 5.48 MiB | 6.46 MiB/s, done.
-Resolving deltas: 100% (19/19), done.
+remote: Enumerating objects: 107, done.
+remote: Counting objects: 100% (107/107), done.
+remote: Compressing objects: 100% (91/91), done.
+remote: Total 107 (delta 29), reused 89 (delta 14), pack-reused 0 (from 0)
+Receiving objects: 100% (107/107), 5.52 MiB | 6.75 MiB/s, done.
+Resolving deltas: 100% (29/29), done.
 
 ```
 
@@ -1762,32 +1762,15 @@ Now you can do change in VSC local and push to github and pull to ansiblectr01
 
 
 ```bash
-azureuser@ansiblectr01:~$ 
-
-cd ansible-io-ot-lab/
-
-git pull orgin main
-
-```
-
-log
-
-```console
-
-remote: Enumerating objects: 11, done.
-remote: Counting objects: 100% (11/11), done.
-remote: Compressing objects: 100% (5/5), done.
-remote: Total 8 (delta 5), reused 6 (delta 3), pack-reused 0 (from 0)
-Unpacking objects: 100% (8/8), 32.86 KiB | 311.00 KiB/s, done.
+azureuser@ansiblectr01:~$ cd ansible-io-ot-lab/
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ git pull origin main
 From github.com:spawnmarvel/ansible-io-ot-lab
  * branch            main       -> FETCH_HEAD
-   fc278e6..aab8474  main       -> origin/main
-Updating fc278e6..aab8474
-Fast-forward
- images/rsa.png | Bin 0 -> 34697 bytes
- readme.md      |  42 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 42 insertions(+)
- create mode 100644 images/rsa.png
+Already up to date.
+
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ ls
+ansible.cfg  images  inventory  playbooks  quickguides  readme.md
+
 ```
 
 # Update Semaphore to use ansible-io-ot-lab 
@@ -1795,7 +1778,7 @@ Fast-forward
 Settings in Ui
 
 * Repository was /home/azureuser/io_ot_lab 
-* * /home/azureuser/ansible-io-ot-lab/io_ot_lab
+* * /home/azureuser/ansible-io-ot-lab
 
 * Inventory was inventory/hosts.ini 
 
