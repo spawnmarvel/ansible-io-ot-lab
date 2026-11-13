@@ -2129,19 +2129,29 @@ mysql_bind_address: "0.0.0.0"
 mysql_port: 3306
 ```
 
-2. Update task/main.yml to use that reference
+2. Update task/main.yml to use that reference zabbix_password
 
 ```yml
 
-[...]
+# [...]
+
+- name: Create remote-accessible Zabbix database user and database
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'10.68.68.%' IDENTIFIED BY '{{ zabbix_password }}'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'10.68.68.%'; FLUSH PRIVILEGES;"
+  when: zabbix_user_check.rc != 0 or zabbix_user_check.stdout == ""
+  changed_when: true
+
+# [...]
 ```
-
-From
-
-
+Now all playbooks can use that password and it works.
 
 ```bash
+# Test deploy and check that is works, it does.
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
 
+# Now back to verify user
+
+ansible-playbook -i inventory/hosts.ini playbooks/login_mysql_user_zabbix.yml --limit mysql01
 ```
 
 ## playbooks/deploy_mysql.yml --limit mysql01 Ansible Vault
