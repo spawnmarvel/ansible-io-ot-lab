@@ -121,7 +121,7 @@ Yes, Ansible is idempotent by design when using its built-in modules, meaning yo
 
 ### Ansible cheat sheet
 
-https://github.com/spawnmarvel/kvm-lab/blob/main/ansible_cheat_sheet.pdf
+View this folder
 
 ### Ansible quick guide
 
