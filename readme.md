@@ -8,7 +8,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
   - [Table of content](#table-of-content)
 - [Introduction](#introduction)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
-- [1. Topology](#1-topology)
+- [1. Topology for the future](#1-topology-for-the-future)
 - [Ansible](#ansible)
     - [Ansible idempotent](#ansible-idempotent)
     - [Ansible cheat sheet](#ansible-cheat-sheet)
@@ -107,12 +107,12 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
 
 Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI..
 
-Day-2 automation begins immediately after IP and credential handover, set up stack with Ansible.
+Day-2 automation begins immediately after IP and credential handover.
 
 ![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
 
 
-# 1. Topology
+# 1. Topology for the future
 
 This is the final set up (ip may change but the concept is the same)
 
