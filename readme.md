@@ -2167,9 +2167,9 @@ But we need to change step two steps.
 # Version: 1.0.0
 # Description: Default variables for MySQL role deployment.
 
-mysql_root_password: "it-is-a-secret-not-this"
+mysql_root_password: "it-is-a-secret-not-this-na"
 # add this so we can reference it in new playbooks
-zabbix_password: "ZabbixSecurePassword123!"
+zabbix_password: "it-is-a-secret-not-this"
 mysql_bind_address: "0.0.0.0"
 mysql_port: 3306
 ```
