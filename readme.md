@@ -80,7 +80,7 @@ Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups-1)
 - [Create a Windows host](#create-a-windows-host)
-  - [Playbook windows tbd](#playbook-windows-tbd)
+  - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
 
 
 # Introduction
@@ -1827,7 +1827,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/
 
 # Create a Windows host
 
-## Playbook windows tbd
+## Playbook update_windows_KB.yml TBD
 
 
 Yes, absolutely. Ansible handles Windows updates natively and can target specific Microsoft KB numbers across your Windows VMs (such as your OT target nodes) using the ansible.windows.win_updates module.
