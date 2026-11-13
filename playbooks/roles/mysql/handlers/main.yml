@@ -1,0 +1,9 @@
+---
+# Version: 1.0.0
+# Description: Handlers for restarting and enabling the MySQL service.
+
+- name: Restart MySQL
+  ansible.builtin.service:
+    name: mysql
+    state: restarted
+    enabled: true

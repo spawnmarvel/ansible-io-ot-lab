@@ -1903,9 +1903,48 @@ Before diving into the full software stack deployment, adopting core enterprise 
 Instead of cramming every task for MySQL or Zabbix into a single massive playbook, Ansible Roles allow you to break your automation down into logical, reusable directory structures.
 
 
+```txt
+roles/
+└── mysql/
+    ├── tasks/
+    │   └── main.yml
+    ├── handlers/
+    │   └── main.yml
+    ├── templates/
+    │   └── my.cnf.j2
+    ├── vars/
+    │   └── main.yml
+    └── defaults/
+        └── main.yml
+```
+Why use it? It allows the database team, network team, and monitoring team to write and maintain their own isolated roles without stepping on each other's code, which can then be called cleanly from a master playbook:
+
+
+```yml
+- hosts: db_servers
+  roles:
+    - mysql
+```
+
+
 ## 2. Jinja2 Templates (.j2)
 
 When installing complex software like MySQL or Zabbix, configuration files (my.cnf, zabbix_server.conf, zabbix_proxy.conf) cannot be static static text files. They need to dynamically adapt based on host IPs, memory limits, or inventory variables.
+
+Ansible uses the Jinja2 templating engine. Instead of using the copy module with static text, you use the template module:
+
+
+```yml
+- name: Deploy Zabbix Server configuration file
+  ansible.builtin.template:
+    src: zabbix_server.conf.j2
+    dest: /etc/zabbix/zabbix_server.conf
+    owner: root
+    group: zabbix
+    mode: '0640'
+  notify: Restart Zabbix Server
+
+```
 
 ## 3. Handlers (Event-Driven Service Restarts)
 
@@ -1925,6 +1964,8 @@ Custom Facts: You can gather environment-specific variables dynamically during t
 
 ## Playbook install_mysql.yml with Roles --check or limit or hosts:groups
 
+1. Role Directory Structure
+Create the following directory layout inside your repository root (roles/mysql/):
 
 A standard role organizes tasks, variables, defaults, templates, files, and handlers into a dedicated subfolder:
 
@@ -1934,11 +1975,37 @@ azureuser@ansiblectr01:
 
 cd ansible-io-ot-lab/
 
-# if the play is ok, remove --check with --diff and or --limit
+ls
 
-ansible-playbook -i inventory/hosts.ini playbooks/
+ansible-io-ot-lab\playbooks\roles\mysql
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d----          13.11.2026    21:55                defaults
+d----          13.11.2026    21:55                handlers
+d----          13.11.2026    21:55                tasks
+d----          13.11.2026    21:55                templates
+d----          13.11.2026    21:55                vars
 
 ```
+
+2. Role Configuration and Tasks
+   
+* roles/mysql/defaults/main.yml
+  
+Defines default variables for the root password and binding address.
+
+* roles/mysql/handlers/main.yml
+  
+Handles event-driven service restarts when configuration files are modified.
+
+* roles/mysql/templates/override.cnf.j2
+  
+Configures custom binding and paths for the server.
+
+* roles/mysql/tasks/main.yml
+  
+Performs the package installation, secures the installation, applies custom config, and ensures the service is running.
 
 ## Playbook linux tbd.yml --check or limit or hosts:groups
 

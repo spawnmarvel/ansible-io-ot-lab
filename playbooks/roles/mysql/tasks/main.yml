@@ -1,0 +1,54 @@
+---
+# Version: 1.1.0
+# Description: Main task file for installing, securing, and configuring MySQL 8.4 LTS using native command execution.
+
+- name: Install MySQL server package
+  ansible.builtin.apt:
+    name:
+      - mysql-server
+    state: present
+    update_cache: true
+
+- name: Ensure MySQL service is started and enabled
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Apply custom MySQL configuration override
+  ansible.builtin.template:
+    src: override.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/99-override.cnf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart MySQL
+
+- name: Ensure correct ownership on MySQL data directory
+  ansible.builtin.file:
+    path: /var/lib/mysql
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: '0751'
+
+- name: Set root password for MySQL root user on localhost
+  ansible.builtin.command: >
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
+  changed_when: true
+  ignore_errors: true
+
+- name: Create root user for 127.0.0.1 and ::1
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+  changed_when: true
+
+- name: Remove anonymous MySQL users
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "DROP USER IF EXISTS ''@'localhost'; DROP USER IF EXISTS ''@'{{ ansible_hostname }}'; FLUSH PRIVILEGES;"
+  changed_when: true
+
+- name: Remove test database
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;"
+  changed_when: true
