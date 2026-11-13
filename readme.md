@@ -2007,6 +2007,31 @@ Configures custom binding and paths for the server.
   
 Performs the package installation, secures the installation, applies custom config, and ensures the service is running.
 
+
+
+```bash
+azureuser@ansiblectr01:~/ansible-io-ot-lab
+
+# pull files
+ git pull origin main
+remote: Enumerating objects: 18, done.
+remote: Counting objects: 100% (18/18), done.
+remote: Compressing objects: 100% (7/7), done.
+# [...]
+
+# list files and folders
+azureuser@ansiblectr01:~/ansible-io-ot-lab/playbooks$ ls
+configure_apt_proxy.yml  mount_datadrive.yml        roles
+deploy_mysql.yml         mount_datadrive_check.yml  update_apt.yml
+get_linux_version.yml    ping_hosts.yml             verify_isolation.yml
+```
+
+The directory structure is fully populated and correctly aligned with the roles/ directory containing your MySQL setup.
+
+Run it
+```bash
+
+```
 ## Playbook linux tbd.yml --check or limit or hosts:groups
 
 
