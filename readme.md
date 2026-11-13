@@ -91,7 +91,7 @@ In this POC we use Azure so we can share a live demo.
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
   - [Playbook linux mount\_datadrive.yml](#playbook-linux-mount_datadriveyml)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
-- [Update Semaphore to use ansible-io-ot-lab](#update-semaphore-to-use-ansible-io-ot-lab)
+- [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
 - [Introduction to Enterprise Ansible Scalability](#introduction-to-enterprise-ansible-scalability)
   - [1. Ansible Roles (Modular Structure)](#1-ansible-roles-modular-structure)
   - [2. Jinja2 Templates (.j2)](#2-jinja2-templates-j2)
@@ -99,7 +99,7 @@ In this POC we use Azure so we can share a live demo.
   - [4. Ansible Vault (Secure Secret Management)](#4-ansible-vault-secure-secret-management)
   - [5. Custom Facts and Block/Rescue Error Handling](#5-custom-facts-and-blockrescue-error-handling)
 - [Let's start Enterprise Ansible Scalability](#lets-start-enterprise-ansible-scalability)
-  - [Playbook install\_mysql.yml --check or limit or hosts:groups](#playbook-install_mysqlyml---check-or-limit-or-hostsgroups)
+  - [Playbook install\_mysql.yml with Roles --check or limit or hosts:groups](#playbook-install_mysqlyml-with-roles---check-or-limit-or-hostsgroups)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
 - [Create a Windows host](#create-a-windows-host)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
@@ -1869,7 +1869,7 @@ ansible.cfg  images  inventory  playbooks  quickguides  readme.md
 
 ```
 
-# Update Semaphore to use ansible-io-ot-lab 
+# Update Semaphore to use ansible-io-ot-lab and not io_io_lab folder
 
 Settings in Ui
 
@@ -1921,7 +1921,7 @@ Custom Facts: You can gather environment-specific variables dynamically during t
 
 # Let's start Enterprise Ansible Scalability
 
-## Playbook install_mysql.yml --check or limit or hosts:groups
+## Playbook install_mysql.yml with Roles --check or limit or hosts:groups
 
 
 ```bash
@@ -1932,8 +1932,6 @@ cd ansible-io-ot-lab/
 
 # if the play is ok, remove --check with --diff and or --limit
 
-# Version: 1.2.0
-# Description: Verifies network isolation by checking if managed nodes can reach www.google.com.
 ansible-playbook -i inventory/hosts.ini playbooks/
 
 ```
@@ -1949,8 +1947,6 @@ cd ansible-io-ot-lab/
 
 # if the play is ok, remove --check with --diff and or --limit
 
-# Version: 1.2.0
-# Description: Verifies network isolation by checking if managed nodes can reach www.google.com.
 ansible-playbook -i inventory/hosts.ini playbooks/
 
 ```
