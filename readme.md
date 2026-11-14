@@ -91,6 +91,7 @@ In this POC we use Azure so we can share a live demo.
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
   - [Playbook linux mount\_datadrive.yml](#playbook-linux-mount_datadriveyml)
+    - [Restart mysql01 and verify datadisk](#restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
 - [Introduction to Enterprise Ansible Scalability](#introduction-to-enterprise-ansible-scalability)
@@ -1706,15 +1707,18 @@ Playbook run took 0 days, 0 hours, 0 minutes, 2 seconds
 
 To make the playbook generic we update hosts.ini after we have run the mount_datadrive_check.yml, then we get the drive name, it may vary.
 
-We need 2 new vars in hosts.ini in db_servers:
+```yml
+- name: Dynamically discover, configure, and mount data drive
+  hosts: db_servers
+  gather_facts: true
+  become: true
+  vars:
+    target_disk_size: "32G"
+    data_dir: "/var/lib/mysql"
 
-* data_device=/dev/sda
-* data_dir=/var/lib/mysql
-
-```ini
-[db_servers]
-mysql01 ansible_host=10.68.68.6 ansible_user=azureuser ansible_python_interpreter=/usr/bin/python3.14 data_dir=/var/lib/mysql
+# [...]
 ```
+We need to dynamically find the target disk based on size and mount it to /var/lib/mysql
 
 ```bash
 azureuser@ansiblectr01:~/io_ot_lab
@@ -1806,30 +1810,49 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_check.yml
 log
 
 ```console
-TASK [Display available block devices] *********************************************************************************
-Thursday 12 November 2026  20:52:43 +0000 (0:00:00.501)       0:00:02.364 *****
+TASK [Display available block devices] *************************************************************************************************************************************************************************
+Saturday 14 November 2026  00:44:20 +0000 (0:00:00.512)       0:00:01.758 *****
 ok: [mysql01] => {
     "msg": [
         "NAME     SIZE FSTYPE MOUNTPOINTS",
-        "sda       32G        ",
-        "└─sda1    32G        /var/lib/mysql",
-        "sdb       30G        ",
-        "├─sdb1  28.9G ext4   /",
-        "├─sdb13 1023M ext4   /boot",
-        "├─sdb14    4M        ",
-        "└─sdb15  106M vfat   /boot/efi",
-        "sdc        8G        ",
-        "└─sdc1     8G ext4   /mnt"
+        "sda       30G        ",
+        "├─sda1  28.9G ext4   /var/lib/mysql",
+        "│                    /",
+        "├─sda13 1023M ext4   /boot",
+        "├─sda14    4M        ",
+        "└─sda15  106M vfat   /boot/efi",
+        "sdb        8G        ",
+        "└─sdb1     8G ext4   /mnt",
+        "sdc       32G        ",
+        "└─sdc1    32G ext4   /var/lib/mysql"
     ]
 }
 
-PLAY RECAP *************************************************************************************************************
+PLAY RECAP *****************************************************************************************************************************************************************************************************
 mysql01                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+
+TASKS RECAP ****************************************************************************************************************************************************************************************************
+Saturday 14 November 2026  00:44:20 +0000 (0:00:00.024)       0:00:01.782 *****
+===============================================================================
+Gathering Facts ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.23s
+Gather block device information ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.51s
+Display available block devices ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+
+PLAYBOOK RECAP *************************************************************************************************************************************************************************************************
+
 ```
 
 
-The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfully partitioning /dev/sda, creating the ext4 filesystem, provisioning the /var/lib/mysql mount point, and configuring persistent mounting.
+The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfully partitioning /dev/sdc, creating the ext4 filesystem, provisioning the /var/lib/mysql mount point, and configuring persistent mounting.
 
+
+### Restart mysql01 and verify datadisk
+
+
+```bash
+
+```
 
 # Set up github integration on ansiblectr01 for git pull origin main
 
