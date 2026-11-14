@@ -1,5 +1,6 @@
-# Version: 4.0.0
-# Description: Dynamically discovers secondary data disk by size, asserts safety checks, formats, and mounts persistently.
+---
+# Version: 4.2.0
+# Description: Dynamically discovers secondary data disk by size and checks mount points, avoiding volatile kernel letter assumptions.
 
 - name: Dynamically discover, configure, and mount data drive
   hosts: db_servers
@@ -10,20 +11,28 @@
     data_dir: "/var/lib/mysql"
 
   tasks:
-    - name: Dynamically find data device matching target size
+    - name: Dynamically find data device matching target size and not root
       ansible.builtin.set_fact:
         resolved_data_device: "/dev/{{ item.key }}"
       loop: "{{ ansible_facts.devices | dict2items }}"
       when: 
         - item.value.size == target_disk_size or item.value.size == "32.00 GB"
-        - "'sda' not in item.key"
+        - not (item.value.partitions | dict2items | selectattr('value.links.ids', 'defined') | map(attribute='value.mountpoints') | flatten | select('match', '^/$') | list)
+
+    - name: Fallback discovery by size alone if no partition mount matches
+      ansible.builtin.set_fact:
+        resolved_data_device: "/dev/{{ item.key }}"
+      loop: "{{ ansible_facts.devices | dict2items }}"
+      when:
+        - resolved_data_device is not defined or resolved_data_device == ""
+        - item.value.size == target_disk_size or item.value.size == "32.00 GB"
+        - not ('/' in item.value.get('partitions', {}).values() | map(attribute='mountpoints', default=[]) | flatten)
 
     - name: Assert a valid data device was discovered
       ansible.builtin.assert:
         that:
           - resolved_data_device is defined
           - resolved_data_device != ""
-          - "'sda' not in resolved_data_device"
         fail_msg: "SAFETY ABORT: Could not automatically detect a valid secondary data disk of size {{ target_disk_size }}."
 
     - name: Display discovered target device
