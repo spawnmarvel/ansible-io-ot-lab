@@ -1,50 +1,50 @@
----
-# Version: 3.7.0
-# Description: Safely inspects, partitions, formats, and persistently mounts a secondary storage data disk with built-in safeguards protecting against OS disk overwrite and accidental data loss.
+# Version: 4.0.0
+# Description: Dynamically discovers secondary data disk by size, asserts safety checks, formats, and mounts persistently.
 
-- name: Inspect, configure, and mount dynamic data drive safely
+- name: Dynamically discover, configure, and mount data drive
   hosts: db_servers
   gather_facts: true
   become: true
+  vars:
+    target_disk_size: "32G"
+    data_dir: "/var/lib/mysql"
+
   tasks:
-    - name: Ensure required variables are defined
+    - name: Dynamically find data device matching target size
+      ansible.builtin.set_fact:
+        resolved_data_device: "/dev/{{ item.key }}"
+      loop: "{{ ansible_devices | dict2items }}"
+      when: 
+        - item.value.size == target_disk_size or item.value.size == "32.00 GB"
+        - "'sda' not in item.key"
+
+    - name: Assert a valid data device was discovered
       ansible.builtin.assert:
         that:
-          - data_device is defined
-          - data_dir is defined
-        fail_msg: "Both 'data_device' and 'data_dir' must be defined for this host in the inventory."
+          - resolved_data_device is defined
+          - resolved_data_device != ""
+          - "'sda' not in resolved_data_device"
+        fail_msg: "SAFETY ABORT: Could not automatically detect a valid secondary data disk of size {{ target_disk_size }}."
 
-    - name: Assert target device is not the root operating system disk
-      ansible.builtin.assert:
-        that:
-          - "'sda' not in data_device"
-        fail_msg: "SAFETY ABORT: Target data_device points to the OS root disk (/dev/sda). Execution halted."
-
-    - name: Gather block device information with size
-      ansible.builtin.command: lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS
-      register: block_devices
-      changed_when: false
-      check_mode: false
-
-    - name: Display available block devices
+    - name: Display discovered target device
       ansible.builtin.debug:
-        msg: "{{ block_devices.stdout_lines }}"
+        msg: "Target data disk successfully resolved to {{ resolved_data_device }}"
 
     - name: Check if primary partition already exists
       ansible.builtin.stat:
-        path: "{{ data_device }}1"
+        path: "{{ resolved_data_device }}1"
       register: partition_stat
 
     - name: Create primary partition on target device if missing
       community.general.parted:
-        device: "{{ data_device }}"
+        device: "{{ resolved_data_device }}"
         number: 1
         state: present
         fs_type: ext4
       when: not partition_stat.stat.exists
 
     - name: Check existing filesystem type on target partition
-      ansible.builtin.command: blkid -s TYPE -o value "{{ data_device }}1"
+      ansible.builtin.command: blkid -s TYPE -o value "{{ resolved_data_device }}1"
       register: existing_fstype
       failed_when: false
       changed_when: false
@@ -52,7 +52,7 @@
     - name: Create ext4 filesystem only if not already formatted
       ansible.builtin.filesystem:
         fstype: ext4
-        dev: "{{ data_device }}1"
+        dev: "{{ resolved_data_device }}1"
       when: existing_fstype.stdout | default('') != 'ext4'
 
     - name: Ensure mount point directory exists
@@ -64,7 +64,7 @@
     - name: Mount secondary drive persistently with nofail option
       ansible.builtin.mount:
         path: "{{ data_dir }}"
-        src: "{{ data_device }}1"
+        src: "{{ resolved_data_device }}1"
         fstype: ext4
         opts: defaults,nofail
         state: mounted
