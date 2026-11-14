@@ -108,6 +108,9 @@ In this POC we use Azure so we can share a live demo.
     - [playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
   - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
     - [1. Encrypt Your Variables File](#1-encrypt-your-variables-file)
+      - [Option A: Interactive Prompt (Best for Manual Runs)](#option-a-interactive-prompt-best-for-manual-runs)
+      - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
+      - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
 - [Create a Windows host](#create-a-windows-host)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
@@ -2263,7 +2266,63 @@ azureuser@ansiblectr01:~/ansible-io-ot-lab
 # Running the command from the root ensures Ansible finds the correct path to your role's defaults file.
 
 ansible-vault encrypt roles/mysql/defaults/main.yml
+
+New Vault password:
+Confirm New Vault password:
+Encryption successful
 ```
+
+
+(Note: Ensure .vault_pass.txt is added to your .gitignore so it never gets committed to source control).
+
+![ignore](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ignore.png)
+
+
+#### Option A: Interactive Prompt (Best for Manual Runs)
+
+Add the --ask-vault-pass flag when running your playbooks:
+
+```bash
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --ask-vault-pass
+```
+
+#### Option B: Vault Password File (Best for Automation / CI/CD)
+
+For automated pipelines or local convenience without repeated password prompts, you can store the vault password in a local file (e.g., .vault_pass.txt) and reference it:
+
+1. Save your vault password to a local file:
+
+
+```bash
+echo "YourSuperSecretVaultPassword" > .vault_pass.txt
+chmod 600 .vault_pass.txt
+```
+
+2. Add it to your ansible.cfg file under [defaults] so Ansible picks it up automatically:
+
+```ini
+[defaults]
+vault_password_file = .vault_pass.txt
+```
+
+3. Run your playbooks normally without needing any extra flags:
+
+```bash
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml
+```
+
+
+#### Configure Semaphore with a Vault Password
+
+To use Ansible Vault with Ansible Semaphore (the web UI automation platform), you do not type the password manually every time. Instead, you configure Semaphore with a Vault Password associated with your project or environment so it can automatically decrypt your encrypted files (roles/mysql/defaults/main.yml) when running playbooks.
+
+1. Step 1: Create a Vault Password Store in Semaphore
+  
+In the Ansible Semaphore UI, "Login with password" is the correct key type to use for storing an Ansible Vault password.
+
+2. Step 2: Attach the Vault Key to your playbooks
+3. Add the vault key and build your playbook
+
 
 
 

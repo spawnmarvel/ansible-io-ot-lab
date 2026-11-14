@@ -1,8 +1,8 @@
 ---
-# Version: 3.6.1
-# Description: Dynamically inspects, partitions, formats, and persistently mounts a secondary storage device to a configurable directory for database servers.
+# Version: 3.7.0
+# Description: Safely inspects, partitions, formats, and persistently mounts a secondary storage data disk with built-in safeguards protecting against OS disk overwrite and accidental data loss.
 
-- name: Inspect, configure, and mount dynamic data drive
+- name: Inspect, configure, and mount dynamic data drive safely
   hosts: db_servers
   gather_facts: true
   become: true
@@ -14,6 +14,12 @@
           - data_dir is defined
         fail_msg: "Both 'data_device' and 'data_dir' must be defined for this host in the inventory."
 
+    - name: Assert target device is not the root operating system disk
+      ansible.builtin.assert:
+        that:
+          - "'sda' not in data_device"
+        fail_msg: "SAFETY ABORT: Target data_device points to the OS root disk (/dev/sda). Execution halted."
+
     - name: Gather block device information with size
       ansible.builtin.command: lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS
       register: block_devices
@@ -24,17 +30,30 @@
       ansible.builtin.debug:
         msg: "{{ block_devices.stdout_lines }}"
 
-    - name: Create primary partition on target device
+    - name: Check if primary partition already exists
+      ansible.builtin.stat:
+        path: "{{ data_device }}1"
+      register: partition_stat
+
+    - name: Create primary partition on target device if missing
       community.general.parted:
         device: "{{ data_device }}"
         number: 1
         state: present
         fs_type: ext4
+      when: not partition_stat.stat.exists
 
-    - name: Create ext4 filesystem on target partition
+    - name: Check existing filesystem type on target partition
+      ansible.builtin.command: blkid -s TYPE -o value "{{ data_device }}1"
+      register: existing_fstype
+      failed_when: false
+      changed_when: false
+
+    - name: Create ext4 filesystem only if not already formatted
       ansible.builtin.filesystem:
         fstype: ext4
         dev: "{{ data_device }}1"
+      when: existing_fstype.stdout | default('') != 'ext4'
 
     - name: Ensure mount point directory exists
       ansible.builtin.file:
@@ -42,10 +61,10 @@
         state: directory
         mode: '0755'
 
-    - name: Mount secondary drive persistently
+    - name: Mount secondary drive persistently with nofail option
       ansible.builtin.mount:
         path: "{{ data_dir }}"
         src: "{{ data_device }}1"
         fstype: ext4
-        opts: defaults
+        opts: defaults,nofail
         state: mounted
