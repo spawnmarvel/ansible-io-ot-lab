@@ -1,6 +1,6 @@
 ---
-# Version: 4.4.0
-# Description: Dynamically discovers the 32GB Azure data disk by excluding the active root mount device, formats, and mounts persistently.
+# Version: 4.5.0
+# Description: Dynamically discovers the secondary data disk, formats, and mounts persistently with mount-aware directory handling.
 
 - name: Dynamically discover, configure, and mount data drive
   hosts: db_servers
@@ -13,7 +13,7 @@
   tasks:
     - name: Get the device mounted at root (/)
       ansible.builtin.set_fact:
-        root_device_name: "{{ (ansible_mounts | selectattr('mount', 'equalto', '/') | map(attribute='device') | first | regex_replace('[0-9]+$', '') | basename) }}"
+        root_device_name: "{{ (ansible_facts.mounts | selectattr('mount', 'equalto', '/') | map(attribute='device') | first | regex_replace('[0-9]+$', '') | basename) }}"
 
     - name: Dynamically find 32GB data disk excluding root disk
       ansible.builtin.set_fact:
@@ -33,7 +33,7 @@
 
     - name: Display discovered target device
       ansible.builtin.debug:
-        msg: "Target data disk successfully resolved to {{ resolved_data_device }} (Root disk is /dev/{{ root_device_name }})"
+        msg: "Target data disk successfully resolved to {{ resolved_data_device }}"
 
     - name: Check if primary partition already exists
       ansible.builtin.stat:
@@ -60,11 +60,20 @@
         dev: "{{ resolved_data_device }}1"
       when: existing_fstype.stdout | default('') != 'ext4'
 
-    - name: Ensure mount point directory exists
+    - name: Check if target directory is currently a mount point
+      ansible.builtin.command: mountpoint -q "{{ data_dir }}"
+      register: is_mounted
+      failed_when: false
+      changed_when: false
+
+    - name: Ensure mount point directory exists when not currently mounted
       ansible.builtin.file:
         path: "{{ data_dir }}"
         state: directory
-        mode: '0755'
+        mode: '0750'
+        owner: mysql
+        group: mysql
+      when: is_mounted.rc != 0
 
     - name: Mount secondary drive persistently with nofail option
       ansible.builtin.mount:
