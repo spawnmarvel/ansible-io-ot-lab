@@ -1,44 +1,39 @@
 ---
-# Version: 4.3.0
-# Description: Safely discovers the 32GB Azure data disk by size and model, formats, and mounts persistently.
+# Version: 4.4.0
+# Description: Dynamically discovers the 32GB Azure data disk by excluding the active root mount device, formats, and mounts persistently.
 
 - name: Dynamically discover, configure, and mount data drive
   hosts: db_servers
   gather_facts: true
   become: true
   vars:
-    target_disk_size: "32.00 GB"
+    target_size_gb: "32"
     data_dir: "/var/lib/mysql"
 
   tasks:
-    - name: Dynamically find 32GB Azure virtual data disk
+    - name: Get the device mounted at root (/)
+      ansible.builtin.set_fact:
+        root_device_name: "{{ (ansible_mounts | selectattr('mount', 'equalto', '/') | map(attribute='device') | first | regex_replace('[0-9]+$', '') | basename) }}"
+
+    - name: Dynamically find 32GB data disk excluding root disk
       ansible.builtin.set_fact:
         resolved_data_device: "/dev/{{ item.key }}"
       loop: "{{ ansible_facts.devices | dict2items }}"
       when: 
-        - item.value.size == target_disk_size
-        - item.value.model is defined
-        - item.value.model == "Virtual Disk"
-        - not ('/' in item.value.get('partitions', {}).values() | map(attribute='mountpoints', default=[]) | flatten)
-
-    - name: Fallback discovery by size if model check is skipped
-      ansible.builtin.set_fact:
-        resolved_data_device: "/dev/{{ item.key }}"
-      loop: "{{ ansible_facts.devices | dict2items }}"
-      when:
-        - resolved_data_device is not defined or resolved_data_device == ""
-        - item.value.size == target_disk_size
+        - item.key != root_device_name
+        - target_size_gb in item.value.size
 
     - name: Assert a valid data device was discovered
       ansible.builtin.assert:
         that:
           - resolved_data_device is defined
           - resolved_data_device != ""
-        fail_msg: "SAFETY ABORT: Could not automatically detect a valid secondary data disk of size {{ target_disk_size }}."
+          - resolved_data_device != "/dev/{{ root_device_name }}"
+        fail_msg: "SAFETY ABORT: Could not automatically detect a valid secondary data disk of size ~{{ target_size_gb }}GB."
 
     - name: Display discovered target device
       ansible.builtin.debug:
-        msg: "Target data disk successfully resolved to {{ resolved_data_device }}"
+        msg: "Target data disk successfully resolved to {{ resolved_data_device }} (Root disk is /dev/{{ root_device_name }})"
 
     - name: Check if primary partition already exists
       ansible.builtin.stat:
