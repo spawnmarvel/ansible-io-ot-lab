@@ -4,7 +4,7 @@
 # Description: This playbook checks the mount of a secondary data drive on VMs in the db_servers group.
 
 - name: Check mount secondary data drive
-  hosts: db_servers
+  hosts: db_servers_mysql
   gather_facts: true
   tasks:
     - name: Gather block device information
