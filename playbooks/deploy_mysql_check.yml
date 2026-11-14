@@ -1,9 +1,9 @@
 ---
 # Version: 1.0.0
-# Description: Check playbook to inspect package availability, service status, and mount points for MySQL deployment.
+# Description: Check playbook to inspect package availability for MySQL deployment.
 
 - name: Check MySQL Environment and Package Availability
-  hosts: db_servers
+  hosts: db_servers_mysql
   become: true
   tasks:
     - name: Update apt cache to check repository package availability
@@ -26,12 +26,3 @@
     - name: Display MySQL service status if present
       ansible.builtin.debug:
         msg: "MySQL service state: {{ service_state.ansible_facts.services['mysql.service'].state | default('Not installed') }}"
-
-    - name: Verify mount point and disk space for MySQL data directory
-      ansible.builtin.command: df -h /var/lib/mysql
-      register: mysql_mount_check
-      changed_when: false
-
-    - name: Display storage mount verification
-      ansible.builtin.debug:
-        msg: "{{ mysql_mount_check.stdout_lines }}"
