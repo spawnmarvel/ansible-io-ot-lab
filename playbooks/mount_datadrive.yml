@@ -1,32 +1,33 @@
 ---
-# Version: 4.2.0
-# Description: Dynamically discovers secondary data disk by size and checks mount points, avoiding volatile kernel letter assumptions.
+# Version: 4.3.0
+# Description: Safely discovers the 32GB Azure data disk by size and model, formats, and mounts persistently.
 
 - name: Dynamically discover, configure, and mount data drive
   hosts: db_servers
   gather_facts: true
   become: true
   vars:
-    target_disk_size: "32G"
+    target_disk_size: "32.00 GB"
     data_dir: "/var/lib/mysql"
 
   tasks:
-    - name: Dynamically find data device matching target size and not root
+    - name: Dynamically find 32GB Azure virtual data disk
       ansible.builtin.set_fact:
         resolved_data_device: "/dev/{{ item.key }}"
       loop: "{{ ansible_facts.devices | dict2items }}"
       when: 
-        - item.value.size == target_disk_size or item.value.size == "32.00 GB"
-        - not (item.value.partitions | dict2items | selectattr('value.links.ids', 'defined') | map(attribute='value.mountpoints') | flatten | select('match', '^/$') | list)
+        - item.value.size == target_disk_size
+        - item.value.model is defined
+        - item.value.model == "Virtual Disk"
+        - not ('/' in item.value.get('partitions', {}).values() | map(attribute='mountpoints', default=[]) | flatten)
 
-    - name: Fallback discovery by size alone if no partition mount matches
+    - name: Fallback discovery by size if model check is skipped
       ansible.builtin.set_fact:
         resolved_data_device: "/dev/{{ item.key }}"
       loop: "{{ ansible_facts.devices | dict2items }}"
       when:
         - resolved_data_device is not defined or resolved_data_device == ""
-        - item.value.size == target_disk_size or item.value.size == "32.00 GB"
-        - not ('/' in item.value.get('partitions', {}).values() | map(attribute='mountpoints', default=[]) | flatten)
+        - item.value.size == target_disk_size
 
     - name: Assert a valid data device was discovered
       ansible.builtin.assert:
