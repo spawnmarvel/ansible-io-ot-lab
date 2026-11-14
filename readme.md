@@ -90,7 +90,7 @@ In this POC we use Azure so we can share a live demo.
   - [Update inventory/host.ini](#update-inventoryhostini)
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
-  - [Playbook linux mount\_datadrive.yml](#playbook-linux-mount_datadriveyml)
+  - [Playbook linux mount\_datadrive.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#playbook-linux-mount_datadriveyml-this-must-be-done-again--make-new-vm-take-snapshot)
     - [Restart mysql01 and verify datadisk](#restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -1702,7 +1702,7 @@ Playbook run took 0 days, 0 hours, 0 minutes, 2 seconds
 
 
 
-## Playbook linux mount_datadrive.yml
+## Playbook linux mount_datadrive.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT
 
 
 To make the playbook generic we update hosts.ini after we have run the mount_datadrive_check.yml, then we get the drive name, it may vary.
