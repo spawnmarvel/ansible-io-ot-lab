@@ -90,7 +90,8 @@ In this POC we use Azure so we can share a live demo.
   - [Update inventory/host.ini](#update-inventoryhostini)
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
-  - [Playbook linux mount\_datadrive.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#playbook-linux-mount_datadriveyml-this-must-be-done-again--make-new-vm-take-snapshot)
+  - [Manually attach a data disk to a Linux VM](#manually-attach-a-data-disk-to-a-linux-vm)
+  - [Playbook linux mount\_datadrive\_for\_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#playbook-linux-mount_datadrive_for_mysqlyml-this-must-be-done-again--make-new-vm-take-snapshot)
     - [Restart mysql01 and verify datadisk](#restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -1700,9 +1701,17 @@ Playbook run took 0 days, 0 hours, 0 minutes, 2 seconds
 
 ```
 
+## Manually attach a data disk to a Linux VM
 
+This step is very risky to automate, we muste make sure that.
 
-## Playbook linux mount_datadrive.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT
+1. A disk is avaliable
+2. The disk we shall format must never be OS disk
+3. It must hardcoded with UIID in fstab so it survies boot
+
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
+
+## Playbook linux mount_datadrive_for_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT
 
 
 To make the playbook generic we update hosts.ini after we have run the mount_datadrive_check.yml, then we get the drive name, it may vary.

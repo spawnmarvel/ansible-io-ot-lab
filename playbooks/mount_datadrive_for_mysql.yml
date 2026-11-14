@@ -3,7 +3,7 @@
 # Description: Dynamically discovers the secondary data disk, formats, and mounts persistently with mount-aware directory handling.
 
 - name: Dynamically discover, configure, and mount data drive
-  hosts: db_servers
+  hosts: db_servers_mysql
   gather_facts: true
   become: true
   vars:
