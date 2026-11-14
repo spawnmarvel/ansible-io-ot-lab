@@ -91,8 +91,8 @@ In this POC we use Azure so we can share a live demo.
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
 - [1. Manually attach a data disk to a Linux VM](#1-manually-attach-a-data-disk-to-a-linux-vm)
-  - [Playbook linux mount\_datadrive\_for\_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#playbook-linux-mount_datadrive_for_mysqlyml-this-must-be-done-again--make-new-vm-take-snapshot)
-    - [Restart mysql01 and verify datadisk](#restart-mysql01-and-verify-datadisk)
+  - [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#11-playbook-linux-mount_datadrive_for_mysqlyml-this-must-be-done-again--make-new-vm-take-snapshot)
+    - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
 - [Introduction to Enterprise Ansible Scalability](#introduction-to-enterprise-ansible-scalability)
@@ -1711,7 +1711,7 @@ This step is very risky to automate, we muste make sure that.
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
 
-## Playbook linux mount_datadrive_for_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT
+## 1.1 Playbook linux mount_datadrive_for_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT
 
 
 To make the playbook generic we update hosts.ini after we have run the mount_datadrive_check.yml, then we get the drive name, it may vary.
@@ -1856,7 +1856,7 @@ PLAYBOOK RECAP *****************************************************************
 The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfully partitioning /dev/sdc, creating the ext4 filesystem, provisioning the /var/lib/mysql mount point, and configuring persistent mounting.
 
 
-### Restart mysql01 and verify datadisk
+### 1.2 Restart mysql01 and verify datadisk
 
 
 ```bash
