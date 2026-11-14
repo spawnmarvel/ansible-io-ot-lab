@@ -13,7 +13,7 @@
     - name: Dynamically find data device matching target size
       ansible.builtin.set_fact:
         resolved_data_device: "/dev/{{ item.key }}"
-      loop: "{{ ansible_devices | dict2items }}"
+      loop: "{{ ansible_facts.devices | dict2items }}"
       when: 
         - item.value.size == target_disk_size or item.value.size == "32.00 GB"
         - "'sda' not in item.key"
