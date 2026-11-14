@@ -90,7 +90,7 @@ In this POC we use Azure so we can share a live demo.
   - [Update inventory/host.ini](#update-inventoryhostini)
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
-- [1. Manually attach a data disk to a Linux VM](#1-manually-attach-a-data-disk-to-a-linux-vm)
+- [1. Manually attach a data disk to a Linux VM UUID](#1-manually-attach-a-data-disk-to-a-linux-vm-uuid)
   - [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#11-playbook-linux-mount_datadrive_for_mysqlyml-this-must-be-done-again--make-new-vm-take-snapshot)
     - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
@@ -1701,13 +1701,14 @@ Playbook run took 0 days, 0 hours, 0 minutes, 2 seconds
 
 ```
 
-# 1. Manually attach a data disk to a Linux VM
+# 1. Manually attach a data disk to a Linux VM UUID
 
 This step is very risky to automate, we muste make sure that.
 
 1. A disk is avaliable
 2. The disk we shall format must never be OS disk
-3. It must hardcoded with UIID in fstab so it survies boot
+3. It must hardcoded with UUID in fstab so it survies boot
+4. Then do a boot to verify
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
 
