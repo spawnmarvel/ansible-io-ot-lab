@@ -90,7 +90,7 @@ In this POC we use Azure so we can share a live demo.
   - [Update inventory/host.ini](#update-inventoryhostini)
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
-  - [Manually attach a data disk to a Linux VM](#manually-attach-a-data-disk-to-a-linux-vm)
+- [1. Manually attach a data disk to a Linux VM](#1-manually-attach-a-data-disk-to-a-linux-vm)
   - [Playbook linux mount\_datadrive\_for\_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#playbook-linux-mount_datadrive_for_mysqlyml-this-must-be-done-again--make-new-vm-take-snapshot)
     - [Restart mysql01 and verify datadisk](#restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
@@ -1701,7 +1701,7 @@ Playbook run took 0 days, 0 hours, 0 minutes, 2 seconds
 
 ```
 
-## Manually attach a data disk to a Linux VM
+# 1. Manually attach a data disk to a Linux VM
 
 This step is very risky to automate, we muste make sure that.
 
