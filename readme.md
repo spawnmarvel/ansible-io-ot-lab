@@ -115,6 +115,7 @@ In this POC we use Azure so we can share a live demo.
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
 - [Create a Windows host](#create-a-windows-host)
+  - [15 Ansible Playbooks Example for Windows Administration](#15-ansible-playbooks-example-for-windows-administration)
   - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
 
 # IT Automation in OT
@@ -2373,6 +2374,11 @@ ansible-playbook -i inventory/hosts.ini playbooks/
 ```
 
 # Create a Windows host
+
+## 15 Ansible Playbooks Example for Windows Administration
+
+
+https://gist.github.com/devops-school/52c8de8924555f91c50e3a016556060f
 
 ## Playbook update_windows_KB.yml TBD
 
