@@ -1,84 +1,64 @@
----
-# Version: 4.5.0
-# Description: Dynamically discovers the secondary data disk, formats, and mounts persistently with mount-aware directory handling.
+# Version: 2.3.1
+# Description: Dynamic data disk discovery (size-agnostic), partition, ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
 
-- name: Dynamically discover, configure, and mount data drive
-  hosts: db_servers_mysql
-  gather_facts: true
-  become: true
-  vars:
-    target_size_gb: "32"
-    data_dir: "/var/lib/mysql"
+- name: Discover secondary data disk dynamically (excluding root device)
+  ansible.builtin.set_fact:
+    resolved_data_device: "{{ item.key }}"
+  when:
+    - item.value.size_mb is defined
+    - item.value.size_mb | int > 0
+    - item.key != ansible_facts['root_device_name'] | basename
+    - (item.key.startswith('sd') or item.key.startswith('vd') or item.key.startswith('nvme'))
+  loop: "{{ ansible_devices | dict2items }}"
 
-  tasks:
-    - name: Get the device mounted at root (/)
-      ansible.builtin.set_fact:
-        root_device_name: "{{ (ansible_facts.mounts | selectattr('mount', 'equalto', '/') | map(attribute='device') | first | regex_replace('[0-9]+$', '') | basename) }}"
+- name: Fail if secondary data disk could not be dynamically resolved
+  ansible.builtin.fail:
+    msg: "Critical: No valid secondary data disk could be identified safely."
+  when: resolved_data_device is not defined
 
-    - name: Dynamically find 32GB data disk excluding root disk
-      ansible.builtin.set_fact:
-        resolved_data_device: "/dev/{{ item.key }}"
-      loop: "{{ ansible_facts.devices | dict2items }}"
-      when: 
-        - item.key != root_device_name
-        - target_size_gb in item.value.size
+- name: Ensure partition 1 exists on data disk
+  ansible.builtin.parted:
+    device: "/dev/{{ resolved_data_device }}"
+    number: 1
+    state: present
+    fs_type: ext4
 
-    - name: Assert a valid data device was discovered
-      ansible.builtin.assert:
-        that:
-          - resolved_data_device is defined
-          - resolved_data_device != ""
-          - resolved_data_device != "/dev/{{ root_device_name }}"
-        fail_msg: "SAFETY ABORT: Could not automatically detect a valid secondary data disk of size ~{{ target_size_gb }}GB."
+- name: Format data partition to ext4 if not already formatted
+  ansible.builtin.filesystem:
+    fstype: ext4
+    dev: "/dev/{{ resolved_data_device }}1"
+    force: false
 
-    - name: Display discovered target device
-      ansible.builtin.debug:
-        msg: "Target data disk successfully resolved to {{ resolved_data_device }}"
+- name: Get UUID of the data disk partition
+  ansible.builtin.command: "blkid -s UUID -o value /dev/{{ resolved_data_device }}1"
+  register: disk_uuid_output
+  changed_when: false
 
-    - name: Check if primary partition already exists
-      ansible.builtin.stat:
-        path: "{{ resolved_data_device }}1"
-      register: partition_stat
+- name: Set fact for disk UUID
+  ansible.builtin.set_fact:
+    data_disk_uuid: "{{ disk_uuid_output.stdout | trim }}"
 
-    - name: Create primary partition on target device if missing
-      community.general.parted:
-        device: "{{ resolved_data_device }}"
-        number: 1
-        state: present
-        fs_type: ext4
-      when: not partition_stat.stat.exists
+- name: Ensure mount point directory exists
+  ansible.builtin.file:
+    path: /mnt/datadrive1
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: '0750'
 
-    - name: Check existing filesystem type on target partition
-      ansible.builtin.command: blkid -s TYPE -o value "{{ resolved_data_device }}1"
-      register: existing_fstype
-      failed_when: false
-      changed_when: false
+- name: Ensure persistent mount using UUID in fstab
+  ansible.builtin.mount:
+    path: /mnt/datadrive1
+    src: "UUID={{ data_disk_uuid }}"
+    fstype: ext4
+    opts: defaults,nofail,noatime
+    state: mounted
 
-    - name: Create ext4 filesystem only if not already formatted
-      ansible.builtin.filesystem:
-        fstype: ext4
-        dev: "{{ resolved_data_device }}1"
-      when: existing_fstype.stdout | default('') != 'ext4'
+- name: Verify fstab and systemd mount unit validity for boot persistence
+  ansible.builtin.command: findmnt --verify
+  register: findmnt_verify
+  changed_when: false
 
-    - name: Check if target directory is currently a mount point
-      ansible.builtin.command: mountpoint -q "{{ data_dir }}"
-      register: is_mounted
-      failed_when: false
-      changed_when: false
-
-    - name: Ensure mount point directory exists when not currently mounted
-      ansible.builtin.file:
-        path: "{{ data_dir }}"
-        state: directory
-        mode: '0750'
-        owner: mysql
-        group: mysql
-      when: is_mounted.rc != 0
-
-    - name: Mount secondary drive persistently with nofail option
-      ansible.builtin.mount:
-        path: "{{ data_dir }}"
-        src: "{{ resolved_data_device }}1"
-        fstype: ext4
-        opts: defaults,nofail
-        state: mounted
+- name: Display mount verification status
+  ansible.builtin.debug:
+    msg: "Mount configuration at /mnt/datadrive1 successfully verified for boot persistence using disk /dev/{{ resolved_data_device }}."
