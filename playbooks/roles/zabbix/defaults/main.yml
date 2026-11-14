@@ -1,0 +1,6 @@
+---
+# Version: 1.0.0
+# Description: Default variables for Zabbix deployment.
+
+zabbix_password: "ZabbixSecurePassword123!"
+mysql_host: "10.68.68.6"

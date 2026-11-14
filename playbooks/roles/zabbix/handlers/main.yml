@@ -1,0 +1,9 @@
+---
+# Version: 1.0.0
+# Description: Handlers for restarting and enabling the zabbix service.
+
+- name: Restart zabbix server
+  ansible.builtin.service:
+    name: zabbix-server
+    state: restarted
+    enabled: true
