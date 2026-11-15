@@ -1,5 +1,16 @@
-# Version: 2.0.2
-# Description: Fixed task order ensuring AppArmor is reloaded before MySQL startup and service restart handlers execute correctly.
+# Version: 2.0.3
+# Description: Complete and robust Ansible task file for installing, migrating, securing, and configuring MySQL 8.4 LTS with persistent /data/mysql storage.
+
+# ==============================================================================
+# Subsection 1: Package Installation & Directory Migration
+# ==============================================================================
+
+- name: Install MySQL server package
+  ansible.builtin.apt:
+    name:
+      - mysql-server
+    state: present
+    update_cache: true
 
 - name: Check if default MySQL system database exists in package path
   ansible.builtin.stat:
@@ -52,6 +63,21 @@
   changed_when: true
   check_mode: false
 
+- name: Update AppArmor profile to allow access to custom datadir
+  ansible.builtin.blockinfile:
+    path: /etc/apparmor.d/usr.sbin.mysqld
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR /DATA/MYSQL"
+    block: |
+      /data/mysql/ r,
+      /data/mysql/** rwk,
+  check_mode: false
+
+- name: Reload AppArmor service to apply new rules
+  ansible.builtin.service:
+    name: apparmor
+    state: reloaded
+  check_mode: false
+
 - name: Ensure correct ownership and permissions on persistent MySQL data directory
   ansible.builtin.file:
     path: /data/mysql
@@ -60,23 +86,6 @@
     group: mysql
     recurse: true
     mode: '0750'
-  check_mode: false
-
-- name: Update AppArmor profile to allow access to custom datadir
-  ansible.builtin.blockinfile:
-    path: /etc/apparmor.d/usr.sbin.mysqld
-    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR /DATA/MYSQL"
-    block: |
-      /data/mysql/ r,
-      /data/mysql/** rwk,
-  register: apparmor_update
-  check_mode: false
-
-- name: Reload AppArmor service immediately if profile changed
-  ansible.builtin.service:
-    name: apparmor
-    state: reloaded
-  when: apparmor_update is changed
   check_mode: false
 
 - name: Apply custom MySQL configuration override pointing to datadir
@@ -102,3 +111,46 @@
     state: started
     enabled: true
   check_mode: false
+
+
+# ==============================================================================
+# Subsection 2: Root Password & Access Initialization
+# ==============================================================================
+
+- name: Check if root password is already configured
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT 1;"
+  register: root_password_check
+  failed_when: false
+  changed_when: false
+
+- name: Set root password for MySQL root user on localhost
+  ansible.builtin.command: >
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
+  when: root_password_check.rc != 0
+  changed_when: true
+
+- name: Check if root@127.0.0.1 user exists and is configured
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='root' AND Host='127.0.0.1';"
+  register: root_loopback_check
+  failed_when: false
+  changed_when: false
+
+- name: Create root user for 127.0.0.1 and ::1
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+  when: root_loopback_check.rc != 0 or root_loopback_check.stdout == ""
+  changed_when: true
+
+
+# ==============================================================================
+# Subsection 3: Remote Database & User Provisioning
+# ==============================================================================
+
+- name: Check if Zabbix database user exists
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='zabbix' AND Host='10.68.68.%';"
+  register: zabbix_user_check
+  failed_when: false
+  changed_when: false
+
+- name: Create remote-accessible Zabbix database user and database
+  ansible
