@@ -1964,23 +1964,11 @@ sdc       8:32   0   16G  0 disk
 └─sdc1    8:33   0   16G  0 part /mnt/datadrive1
 ```
 
-log
-
-```console
-
-
-```
-
-Semaphore
-
-
 
 ## 1.5 Restart mysql01 and verify datadisk
 
+![mount_ok](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/mount_ok.png)
 
-```bash
-
-```
 
 ## 1.6 Run the mount_datadrive_for_mysql_azure.yml with boot step
 
