@@ -34,10 +34,9 @@
   - [mount\_datadrive\_check.yml](#mount_datadrive_checkyml)
   - [mount\_datadrive\_for\_mysql\_azure.yml](#mount_datadrive_for_mysql_azureyml)
   - [mount\_datadrive\_for\_mysql\_generic\_hyperv.yml](#mount_datadrive_for_mysql_generic_hypervyml)
-- [Quickguide for IT OT LAB Advanced](#quickguide-for-it-ot-lab-advanced)
+- [Quickguide for IT OT LAB Advanced 102](#quickguide-for-it-ot-lab-advanced-102)
   - [deploy\_mysql\_check.yml](#deploy_mysql_checkyml)
   - [deploy\_mysql.yml](#deploy_mysqlyml)
-- [Quickguide for IT OT LAB Advanced 102](#quickguide-for-it-ot-lab-advanced-102)
 
 ## azure-ansibel quickguide back in 2023
 
@@ -294,10 +293,8 @@ Templating (Jinja2)
 
 ## mount_datadrive_for_mysql_generic_hyperv.yml
 
-# Quickguide for IT OT LAB Advanced
+# Quickguide for IT OT LAB Advanced 102
 
 ## deploy_mysql_check.yml
 
 ## deploy_mysql.yml
-
-# Quickguide for IT OT LAB Advanced 102
