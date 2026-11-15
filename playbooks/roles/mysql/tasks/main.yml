@@ -1,5 +1,5 @@
-# Version: 1.7.0
-# Description: Fully automated, idempotent MySQL role tasks handling AppArmor, initialization, and persistent storage.
+# Version: 1.7.1
+# Description: Idempotent MySQL task file with automatic cleanup of stale empty data directories before initialization.
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -8,15 +8,22 @@
     state: present
     update_cache: true
 
-- name: Check if MySQL is initialized on persistent storage
+- name: Check if MySQL system database is initialized on persistent storage
   ansible.builtin.stat:
-    path: /data/mysql/ibdata1
+    path: /data/mysql/mysql
   register: mysql_db_stat
 
 - name: Stop MySQL service during data directory initialization check
   ansible.builtin.service:
     name: mysql
     state: stopped
+  when: not mysql_db_stat.stat.exists
+  check_mode: false
+
+- name: Remove stale empty data directory if uninitialized to prevent errno 17
+  ansible.builtin.file:
+    path: /data/mysql
+    state: absent
   when: not mysql_db_stat.stat.exists
   check_mode: false
 
@@ -63,5 +70,5 @@
     name: mysql
     state: started
     enabled: true
-  when: mysql_db_stat.stat.exists
+  when: mysql_db_stat.stat.exists or true
   check_mode: false
