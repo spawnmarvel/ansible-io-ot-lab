@@ -1814,13 +1814,21 @@ The Catch with Cross-Platform Reuse
 * KVM / Proxmox / OpenStack Naming: Often uses VirtIO disks (vda, vdb) where vda is the OS root, or NVMe naming (nvme0n1). If you run an Azure-tuned template on a KVM host where vda is root, hardcoding sda/sdb means the filter won't recognize vda as the root device, risking a critical mis-selection.
 
 
+We create two playbooks
 
+* mount_datadrive_for_mysql_azure.yml
+
+* mount_datadrive_for_mysql_generic_hyperv.yml
+
+This shall work on all, but we focus first on the azure template and when that works we do the same exercies and focus on the generic one.
+
+So we need to restore a couple of times.
 
 Run without check mode (Live Execution): Since partition creation and formatting are idempotent or intended to apply changes, run the playbook normally without --check.
 
 
 ```bash
-ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml
+ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
 ```
 
 log
