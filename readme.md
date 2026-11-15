@@ -1901,10 +1901,11 @@ Sunday 15 November 2026  12:28:49 +0000 (0:00:01.786)       0:00:05.081 *******
 
 ### 1.4  Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.
 
-Let sbuild the last step
+Lets build the last step
 
 ```bash
 
+ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
 
 ```
 

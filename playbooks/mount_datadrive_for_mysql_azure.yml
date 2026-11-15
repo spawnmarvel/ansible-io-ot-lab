@@ -55,6 +55,36 @@
       when: confirmation_input.user_input | lower != 'yes'
 
     # =========================================================================
-    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1 .
+    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1
     # =========================================================================
+    - name: Get UUID of the data disk partition
+      ansible.builtin.command: "blkid -s UUID -o value /dev/{{ resolved_data_device }}1"
+      register: disk_uuid_output
+      changed_when: false
+
+    - name: Set fact for disk UUID
+      ansible.builtin.set_fact:
+        data_disk_uuid: "{{ disk_uuid_output.stdout | trim }}"
+
+    - name: Ensure datadrive1 mount point directory exists
+      ansible.builtin.file:
+        path: /mnt/datadrive1
+        state: directory
+        owner: mysql
+        group: mysql
+        mode: '0750'
+
+    - name: Ensure persistent mount using UUID in fstab for datadrive1
+      ansible.builtin.mount:
+        path: /mnt/datadrive1
+        src: "UUID={{ data_disk_uuid }}"
+        fstype: ext4
+        opts: defaults,nofail,noatime
+        state: mounted
+
+    # =========================================================================
+    # Step 4: System Reboot & Post-Boot Mount Verification
+    # =========================================================================
+
+
    
