@@ -30,7 +30,7 @@
   - [get\_linux\_version.yml](#get_linux_versionyml)
     - [Ansible module return Values](#ansible-module-return-values)
       - [1. Official Module Docs (ansible-doc CLI or Web)](#1-official-module-docs-ansible-doc-cli-or-web)
-      - [2.](#2)
+      - [2. Print the Entire Registered Variable at Runtime](#2-print-the-entire-registered-variable-at-runtime)
   - [configure\_apt\_proxy.yml](#configure_apt_proxyyml)
   - [verify\_firewall\_isolation.yml](#verify_firewall_isolationyml)
   - [update\_apt.yml](#update_aptyml)
@@ -350,7 +350,20 @@ The given command will be executed on all selected nodes.
 
 ![return](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/return.png)
 
-#### 2. 
+#### 2. Print the Entire Registered Variable at Runtime
+
+During development, pass var: uname_output to ansible.builtin.debug to dump the full structure returned by that specific task:
+
+
+```yml
+# Version: 1.0.0
+# Description: Dumps all available return properties stored inside the registered uname_output variable.
+
+- name: Inspect all properties of uname_output
+  ansible.builtin.debug:
+    var: uname_output
+```
+
 
 ## configure_apt_proxy.yml
 
