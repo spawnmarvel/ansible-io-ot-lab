@@ -104,6 +104,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
       - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
     - [1.4  Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.](#14--idempotent-data-disk-discovery-partitioning-ext4-formatting-uuid-extraction-persistent-fstab-mounting-at-mntdatadrive1-and-reboot-verification)
   - [1.5 Restart mysql01 and verify datadisk](#15-restart-mysql01-and-verify-datadisk)
+  - [1.6 Run the mount\_datadrive\_for\_mysql\_azure.yml with boot step](#16-run-the-mount_datadrive_for_mysql_azureyml-with-boot-step)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
 - [Pause and inspect all playbooks with comments](#pause-and-inspect-all-playbooks-with-comments)
@@ -1901,20 +1902,62 @@ Sunday 15 November 2026  12:28:49 +0000 (0:00:01.786)       0:00:05.081 *******
 
 ### 1.4  Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.
 
-Lets build the last step
+Lets build the fstab step
 
 ```bash
 
 ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
 
 ```
+log
 
+```console
+PLAY RECAP *************************************************************************************************************
+mysql01                    : ok=10   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+
+TASKS RECAP ************************************************************************************************************
+Sunday 15 November 2026  16:48:25 +0000 (0:00:00.478)       0:00:09.354 *******
+===============================================================================
+Confirm before proceeding to Step 3 (UUID extraction and mounting) ---------------------------------------------- 4.76s
+Gathering Facts ------------------------------------------------------------------------------------------------- 1.86s
+Ensure partition 1 exists on data disk -------------------------------------------------------------------------- 0.56s
+Format data partition to ext4 if not already formatted ---------------------------------------------------------- 0.54s
+Ensure datadrive1 mount point directory exists ------------------------------------------------------------------ 0.48s
+Get UUID of the data disk partition ----------------------------------------------------------------------------- 0.48s
+Ensure persistent mount using UUID in fstab for datadrive1 ------------------------------------------------------ 0.48s
+Discover secondary data disk dynamically ------------------------------------------------------------------------ 0.05s
+Set fact for disk UUID ------------------------------------------------------------------------------------------ 0.04s
+Abort playbook if user declined confirmation -------------------------------------------------------------------- 0.04s
+Display resolved data disk -------------------------------------------------------------------------------------- 0.03s
+Fail if secondary data disk could not be dynamically resolved --------------------------------------------------- 0.02s
+
+PLAYBOOK RECAP *********************************************************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 9 seconds
+
+```
+
+Semaphore
 
 Lets inspect the disk
 
 ```bash
 # we use our check playbook
 ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_check.yml
+
+# or login to server
+
+azureuser@mysql01:~$ lsblk
+NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda       8:0    0   30G  0 disk
+├─sda1    8:1    0 28.9G  0 part /
+├─sda13   8:13   0 1023M  0 part /boot
+├─sda14   8:14   0    4M  0 part
+└─sda15   8:15   0  106M  0 part /boot/efi
+sdb       8:16   0    8G  0 disk
+└─sdb1    8:17   0    8G  0 part /mnt
+sdc       8:32   0   16G  0 disk
+└─sdc1    8:33   0   16G  0 part /mnt/datadrive1
 ```
 
 log
@@ -1924,11 +1967,22 @@ log
 
 ```
 
+Semaphore
+
+
 
 ## 1.5 Restart mysql01 and verify datadisk
 
 
 ```bash
+
+```
+
+## 1.6 Run the mount_datadrive_for_mysql_azure.yml with boot step
+
+
+```bash
+
 
 ```
 
