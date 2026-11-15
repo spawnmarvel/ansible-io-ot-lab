@@ -1939,6 +1939,10 @@ Playbook run took 0 days, 0 hours, 0 minutes, 9 seconds
 
 Semaphore
 
+We commented this step put, Interactive Confirmation Prompt before Step 3 so we can run it in sempphore also.
+Later we will use time with semaphore variables.
+
+
 Lets inspect the disk
 
 ```bash
