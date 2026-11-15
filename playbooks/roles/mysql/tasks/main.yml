@@ -70,5 +70,5 @@
     name: mysql
     state: started
     enabled: true
-  when: mysql_db_stat.stat.exists or true
+  when: mysql_db_stat.stat.exists
   check_mode: false
