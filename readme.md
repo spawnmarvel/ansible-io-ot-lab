@@ -1765,7 +1765,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-porta
 
 Take a snapshot of the OS disk.
 
-![snap_vm](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_vm.png)
+![snap_vm](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_disk.png)
 
 To make the playbook generic we update hosts.ini after we have run the mount_datadrive_check.yml, then we get the drive name, it may vary.
 
