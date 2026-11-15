@@ -101,6 +101,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml (risky Azure spesific)](#11-playbook-linux-mount_datadrive_for_mysqlyml-risky-azure-spesific)
   - [1.2 Jinja2 expression is extremely close to a generic template](#12-jinja2-expression-is-extremely-close-to-a-generic-template)
   - [1.3 Add prompt before executing Step 3 ansible.builtin.pause](#13-add-prompt-before-executing-step-3-ansiblebuiltinpause)
+      - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
   - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -1842,6 +1843,8 @@ So we need to restore a couple of times.
         msg: "Playbook execution aborted by user at Step 3 confirmation."
       when: confirmation_input.user_input | lower != 'yes'
 ```
+
+#### We can add prompts to semaphore later, let's continue cli
 
 Run without check mode (Live Execution): Since partition creation and formatting are idempotent or intended to apply changes, run the playbook normally without --check.
 
