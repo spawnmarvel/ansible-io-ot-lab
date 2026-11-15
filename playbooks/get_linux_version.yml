@@ -5,7 +5,8 @@
 
 - name: Gather and Display Linux Version and Kernel Information
   hosts: ot_nodes:idmz_nodes
-  # if gatheer_facts is set to true, ansible will automatically collect system information (facts) about the target hosts before executing any tasks. This includes details like the operating system, distribution, version, and other relevant information.
+  # if gatheer_facts is set to true, ansible will automatically collect system information (facts) about the target hosts before executing any tasks. 
+  # This includes details like the operating system, distribution, version, and other relevant information.
   # so that we can access ansible_facts.distribution, ansible_facts.distribution_version, and ansible_facts.distribution_release in the debug task.
   gather_facts: true
   become: false

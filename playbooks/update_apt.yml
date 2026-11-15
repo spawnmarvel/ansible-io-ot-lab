@@ -1,7 +1,8 @@
 ---
 # Version: 1.2.0
 # Author: aspen
-# Description: Updates package cache, safely upgrades system packages, and correctly displays change status and output details.
+# Description: Updates package cache, safely upgrades system packages, 
+# and correctly displays change status and output details.
 
 - name: Update and Upgrade System Packages
   hosts: ot_nodes:idmz_nodes

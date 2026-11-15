@@ -234,20 +234,30 @@ Here we used ansible.builtin.ping
 
 ```yml
 ---
+---
 # Version: 1.0.1
 # Author: aspen
 # Description: Ping validation playbook with privilege escalation explicitly disabled
 
 - name: Verify Connectivity Across Purdue Lab Nodes
+  # This playbook is designed to validate the connectivity of all nodes in the Purdue lab environment
+  # by performing a simple ping test. It targets the 'ot_nodes' and 'idmz_nodes' groups, 
+  # ensuring that each host is reachable and responsive. 
+  # The playbook is configured to run without gathering facts or escalating privileges, 
+  # making it lightweight and efficient for connectivity checks.
   hosts: ot_nodes:idmz_nodes
   # Gathering facts is disabled to speed up the playbook execution since we only need to check connectivity.
-  # Gathering facts is used to collect information about the remote hosts, but it is not necessary for this playbook's purpose.
+  # Gathering facts is used to collect information about the remote hosts, 
+  # but it is not necessary for this playbook's purpose.
   gather_facts: false
-  # Become is set to false to ensure that the playbook does not attempt to escalate privileges on the remote hosts, as pinging does not require elevated permissions.
+  # Become is set to false, to ensure that the playbook does not attempt to escalate privileges 
+  # on the remote hosts, as pinging does not require elevated permissions.
   become: false
   tasks:
     - name: Ping all inventory hosts
-      # The ansible.builtin.ping module is used to test connectivity to the remote hosts. It sends a simple ping request and expects a pong response, confirming that the host is reachable and responsive. 
+      # The ansible.builtin.ping module is used to test connectivity to the remote hosts. 
+      # It sends a simple ping request and expects a pong response, 
+      # confirming that the host is reachable and responsive.
       ansible.builtin.ping:
 ```
 
@@ -276,7 +286,8 @@ Ansible uses Jinja2 templating to enable dynamic expressions and access to varia
 
 - name: Gather and Display Linux Version and Kernel Information
   hosts: ot_nodes:idmz_nodes
-  # if gatheer_facts is set to true, ansible will automatically collect system information (facts) about the target hosts before executing any tasks. This includes details like the operating system, distribution, version, and other relevant information.
+  # if gatheer_facts is set to true, ansible will automatically collect system information (facts) about the target hosts before executing any tasks. 
+  # This includes details like the operating system, distribution, version, and other relevant information.
   # so that we can access ansible_facts.distribution, ansible_facts.distribution_version, and ansible_facts.distribution_release in the debug task.
   gather_facts: true
   become: false
@@ -368,7 +379,8 @@ We also used some new ansible keyword:
       # Use the assert module to validate that the connection attempt to the public internet failed, 
       # indicating proper isolation.
       # assert module checks the condition specified in the 'that' parameter. 
-      # If the condition evaluates to false, the task fails and displays the message defined in 'fail_msg'. If the condition is true, it displays the message in 'success_msg'.
+      # If the condition evaluates to false, the task fails and displays the message defined in 'fail_msg'. 
+      # If the condition is true, it displays the message in 'success_msg'.
       ansible.builtin.assert:
         that:
           - internet_check.status == -1 or internet_check.failed == true
@@ -386,7 +398,8 @@ Here we used:
 ---
 # Version: 1.2.0
 # Author: aspen
-# Description: Updates package cache, safely upgrades system packages, and correctly displays change status and output details.
+# Description: Updates package cache, safely upgrades system packages, 
+# and correctly displays change status and output details.
 
 - name: Update and Upgrade System Packages
   hosts: ot_nodes:idmz_nodes
