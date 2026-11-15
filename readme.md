@@ -1752,10 +1752,11 @@ Playbook run took 0 days, 0 hours, 0 minutes, 1 seconds
 
 This step is very risky to automate, we muste make sure that.
 
-1. A disk is avaliable
+1. A disk is avaliable and we must find it
 2. The disk we shall format must never be OS disk
 3. It must hardcoded with UUID in fstab so it survies boot
-4. Then do a boot to verify
+4. The name will be datadrive1
+5. Then do a boot to verify
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
 
@@ -1767,19 +1768,11 @@ Take a snapshot of the OS disk.
 
 ![snap_vm](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_disk.png)
 
-To make the playbook generic we update hosts.ini after we have run the mount_datadrive_check.yml, then we get the drive name, it may vary.
+Snap done.
 
-```yml
-- name: Dynamically discover, configure, and mount data drive
-  hosts: db_servers
-  gather_facts: true
-  become: true
-  vars:
-    target_disk_size: "32G"
-    data_dir: "/var/lib/mysql"
+![snap_done](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_done.png)
 
-# [...]
-```
+
 We need to dynamically find the target disk based on size and mount it to /var/lib/mysql
 
 ```bash
@@ -1804,62 +1797,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml
 
 log
 ```console
-TASK [Assert a valid data device was discovered] ***************************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:41 +0000 (0:00:00.091)       0:00:02.032 *****
-ok: [mysql01] => {
-    "changed": false,
-    "msg": "All assertions passed"
-}
 
-TASK [Display discovered target device] ************************************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:41 +0000 (0:00:00.034)       0:00:02.067 *****
-ok: [mysql01] => {
-    "msg": "Target data disk successfully resolved to /dev/sdc"
-}
-
-TASK [Check if primary partition already exists] ***************************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:41 +0000 (0:00:00.027)       0:00:02.094 *****
-ok: [mysql01]
-
-TASK [Create primary partition on target device if missing] ****************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:42 +0000 (0:00:00.496)       0:00:02.591 *****
-skipping: [mysql01]
-
-TASK [Check existing filesystem type on target partition] ******************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:42 +0000 (0:00:00.020)       0:00:02.611 *****
-ok: [mysql01]
-
-TASK [Create ext4 filesystem only if not already formatted] ****************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:42 +0000 (0:00:00.487)       0:00:03.098 *****
-skipping: [mysql01]
-
-TASK [Ensure mount point directory exists] *********************************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:42 +0000 (0:00:00.038)       0:00:03.136 *****
-ok: [mysql01]
-
-TASK [Mount secondary drive persistently with nofail option] ***************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:43 +0000 (0:00:00.497)       0:00:03.633 *****
-ok: [mysql01]
-
-PLAY RECAP *****************************************************************************************************************************************************************************************************
-mysql01                    : ok=8    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
-
-
-TASKS RECAP ****************************************************************************************************************************************************************************************************
-Saturday 14 November 2026  00:36:43 +0000 (0:00:00.505)       0:00:04.139 *****
-===============================================================================
-Gathering Facts ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.93s
-Mount secondary drive persistently with nofail option --------------------------------------------------------------------------------------------------------------------------------------------------- 0.51s
-Ensure mount point directory exists --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.50s
-Check if primary partition already exists --------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.50s
-Check existing filesystem type on target partition ------------------------------------------------------------------------------------------------------------------------------------------------------ 0.49s
-Dynamically find data device matching target size ------------------------------------------------------------------------------------------------------------------------------------------------------- 0.09s
-Create ext4 filesystem only if not already formatted ---------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Assert a valid data device was discovered --------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.03s
-Display discovered target device ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.03s
-Create primary partition on target device if missing ---------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
-
-PLAYBOOK RECAP *************************************************************************************************************************************************************************************************
 ```
 
 Lets inspect the disk
@@ -1872,41 +1810,11 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_check.yml
 log
 
 ```console
-TASK [Display available block devices] *************************************************************************************************************************************************************************
-Saturday 14 November 2026  00:44:20 +0000 (0:00:00.512)       0:00:01.758 *****
-ok: [mysql01] => {
-    "msg": [
-        "NAME     SIZE FSTYPE MOUNTPOINTS",
-        "sda       30G        ",
-        "├─sda1  28.9G ext4   /var/lib/mysql",
-        "│                    /",
-        "├─sda13 1023M ext4   /boot",
-        "├─sda14    4M        ",
-        "└─sda15  106M vfat   /boot/efi",
-        "sdb        8G        ",
-        "└─sdb1     8G ext4   /mnt",
-        "sdc       32G        ",
-        "└─sdc1    32G ext4   /var/lib/mysql"
-    ]
-}
 
-PLAY RECAP *****************************************************************************************************************************************************************************************************
-mysql01                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
-
-TASKS RECAP ****************************************************************************************************************************************************************************************************
-Saturday 14 November 2026  00:44:20 +0000 (0:00:00.024)       0:00:01.782 *****
-===============================================================================
-Gathering Facts ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.23s
-Gather block device information ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.51s
-Display available block devices ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
-
-PLAYBOOK RECAP *************************************************************************************************************************************************************************************************
 
 ```
 
 
-The playbook ran cleanly with zero failures (ok=7 changed=4 failed=0), successfully partitioning /dev/sdc, creating the ext4 filesystem, provisioning the /var/lib/mysql mount point, and configuring persistent mounting.
 
 
 ## 1.2 Restart mysql01 and verify datadisk
