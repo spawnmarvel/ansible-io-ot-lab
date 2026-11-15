@@ -39,7 +39,7 @@
   - [mount\_datadrive\_for\_mysql\_generic\_hyperv.yml](#mount_datadrive_for_mysql_generic_hypervyml)
 - [Quickguide for IT OT LAB Advanced 102](#quickguide-for-it-ot-lab-advanced-102)
   - [deploy\_mysql\_check.yml](#deploy_mysql_checkyml)
-  - [deploy\_mysql.yml](#deploy_mysqlyml)
+  - [deploy\_mysql.yml with roles](#deploy_mysqlyml-with-roles)
 
 ## azure-ansibel quickguide back in 2023
 
@@ -511,13 +511,17 @@ Here we used:
 
 ## mount_datadrive_for_mysql_azure.yml
 
+This is a big book with roles, it was hard to finish.
+
 Here we used:
 
 * 
 
-We also used some new ansible keyword:
+We also used some new ansible keyword and made this for Azure only
 
-* 
+```yml
+```
+
 
 ## mount_datadrive_for_mysql_generic_hyperv.yml
 
@@ -541,7 +545,7 @@ We also used some new ansible keyword:
 
 * 
 
-## deploy_mysql.yml
+## deploy_mysql.yml with roles
 
 Here we used:
 
