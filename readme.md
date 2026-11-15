@@ -1762,6 +1762,11 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-porta
 ## 1.1 Playbook linux mount_datadrive_for_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT
 
 
+
+Take a snapshot of the OS disk.
+
+![snap_vm](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_vm.png)
+
 To make the playbook generic we update hosts.ini after we have run the mount_datadrive_check.yml, then we get the drive name, it may vary.
 
 ```yml
