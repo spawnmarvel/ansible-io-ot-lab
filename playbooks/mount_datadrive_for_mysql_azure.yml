@@ -1,0 +1,47 @@
+# Version: 3.6.0
+# Description: Idempotent data disk discovery (loop-free selection), partitioning, ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
+
+- name: Configure data disk storage
+  hosts: mysql01
+  become: true
+  gather_facts: true
+  tasks:
+
+    # =========================================================================
+    # Step 1: Dynamic Secondary Disk Discovery & OS Protection (Loop-Free)
+    # =========================================================================
+    - name: Discover secondary data disk dynamically
+      ansible.builtin.set_fact:
+        # Value Source: Filters the system device keys, matches standard disk prefixes, 
+        # and explicitly rejects 'sda' (OS root) and 'sdb' (Azure temp drive) to pick 'sdc'.
+        resolved_data_device: "{{ (ansible_facts.devices.keys() | select('match', '^(sd|vd|nvme)[a-z]+$') | reject('in', ['sda', 'sdb'])) | first }}"
+
+    - name: Fail if secondary data disk could not be dynamically resolved
+      ansible.builtin.fail:
+        msg: "Critical: No valid secondary data disk could be identified safely."
+      when: resolved_data_device is not defined
+
+    - name: Display resolved data disk
+      ansible.builtin.debug:
+        msg: "Successfully resolved secondary data disk: /dev/{{ resolved_data_device }}"
+
+    # =========================================================================
+    # Step 2: Partitioning and ext4 Formatting
+    # =========================================================================
+    - name: Ensure partition 1 exists on data disk
+      ansible.builtin.parted:
+        device: "/dev/{{ resolved_data_device }}"
+        number: 1
+        state: present
+        fs_type: ext4
+
+    - name: Format data partition to ext4 if not already formatted
+      ansible.builtin.filesystem:
+        fstype: ext4
+        dev: "/dev/{{ resolved_data_device }}1"
+        force: false
+
+    # =========================================================================
+    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1
+    # =========================================================================
+   

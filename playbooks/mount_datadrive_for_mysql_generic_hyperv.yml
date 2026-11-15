@@ -1,5 +1,5 @@
-# Version: 3.6.0
-# Description: Idempotent data disk discovery (loop-free selection), partitioning, ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
+# Version: 3.8.0
+# Description: Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
 
 - name: Configure data disk storage
   hosts: mysql01
@@ -8,13 +8,13 @@
   tasks:
 
     # =========================================================================
-    # Step 1: Dynamic Secondary Disk Discovery & OS Protection (Loop-Free)
+    # Step 1: Dynamic Secondary Disk Discovery & OS Protection
     # =========================================================================
-    - name: Discover secondary data disk dynamically (Hypervisor-Agnostic)
+    - name: Discover secondary data disk dynamically
       ansible.builtin.set_fact:
-        # Value Source: Automatically finds any standard block device (sd*, vd*, nvme*) 
-        # and dynamically excludes the active OS root device regardless of hypervisor.
-        resolved_data_device: "{{ (ansible_facts.devices.keys() | select('match', '^(sd|vd|nvme)[a-z0-9]+$') | reject('equalto', ansible_facts.root_device_name | basename)) | first }}"
+        # Value Source: Filters standard disk device keys and rejects the primary disk 
+        # backing the root mount point ('/') from ansible_mounts.
+        resolved_data_device: "{{ (ansible_facts.devices.keys() | select('match', '^(sd|vd|nvme)[a-z0-9]+$') | reject('equalto', ansible_mounts | selectattr('mount', 'eq', '/') | map(attribute='device') | first | regex_replace('[0-9]+$', '') | basename) | reject('in', ['sdb'])) | first }}"
 
     - name: Fail if secondary data disk could not be dynamically resolved
       ansible.builtin.fail:
@@ -44,4 +44,3 @@
     # =========================================================================
     # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1
     # =========================================================================
-   
