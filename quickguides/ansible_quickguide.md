@@ -28,6 +28,9 @@
 - [Quickguide for IT OT LAB Basic 101](#quickguide-for-it-ot-lab-basic-101)
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
+    - [Ansible module return Values](#ansible-module-return-values)
+      - [1. Official Module Docs (ansible-doc CLI or Web)](#1-official-module-docs-ansible-doc-cli-or-web)
+      - [2.](#2)
   - [configure\_apt\_proxy.yml](#configure_apt_proxyyml)
   - [verify\_firewall\_isolation.yml](#verify_firewall_isolationyml)
   - [update\_apt.yml](#update_aptyml)
@@ -312,6 +315,37 @@ Ansible uses Jinja2 templating to enable dynamic expressions and access to varia
 Templating (Jinja2)
 
 * https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_templating.html
+
+
+### Ansible module return Values
+
+Lets talk a bit more about
+
+```yml
+register: uname_output
+```
+
+Every Ansible module defines its own Return Values—the dictionary of keys and data stored inside your register variable (uname_output). Because different modules return different properties, you can find them in three places:
+
+
+#### 1. Official Module Docs (ansible-doc CLI or Web)
+
+Every module's documentation ends with a Return Values section listing every available key, its data type, and an example.
+
+*
+
+```bash
+ansible-doc ansible.builtin.command
+
+# and scroll down to RETURN VALUES:.
+```
+
+
+* In the web docs: Open the page for ansible.builtin.command (or whichever module you used) and scroll to the Return Values table at the bottom.
+
+![return](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/return.png)
+
+#### 2. 
 
 ## configure_apt_proxy.yml
 
