@@ -1,5 +1,5 @@
-# Version: 1.6.4
-# Description: Corrected task sequence placing configuration override before service startup.
+# Version: 1.7.0
+# Description: Fully automated, idempotent MySQL role tasks handling AppArmor, initialization, and persistent storage.
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -25,6 +25,19 @@
     cmd: mysqld --initialize-insecure --user=mysql --datadir=/data/mysql
   when: not mysql_db_stat.stat.exists
   changed_when: true
+
+- name: Update AppArmor profile to allow access to custom datadir
+  ansible.builtin.blockinfile:
+    path: /etc/apparmor.d/usr.sbin.mysqld
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR /DATA/MYSQL"
+    block: |
+      /data/mysql/ r,
+      /data/mysql/** rwk,
+  notify: Reload AppArmor service
+  check_mode: false
+
+- name: Ensure AppArmor service is reloaded if profile changed
+  ansible.builtin.meta: flush_handlers
 
 - name: Apply custom MySQL configuration override
   ansible.builtin.template:
