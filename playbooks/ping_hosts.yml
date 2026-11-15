@@ -17,5 +17,7 @@
   become: false
   tasks:
     - name: Ping all inventory hosts
-      # The ansible.builtin.ping module is used to test connectivity to the remote hosts. It sends a simple ping request and expects a pong response, confirming that the host is reachable and responsive. 
+      # The ansible.builtin.ping module is used to test connectivity to the remote hosts. 
+      # It sends a simple ping request and expects a pong response, 
+      # confirming that the host is reachable and responsive. 
       ansible.builtin.ping:
