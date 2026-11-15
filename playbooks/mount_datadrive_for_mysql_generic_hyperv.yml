@@ -42,22 +42,17 @@
         force: false
 
     # =========================================================================
-    # Step check: Dual-Mode Confirmation (CLI Interactive vs Semaphore Survey)
+    # Interactive Confirmation Prompt before Step 3
     # =========================================================================
-    - name: Prompt interactively if run from CLI without survey variables
+    - name: Confirm before proceeding to Step 3 (UUID extraction and mounting)
       ansible.builtin.pause:
         prompt: "Ready to proceed with Step 3: UUID extraction and mounting at /mnt/datadrive1. Enter 'yes' to continue or anything else to abort."
-      register: cli_confirmation
-      when: Proceed_to_step3 is not defined
+      register: confirmation_input
 
-    - name: Normalize confirmation source for CLI or Semaphore
-      ansible.builtin.set_fact:
-        final_confirmation: "{{ Proceed_to_step3 | default(cli_confirmation.user_input | default('no')) | lower }}"
-
-    - name: Abort playbook if confirmation was declined
+    - name: Abort playbook if user declined confirmation
       ansible.builtin.fail:
-        msg: "Playbook execution aborted: Confirmation was not set to 'yes'."
-      when: final_confirmation != 'yes'
+        msg: "Playbook execution aborted by user at Step 3 confirmation."
+      when: confirmation_input.user_input | lower != 'yes'
 
     # =========================================================================
     # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1 .
