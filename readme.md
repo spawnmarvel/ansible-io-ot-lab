@@ -6,7 +6,8 @@ It does not matter what hypervisor we run, the concept is the same.
 
 If you want to check out the same with KVM:
 
-* KVM (Kernel-based Virtual Machine) is a free and open-source full-virtualization module built directly into the Linux kernel. It turns a standard Linux operating system into a high-performance Type-1 hypervisor.
+* KVM (Kernel-based Virtual Machine) is a free and open-source full-virtualization module built directly into the Linux kernel. 
+* It turns a standard Linux operating system into a high-performance Type-1 (1.5) hypervisor.
 
 *  https://www.redhat.com/en/topics/virtualization/what-is-KVM
 
@@ -15,7 +16,7 @@ Learning kvm linux and ansible tutorial https://github.com/spawnmarvel/kvm-lab/b
 
 In this POC we use Azure so we can share a live demo from Azure simulating IT/OT environment.
 
-# Ansible on Azure
+# Ansible on Azure Microsoft
 
 Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
 
@@ -27,7 +28,7 @@ https://learn.microsoft.com/en-us/azure/developer/ansible/
 
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
-- [Ansible on Azure](#ansible-on-azure)
+- [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
   - [Table of content](#table-of-content)
 - [IT Automation in OT](#it-automation-in-ot)
 - [Introduction](#introduction)
