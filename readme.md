@@ -1,7 +1,8 @@
 # Ansible stack in Azure Proof of Concept (PoC) 
 
-Here we ar doing Do the same as we did with KVM, Kernel Virtual Machine for repetions and demo online.
-It does not matter what hypervisor we run, the concept is the same.
+Here we are doing the same as we did with KVM, Kernel Virtual Machine for repetions and demo online.
+
+It does not matter what hypervisor we run, the concept is the same for a demo.
 
 
 If you want to check out the same with KVM:
