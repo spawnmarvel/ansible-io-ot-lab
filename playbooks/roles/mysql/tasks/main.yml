@@ -1,5 +1,5 @@
-# Version: 2.0.1
-# Description: Fixed migration check using /var/lib/mysql/mysql existence to trigger proper rsync migration.
+# Version: 2.0.2
+# Description: Fixed task order ensuring AppArmor is reloaded before MySQL startup and service restart handlers execute correctly.
 
 - name: Check if default MySQL system database exists in package path
   ansible.builtin.stat:
@@ -69,11 +69,15 @@
     block: |
       /data/mysql/ r,
       /data/mysql/** rwk,
-  notify: Reload AppArmor service
+  register: apparmor_update
   check_mode: false
 
-- name: Ensure AppArmor service is reloaded if profile changed
-  ansible.builtin.meta: flush_handlers
+- name: Reload AppArmor service immediately if profile changed
+  ansible.builtin.service:
+    name: apparmor
+    state: reloaded
+  when: apparmor_update is changed
+  check_mode: false
 
 - name: Apply custom MySQL configuration override pointing to datadir
   ansible.builtin.template:
@@ -82,7 +86,14 @@
     owner: root
     group: root
     mode: '0644'
-  notify: Restart MySQL
+  register: mysql_config_update
+  check_mode: false
+
+- name: Ensure MySQL service is restarted if configuration changed
+  ansible.builtin.service:
+    name: mysql
+    state: restarted
+  when: mysql_config_update is changed
   check_mode: false
 
 - name: Ensure MySQL service is started and enabled
