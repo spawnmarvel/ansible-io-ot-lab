@@ -1973,10 +1973,67 @@ sdc       8:32   0   16G  0 disk
 ## 1.6 Run the mount_datadrive_for_mysql_azure.yml with boot step
 
 
+Either restore the OS disk from the snapshot
+
+or 
+
+remove the mount with bash.
+
 ```bash
 
+ssh azureuser@10.68.68.6
+
+azureuser@mysql01:~$ whoami
+azureuser
+
+sudo umount /mnt/datadrive1
+
+# If you also want to clear the persistent entry from /etc/fstab so Ansible handles re-adding it cleanly, you can remove or comment out the line referencing datadrive1 in /etc/fstab:
+sudo nano /etc/fstab
+
+cat /etc/fstab
+
+# Verify the Mount Is Removed
+# Confirm that the mount point is no longer active and that the filesystem is detached:
+df -h /mnt/datadrive1
+mount | grep datadrive1
+
+sudo umount /dev/sdc1
+sudo umount /mnt/datadrive1
+sudo rm -rf /mnt/datadrive1
+mount | grep sdc1
+lsblk
+
+# do a reboot and OS is now back to SDA
 
 ```
+Azure didn't break anything—it just demonstrated the exact reason why static device names like /dev/sdc cannot be trusted.
+
+The Issue: Linux storage device paths (such as /dev/sda or /dev/sdc) are not guaranteed to remain consistent across restarts or when data disks are detached and reattached.
+
+Safe Fstab Configuration: Use the nofail or nobootwait parameters in /etc/fstab so that the virtual machine can still boot successfully even if a data disk fails to mount.
+
+However, because your Ansible playbook uses dynamic discovery and binds via UUID, it solves this problem entirely.
+
+https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-machines/linux/troubleshoot-device-names-problems
+
+Re-run the Playbook from the Control Node or Semaphore
+
+```bash
+# check it
+ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_check.yml
+
+# mount and run it
+ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
+```
+
+Log
+
+```console
+
+```
+
+
 
 # Set up github integration on ansiblectr01 for git pull origin main
 

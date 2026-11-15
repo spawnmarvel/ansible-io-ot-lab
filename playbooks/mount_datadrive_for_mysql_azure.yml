@@ -1,7 +1,7 @@
 # Version: 3.6.0
 # Description: Idempotent data disk discovery (loop-free selection), partitioning, ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
 
-- name: Configure data disk storage
+- name: Configure data disk storage at /data
   hosts: mysql01
   become: true
   gather_facts: true
@@ -66,9 +66,9 @@
       ansible.builtin.set_fact:
         data_disk_uuid: "{{ disk_uuid_output.stdout | trim }}"
 
-    - name: Ensure datadrive1 mount point directory exists
+    - name: Ensure /data mount point directory exists
       ansible.builtin.file:
-        path: /mnt/datadrive1
+        path: /data
         state: directory
         owner: root
         group: root
@@ -76,7 +76,7 @@
 
     - name: Ensure persistent mount using UUID in fstab for datadrive1
       ansible.builtin.mount:
-        path: /mnt/datadrive1
+        path: /data
         src: "UUID={{ data_disk_uuid }}"
         fstype: ext4
         opts: defaults,nofail,noatime
@@ -85,6 +85,21 @@
     # =========================================================================
     # Step 4: System Reboot & Post-Boot Mount Verification
     # =========================================================================
+    - name: Reboot target node to test fstab mount survival across boots
+      ansible.builtin.reboot:
+        msg: "Rebooting mysql01 to verify persistent data drive mount via UUID."
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 2
+        post_reboot_delay: 10
 
+    - name: Verify mount point is active after reboot
+      ansible.builtin.command: "df -h /data"
+      register: mount_check_output
+      changed_when: false
+
+    - name: Display mount verification result
+      ansible.builtin.debug:
+        msg: "{{ mount_check_output.stdout }}"
 
    
