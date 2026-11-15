@@ -1,20 +1,25 @@
 # Description: Dynamic data disk discovery (size-agnostic), partition, 
 # ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
 
-# Version: 3.0.0
+# Version: 3.0.1
 # Description: Step 1 - Discover secondary data disk dynamically while strictly excluding the OS root device.
 
-- name: Discover secondary data disk dynamically (excluding OS root device)
-  ansible.builtin.set_fact:
-    resolved_data_device: "{{ item.key }}"
-  when:
-    - item.value.size_mb is defined
-    - item.value.size_mb | int > 0
-    - item.key != ansible_facts['root_device_name'] | basename
-    - (item.key.startswith('sd') or item.key.startswith('vd') or item.key.startswith('nvme'))
-  loop: "{{ ansible_devices | dict2items }}"
+- name: Configure data disk storage
+  hosts: db_hosts_mysql
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Discover secondary data disk dynamically (excluding OS root device)
+      ansible.builtin.set_fact:
+        resolved_data_device: "{{ item.key }}"
+      when:
+        - item.value.size_mb is defined
+        - item.value.size_mb | int > 0
+        - item.key != ansible_facts['root_device_name'] | basename
+        - (item.key.startswith('sd') or item.key.startswith('vd') or item.key.startswith('nvme'))
+      loop: "{{ ansible_devices | dict2items }}"
 
-- name: Fail if secondary data disk could not be dynamically resolved
-  ansible.builtin.fail:
-    msg: "Critical: No valid secondary data disk could be identified safely."
-  when: resolved_data_device is not defined
+    - name: Fail if secondary data disk could not be dynamically resolved
+      ansible.builtin.fail:
+        msg: "Critical: No valid secondary data disk could be identified safely."
+      when: resolved_data_device is not defined
