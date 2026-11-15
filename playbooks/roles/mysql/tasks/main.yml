@@ -1,5 +1,5 @@
-# Version: 1.9.2
-# Description: Clean and robust MySQL initialization sequence relying on native mysqld directory creation.
+# Version: 1.9.3
+# Description: Fixed MySQL initialization task sequence ensuring pre-created directory ownership for mysqld.
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -20,7 +20,7 @@
   when: not mysql_db_stat.stat.exists
   check_mode: false
 
-- name: Ensure parent /data directory is owned by mysql to allow native creation
+- name: Ensure parent /data directory is owned by mysql
   ansible.builtin.file:
     path: /data
     state: directory
@@ -30,11 +30,21 @@
   when: not mysql_db_stat.stat.exists
   check_mode: false
 
-- name: Ensure persistent MySQL data directory is completely absent if uninitialized
+- name: Ensure persistent MySQL data directory exists with correct ownership and permissions
   ansible.builtin.file:
     path: /data/mysql
-    state: absent
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: '0750'
   when: not mysql_db_stat.stat.exists
+  check_mode: false
+
+- name: Clear any stray files inside persistent MySQL data directory if uninitialized
+  ansible.builtin.shell: |
+    find /data/mysql -mindepth 1 -delete
+  when: not mysql_db_stat.stat.exists
+  changed_when: true
   check_mode: false
 
 - name: Initialize MySQL data directory on persistent storage if uninitialized
@@ -42,45 +52,4 @@
     cmd: mysqld --initialize-insecure --user=mysql --datadir=/data/mysql
   when: not mysql_db_stat.stat.exists
   changed_when: true
-  check_mode: false
-
-- name: Update AppArmor profile to allow access to custom datadir
-  ansible.builtin.blockinfile:
-    path: /etc/apparmor.d/usr.sbin.mysqld
-    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR /DATA/MYSQL"
-    block: |
-      /data/mysql/ r,
-      /data/mysql/** rwk,
-  notify: Reload AppArmor service
-  check_mode: false
-
-- name: Ensure AppArmor service is reloaded if profile changed
-  ansible.builtin.meta: flush_handlers
-
-- name: Apply custom MySQL configuration override
-  ansible.builtin.template:
-    src: override.cnf.j2
-    dest: /etc/mysql/mysql.conf.d/99-override.cnf
-    owner: root
-    group: root
-    mode: '0644'
-  notify: Restart MySQL
-  check_mode: false
-
-- name: Ensure correct ownership and permissions on persistent MySQL data directory
-  ansible.builtin.file:
-    path: /data/mysql
-    state: directory
-    owner: mysql
-    group: mysql
-    recurse: true
-    mode: '0750'
-  check_mode: false
-
-- name: Ensure MySQL service is started and enabled
-  ansible.builtin.service:
-    name: mysql
-    state: started
-    enabled: true
-  when: not ansible_check_mode
   check_mode: false
