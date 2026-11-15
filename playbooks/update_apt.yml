@@ -10,11 +10,16 @@
     - name: Update apt repository cache
       ansible.builtin.apt:
         update_cache: true
+        # Set cache_valid_time to 3600 seconds (1 hour) to avoid unnecessary updates 
+        # if the cache is still valid
         cache_valid_time: 3600
 
     - name: Perform a safe upgrade of installed packages
       ansible.builtin.apt:
+        # Use the 'upgrade' option with 'safe' to upgrade packages without removing any packages
+        # or installing new ones
         upgrade: safe
+      # Register the result of the upgrade operation to a variable for later use
       register: apt_upgrade_result
 
     - name: Display upgrade results summary

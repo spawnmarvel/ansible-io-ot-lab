@@ -361,19 +361,69 @@ We also used some new ansible keyword:
 
 Here we used:
 
-* 
+* ansible.builtin.apt
 
-We also used some new ansible keyword:
+```yml
+---
+# Version: 1.2.0
+# Author: aspen
+# Description: Updates package cache, safely upgrades system packages, and correctly displays change status and output details.
+
+- name: Update and Upgrade System Packages
+  hosts: ot_nodes:idmz_nodes
+  become: true
+  tasks:
+    - name: Update apt repository cache
+      ansible.builtin.apt:
+        update_cache: true
+        # Set cache_valid_time to 3600 seconds (1 hour) to avoid unnecessary updates 
+        # if the cache is still valid
+        cache_valid_time: 3600
+
+    - name: Perform a safe upgrade of installed packages
+      ansible.builtin.apt:
+        # Use the 'upgrade' option with 'safe' to upgrade packages without removing any packages
+        # or installing new ones
+        upgrade: safe
+      # Register the result of the upgrade operation to a variable for later use
+      register: apt_upgrade_result
+
+    - name: Display upgrade results summary
+      ansible.builtin.debug:
+        msg: >
+          Host {{ inventory_hostname }} upgrade status:
+          Changed: {{ apt_upgrade_result.changed }}
+          Stdout output: {{ apt_upgrade_result.stdout_lines | default(['No output']) }}
+
+```
 
 ## mount_datadrive_check.yml
 
 Here we used:
 
-* 
+*  ansible.builtin.shell
 
-We also used some new ansible keyword:
+```yml
+---
+# Version: 1.0.1
+# Author: aspen
+# Description: This playbook checks the mount of a secondary data drive on VMs in the db_servers group.
 
-* 
+- name: Check mount secondary data drive
+  hosts: db_servers_mysql
+  gather_facts: true
+  tasks:
+    - name: Gather block device information
+      # Use the shell module to run 'lsblk' command to list block devices and their mount points
+      ansible.builtin.shell: lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS
+      register: block_devices
+      # Indicate that this task does not change the system state
+      changed_when: false
+
+    - name: Display available block devices
+      ansible.builtin.debug:
+        msg: "{{ block_devices.stdout_lines }}"
+```
 
 ## mount_datadrive_for_mysql_azure.yml
 

@@ -8,8 +8,10 @@
   gather_facts: true
   tasks:
     - name: Gather block device information
+      # Use the shell module to run 'lsblk' command to list block devices and their mount points
       ansible.builtin.shell: lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS
       register: block_devices
+      # Indicate that this task does not change the system state
       changed_when: false
 
     - name: Display available block devices
