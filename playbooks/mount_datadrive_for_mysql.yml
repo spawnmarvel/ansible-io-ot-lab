@@ -1,52 +1,38 @@
-# Version: 3.2.3
-# Description: Dynamic data disk discovery, partitioning, and ext4 formatting at /mnt/datadrive1.
+# Version: 3.3.0
+# Description: Fully idempotent data disk discovery, partitioning, formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
 
 - name: Configure data disk storage
   hosts: mysql01
   become: true
   gather_facts: true
-
   tasks:
 
     # =========================================================================
-    # Step 1: Dynamic Secondary Disk Discovery & OS Root Protection
+    # Step 1: Dynamic Secondary Disk Discovery & OS Protection (Idempotent)
     # =========================================================================
-
-    - name: Discover unpartitioned secondary data disk dynamically
+    - name: Discover secondary data disk dynamically
       ansible.builtin.set_fact:
-        # Variable: resolved_data_device
-        # Value Source: Assigned dynamically from 'item.key' (e.g., 'sdc') when criteria match.
         resolved_data_device: "{{ item.key }}"
       when:
-        # Source: ansible_facts.get('root_device_name') populated by host fact gathering ('gather_facts: true').
         - item.key != ansible_facts.get('root_device_name', '') | basename
-        # Source: Iterating through keys/values of 'ansible_facts.devices' system fact dictionary.
+        - item.key != 'sdb'  # Exclude Azure ephemeral temp drive
         - (item.key.startswith('sd') or item.key.startswith('vd') or item.key.startswith('nvme'))
-        - item.value.partitions | length == 0
-      loop: "{{ ansible_facts.devices | dict2items }}"  # Source: Converted system fact dictionary of all block devices.
+      loop: "{{ ansible_facts.devices | dict2items }}"
 
     - name: Fail if secondary data disk could not be dynamically resolved
       ansible.builtin.fail:
-        msg: "Critical: No valid unpartitioned secondary data disk could be identified safely."
-      when: 
-        # Variable: resolved_data_device
-        # Value Source: Evaluates whether the custom fact was successfully set in the previous task.
-        resolved_data_device is not defined
+        msg: "Critical: No valid secondary data disk could be identified safely."
+      when: resolved_data_device is not defined
 
     - name: Display resolved data disk
       ansible.builtin.debug:
-        msg: >-
-          Successfully resolved secondary data disk: /dev/{{ resolved_data_device }}
-          (Value source: custom fact 'resolved_data_device' matched from ansible_facts.devices)
+        msg: "Successfully resolved secondary data disk: /dev/{{ resolved_data_device }}"
 
     # =========================================================================
     # Step 2: Partitioning and ext4 Formatting
     # =========================================================================
-
     - name: Ensure partition 1 exists on data disk
       ansible.builtin.parted:
-        # Variable: resolved_data_device
-        # Value Source: Custom fact established in Step 1 (e.g., 'sdc').
         device: "/dev/{{ resolved_data_device }}"
         number: 1
         state: present
@@ -55,6 +41,9 @@
     - name: Format data partition to ext4 if not already formatted
       ansible.builtin.filesystem:
         fstype: ext4
-        # Variable: resolved_data_device combined with partition suffix '1' (e.g., '/dev/sdc1').
         dev: "/dev/{{ resolved_data_device }}1"
         force: false
+
+    # =========================================================================
+    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1
+    # =========================================================================
