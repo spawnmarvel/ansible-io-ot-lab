@@ -1,5 +1,5 @@
-# Version: 1.8.0
-# Description: Idempotent main task file for MySQL 8.4 LTS with persistent /data/mysql storage and correct mount permissions.
+# Version: 1.9.0
+# Description: Idempotent MySQL task file allowing mysqld to manage directory creation natively without errno 17 conflicts.
 
 # ==============================================================================
 # Subsection 1: Package Installation & Directory Preparation
@@ -24,13 +24,20 @@
   when: not mysql_db_stat.stat.exists
   check_mode: false
 
-- name: Ensure persistent MySQL data directory exists with correct permissions before init
+- name: Ensure parent /data directory is owned by mysql to allow native creation
   ansible.builtin.file:
-    path: /data/mysql
+    path: /data
     state: directory
     owner: mysql
     group: mysql
     mode: '0750'
+  when: not mysql_db_stat.stat.exists
+  check_mode: false
+
+- name: Remove empty stale /data/mysql directory if uninitialized to prevent errno 17
+  ansible.builtin.file:
+    path: /data/mysql
+    state: absent
   when: not mysql_db_stat.stat.exists
   check_mode: false
 
@@ -78,9 +85,7 @@
     name: mysql
     state: started
     enabled: true
-  when: 
-    - mysql_db_stat.stat.exists
-    - not ansible_check_mode
+  when: not ansible_check_mode
   check_mode: false
 
 
@@ -125,7 +130,7 @@
 
 - name: Create remote-accessible Zabbix database user and database
   ansible.builtin.command: >
-    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'%' IDENTIFIED BY '{{ zabbix_password }}'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%'; FLUSH PRIVILEGES;"
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'%' IDENTIFIED BY '{{ zabb_password }}' if defined else '{{ zabbix_password }}'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%'; FLUSH PRIVILEGES;"
   when: zabbix_user_check.rc != 0 or zabbix_user_check.stdout == ""
   changed_when: true
 

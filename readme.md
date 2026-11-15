@@ -2661,22 +2661,35 @@ ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql
 log
 
 ```console
+PLAY RECAP **********************************************************************************
+mysql01                    : ok=8    changed=0    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0
+
+
 TASKS RECAP *********************************************************************************
-Sunday 15 November 2026  21:08:57 +0000 (0:00:00.018)       0:00:07.413 *******
+Sunday 15 November 2026  21:18:28 +0000 (0:00:00.039)       0:00:09.558 *******
 ===============================================================================
-Gathering Facts ---------------------------------------------------------------------- 2.86s
+Gathering Facts ---------------------------------------------------------------------- 1.87s
 mysql : Install MySQL server package ------------------------------------------------- 1.03s
-mysql : Apply custom MySQL configuration override ------------------------------------ 0.83s
-mysql : Stop MySQL service during data directory initialization check ---------------- 0.80s
-mysql : Check if MySQL is initialized on persistent storage -------------------------- 0.50s
-mysql : Initialize MySQL data directory on persistent storage if uninitialized ------- 0.49s
-mysql : Update AppArmor profile to allow access to custom datadir -------------------- 0.49s
+mysql : Stop MySQL service during data directory initialization check ---------------- 0.79s
+mysql : Apply custom MySQL configuration override ------------------------------------ 0.71s
+mysql : Ensure persistent MySQL data directory exists with correct permissions before init --- 0.51s
+mysql : Initialize MySQL data directory on persistent storage if uninitialized ------- 0.50s
+mysql : Update AppArmor profile to allow access to custom datadir -------------------- 0.50s
+mysql : Check if MySQL system database is initialized on persistent storage ---------- 0.50s
 mysql : Ensure correct ownership and permissions on persistent MySQL data directory --- 0.38s
-mysql : Ensure MySQL service is started and enabled ---------------------------------- 0.02s
-mysql : Ensure AppArmor service is reloaded if profile changed ----------------------- 0.01s
+mysql : Check if test database exists ------------------------------------------------ 0.38s
+mysql : Check if root password is already configured --------------------------------- 0.38s
+mysql : Create remote-accessible Zabbix database user and database ------------------- 0.38s
+mysql : Check if anonymous MySQL users exist ----------------------------------------- 0.37s
+mysql : Create root user for 127.0.0.1 and ::1 --------------------------------------- 0.37s
+mysql : Check if Zabbix database user exists ----------------------------------------- 0.37s
+mysql : Check if root@127.0.0.1 user exists and is configured ------------------------ 0.37s
+mysql : Remove test database --------------------------------------------------------- 0.04s
+mysql : Remove anonymous MySQL users ------------------------------------------------- 0.04s
+mysql : Ensure AppArmor service is reloaded if profile changed ----------------------- 0.02s
+mysql : Set root password for MySQL root user on localhost --------------------------- 0.02s
 
 PLAYBOOK RECAP ******************************************************************************
-Playbook run took 0 days, 0 hours, 0 minutes, 7 seconds
 ```
 
 Now deploy it
