@@ -264,7 +264,7 @@ Each specialized team focuses on the technical areas they master best whether:
 
 * Configuring network switches and firewalls
 * Managing Linux server deployments and patching
-* Orchestrating virtual machines.
+* Orchestrating virtual machines
 
 🌀 Unified Orchestration: 
 
