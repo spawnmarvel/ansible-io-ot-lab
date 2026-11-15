@@ -1,5 +1,5 @@
-# Version: 1.6.3
-# Description: Corrected task order for MySQL installation, checking status, and initializing persistent storage.
+# Version: 1.6.4
+# Description: Corrected task sequence placing configuration override before service startup.
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -25,6 +25,16 @@
     cmd: mysqld --initialize-insecure --user=mysql --datadir=/data/mysql
   when: not mysql_db_stat.stat.exists
   changed_when: true
+
+- name: Apply custom MySQL configuration override
+  ansible.builtin.template:
+    src: override.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/99-override.cnf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart MySQL
+  check_mode: false
 
 - name: Ensure correct ownership and permissions on persistent MySQL data directory
   ansible.builtin.file:
