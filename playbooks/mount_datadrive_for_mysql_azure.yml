@@ -1,5 +1,5 @@
-# Version: 3.7.2
-# Description: Deterministic Azure LUN-based data disk discovery, partitioning, ext4 formatting, UUID extraction, and persistent fstab mounting at /data.
+# Version: 3.8.0
+# Description: Fully deterministic Azure LUN-based storage playbook using persistent /dev/disk/azure paths.
 
 - name: Configure data disk storage at /data
   hosts: mysql01
@@ -20,25 +20,16 @@
         msg: "Critical: Azure data disk at LUN 0 (/dev/disk/azure/scsi1/lun0) not found."
       when: not azure_lun_check.stat.exists
 
-    - name: Resolve real block device path from Azure LUN symlink
-      ansible.builtin.command: "readlink -f /dev/disk/azure/scsi1/lun0"
-      register: lun_resolved
-      changed_when: false
-
-    - name: Extract kernel device name from resolved symlink
-      ansible.builtin.set_fact:
-        resolved_data_device: "{{ lun_resolved.stdout | basename }}"
-
-    - name: Display resolved data disk
+    - name: Display resolved data disk LUN path
       ansible.builtin.debug:
-        msg: "Successfully resolved secondary data disk from Azure LUN 0: /dev/{{ resolved_data_device }}"
+        msg: "Successfully anchored to persistent Azure LUN 0 path: /dev/disk/azure/scsi1/lun0"
 
     # =========================================================================
-    # Step 2: Partitioning and ext4 Formatting
+    # Step 2: Partitioning and ext4 Formatting via Persistent LUN Path
     # =========================================================================
     - name: Ensure partition 1 exists on data disk
       ansible.builtin.parted:
-        device: "/dev/{{ resolved_data_device }}"
+        device: "/dev/disk/azure/scsi1/lun0"
         number: 1
         state: present
         fs_type: ext4
@@ -46,7 +37,7 @@
     - name: Format data partition to ext4 if not already formatted
       ansible.builtin.filesystem:
         fstype: ext4
-        dev: "/dev/{{ resolved_data_device }}1"
+        dev: "/dev/disk/azure/scsi1/lun0-part1"
         force: false
 
     # =========================================================================
@@ -69,7 +60,7 @@
     # Step 3: UUID Extraction & Persistent Mounting at /data
     # =========================================================================
     - name: Get UUID of the data disk partition
-      ansible.builtin.command: "blkid -s UUID -o value /dev/{{ resolved_data_device }}1"
+      ansible.builtin.command: "blkid -s UUID -o value /dev/disk/azure/scsi1/lun0-part1"
       register: disk_uuid_output
       changed_when: false
 
