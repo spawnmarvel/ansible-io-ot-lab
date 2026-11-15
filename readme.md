@@ -47,7 +47,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [Ansible Network Examples](#ansible-network-examples)
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
-- [Back to scenario (or jump to online demo ?)](#back-to-scenario-or-jump-to-online-demo-)
+- [Back to scenario (or jump to online demo ?) it gets technical from here](#back-to-scenario-or-jump-to-online-demo--it-gets-technical-from-here)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
   - [Firewall Rule Matrix (Purdue / ISA-95 Architecture)](#firewall-rule-matrix-purdue--isa-95-architecture)
@@ -375,7 +375,7 @@ https://galaxy.ansible.com/ui/
 
 
 
-# Back to scenario (or jump to online demo ?)
+# Back to scenario (or jump to online demo ?) it gets technical from here
 
 Now it gets a bit technical, so ready for the ride or just want to see the demo?
 
