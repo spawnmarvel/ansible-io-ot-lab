@@ -102,7 +102,8 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [1.2 Jinja2 expression is extremely close to a generic template](#12-jinja2-expression-is-extremely-close-to-a-generic-template)
   - [1.3 Add prompt before executing Step 3 ansible.builtin.pause](#13-add-prompt-before-executing-step-3-ansiblebuiltinpause)
       - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
-  - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
+    - [1.4  Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.](#14--idempotent-data-disk-discovery-partitioning-ext4-formatting-uuid-extraction-persistent-fstab-mounting-at-mntdatadrive1-and-reboot-verification)
+  - [1.5 Restart mysql01 and verify datadisk](#15-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
 - [Introduction to Enterprise Ansible Scalability](#introduction-to-enterprise-ansible-scalability)
@@ -1897,6 +1898,16 @@ Sunday 15 November 2026  12:28:49 +0000 (0:00:01.786)       0:00:05.081 *******
 
 ```
 
+### 1.4  Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.
+
+Let sbuild the last step
+
+```bash
+
+
+```
+
+
 Lets inspect the disk
 
 ```bash
@@ -1912,9 +1923,7 @@ log
 ```
 
 
-
-
-## 1.2 Restart mysql01 and verify datadisk
+## 1.5 Restart mysql01 and verify datadisk
 
 
 ```bash
