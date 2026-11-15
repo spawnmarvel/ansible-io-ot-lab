@@ -35,6 +35,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
   - [The Bottom Line](#the-bottom-line)
+- [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
   - [Unified Orchestration 🐸🐒🐘](#unified-orchestration-)
   - [Ansible and Terraform in 60 seconds youtube](#ansible-and-terraform-in-60-seconds-youtube)
   - [You need to learn Ansible right now youtube](#you-need-to-learn-ansible-right-now-youtube)
@@ -218,7 +219,6 @@ Open-Source Core: The core Ansible project (including Ansible Core) is free and 
 You can go all the way to full-scale enterprise production with the open-source version of Ansible. There are no artificial limits on the number of servers, features, or automation tasks you can run for free.
 
 
-
 ### What You Can Do for Free 🆓
 
 * Unlimited Scale: You can automate 5 servers or 50,000 servers without paying a dime.
@@ -242,6 +242,15 @@ While there are no technical walls, you will eventually face operational trade-o
 ## The Bottom Line
 
 If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
+
+
+# Red Hat Ansible Automation Platform delivers on high ROI expectations
+
+In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
+
+Doing so frees up time and resources that can be better used to deliver the essential technologies needed to drive business success.
+
+https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
 
 ---
 
