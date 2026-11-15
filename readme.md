@@ -126,8 +126,8 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
     - [1. Encrypt Your Variables File](#1-encrypt-your-variables-file)
       - [Option A: Interactive Prompt (Best for Manual Runs)](#option-a-interactive-prompt-best-for-manual-runs)
       - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
-      - [Reboot mysql01 and verify playbooks](#reboot-mysql01-and-verify-playbooks)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
+- [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
   - [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
@@ -3073,12 +3073,6 @@ mysql : Stop MySQL service before migrating data directory ---------------------
 PLAYBOOK RECAP *****************************************************************************************************
 ```
 
-#### Reboot mysql01 and verify playbooks
-
-1. Mount ok
-2. Deploy mysql ok
-3. Login mysql ok
-
 #### Configure Semaphore with a Vault Password
 
 To use Ansible Vault with Ansible Semaphore (the web UI automation platform), you do not type the password manually every time. Instead, you configure Semaphore with a Vault Password associated with your project or environment so it can automatically decrypt your encrypted files (roles/mysql/defaults/main.yml) when running playbooks.
@@ -3090,7 +3084,16 @@ In the Ansible Semaphore UI, "Login with password" is the correct key type to us
 2. Step 2: Attach the Vault Key to your playbooks
 3. Add the vault key and build your playbook
 
+# Reboot mysql01 and verify all playbooks before install zabbix
 
+1. playbooks/ping_hosts.yml
+2. playbooks/get_linux_version.yml
+3. playbooks/update_apt.yml
+4. playbooks/mount_datadrive_check.yml
+5. playbooks/mount_datadrive_for_mysql_azure.yml
+6. playbooks/deploy_mysql_check.yml
+7. playbooks/deploy_mysql.yml
+8. playbooks/login_mysql_user_zabbix.yml
 
 
 ## Playbook deploy_zabbix.yml --check or limit or hosts:groups
