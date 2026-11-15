@@ -1,5 +1,5 @@
-# Version: 3.3.0
-# Description: Fully idempotent data disk discovery, partitioning, formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
+# Version: 3.4.0
+# Description: Step 1 & 2 - Safe, idempotent discovery of unpartitioned secondary disks and ext4 formatting.
 
 - name: Configure data disk storage
   hosts: mysql01
@@ -8,20 +8,21 @@
   tasks:
 
     # =========================================================================
-    # Step 1: Dynamic Secondary Disk Discovery & OS Protection (Idempotent)
+    # Step 1: Dynamic Secondary Disk Discovery & OS Protection
     # =========================================================================
-    - name: Discover secondary data disk dynamically
+    - name: Discover unpartitioned secondary data disk dynamically
       ansible.builtin.set_fact:
         resolved_data_device: "{{ item.key }}"
       when:
         - item.key != ansible_facts.get('root_device_name', '') | basename
         - item.key != 'sdb'  # Exclude Azure ephemeral temp drive
         - (item.key.startswith('sd') or item.key.startswith('vd') or item.key.startswith('nvme'))
+        - item.value.partitions | length == 0  # CRITICAL: Ensures we never touch a disk that already has partitions/OS
       loop: "{{ ansible_facts.devices | dict2items }}"
 
     - name: Fail if secondary data disk could not be dynamically resolved
       ansible.builtin.fail:
-        msg: "Critical: No valid secondary data disk could be identified safely."
+        msg: "Critical: No valid unpartitioned secondary data disk could be identified safely."
       when: resolved_data_device is not defined
 
     - name: Display resolved data disk
@@ -43,7 +44,3 @@
         fstype: ext4
         dev: "/dev/{{ resolved_data_device }}1"
         force: false
-
-    # =========================================================================
-    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1
-    # =========================================================================
