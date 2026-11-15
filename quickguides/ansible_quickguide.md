@@ -24,7 +24,7 @@
   - [Semaphore UI](#semaphore-ui)
   - [10 habits of great Ansible users](#10-habits-of-great-ansible-users)
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
-  - [Playbook Keywords](#playbook-keywords)
+- [Playbook Keywords](#playbook-keywords)
 - [Quickguide for IT OT LAB Basic](#quickguide-for-it-ot-lab-basic)
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
@@ -218,7 +218,7 @@ Whether you're writing playbooks, maintaining inventory, or executing tasks, her
 https://www.redhat.com/en/blog/10-great-ansible-practices
 
 
-## Playbook Keywords
+# Playbook Keywords
 
 These are the keywords available on common playbook objects. Keywords are one of several sources for configuring Ansible behavior. See Controlling how Ansible behaves: precedence rules for details on the relative precedence of each source.
 
