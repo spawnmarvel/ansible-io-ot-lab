@@ -1,5 +1,5 @@
-# Version: 1.6.1
-# Description: Idempotent main task file for installing, securing, and configuring MySQL 8.4 LTS with persistent /data/mysql storage without Python MySQL bindings.
+# Version: 1.6.2
+# Description: Idempotent main task file for installing, securing, and configuring MySQL 8.4 LTS with persistent /data/mysql storage.
 
 # ==============================================================================
 # Subsection 1: Package Installation & Directory Preparation
@@ -12,31 +12,29 @@
     state: present
     update_cache: true
 
+- name: Stop MySQL service during data directory initialization check
+  ansible.builtin.service:
+    name: mysql
+    state: stopped
+
+- name: Check if MySQL is initialized on persistent storage
+  ansible.builtin.stat:
+    path: /data/mysql/ibdata1
+  register: mysql_db_stat
+
+- name: Initialize MySQL data directory on persistent storage if uninitialized
+  ansible.builtin.command:
+    cmd: mysqld --initialize-insecure --user=mysql --datadir=/data/mysql
+  when: not mysql_db_stat.stat.exists
+  changed_when: true
+
 - name: Ensure correct ownership and permissions on persistent MySQL data directory
   ansible.builtin.file:
     path: /data/mysql
     state: directory
     owner: mysql
     group: mysql
-    mode: '0750'
-
-- name: Check if MySQL system database is initialized on persistent storage
-  ansible.builtin.stat:
-    path: /data/mysql/mysql
-  register: mysql_system_db_stat
-
-- name: Initialize MySQL data directory on persistent storage if uninitialized
-  ansible.builtin.command:
-    cmd: mysqld --initialize-insecure --user=mysql --datadir=/data/mysql
-  when: not mysql_system_db_stat.stat.exists
-  changed_when: true
-
-- name: Ensure correct ownership again after initialization
-  ansible.builtin.file:
-    path: /data/mysql
-    state: directory
-    owner: mysql
-    group: mysql
+    recurse: true
     mode: '0750'
 
 - name: Ensure MySQL service is started and enabled
