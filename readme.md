@@ -13,10 +13,21 @@ If you want to check out the same with KVM:
 
 Learning kvm linux and ansible tutorial https://github.com/spawnmarvel/kvm-lab/blob/main/readme.md
 
-In this POC we use Azure so we can share a live demo.
+In this POC we use Azure so we can share a live demo from Azure simulating IT/OT environment.
+
+# Ansible on Azure
+
+Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
+
+https://learn.microsoft.com/en-us/azure/developer/ansible/
+
+
+![ms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ms.png)
+
 
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
+- [Ansible on Azure](#ansible-on-azure)
   - [Table of content](#table-of-content)
 - [IT Automation in OT](#it-automation-in-ot)
 - [Introduction](#introduction)
@@ -114,7 +125,7 @@ In this POC we use Azure so we can share a live demo.
       - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
-- [Windows project ansible-io-ot-lab-windows](#windows-project-ansible-io-ot-lab-windows)
+- [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 # IT Automation in OT
 
@@ -2373,7 +2384,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/
 
 
 
-# Windows project ansible-io-ot-lab-windows
+# Windows new project ansible-io-ot-lab-windows
 
 For windows navigate to that folder:
 
