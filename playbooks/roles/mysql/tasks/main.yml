@@ -78,6 +78,9 @@
     name: mysql
     state: started
     enabled: true
+  when: 
+    - mysql_db_stat.stat.exists
+    - not ansible_check_mode
   check_mode: false
 
 
