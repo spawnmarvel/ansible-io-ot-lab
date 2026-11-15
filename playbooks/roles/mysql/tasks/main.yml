@@ -1,5 +1,5 @@
-# Version: 1.9.4
-# Description: Fixed initialization sequence avoiding pre-creation conflicts for MySQL 8.4 LTS.
+# Version: 1.9.5
+# Description: Pre-creates /data/mysql with mysql ownership to satisfy mysqld permissions without directory creation conflicts.
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -17,14 +17,21 @@
     mode: '0750'
   check_mode: false
 
-- name: Ensure persistent MySQL data directory is absent if uninitialized
+- name: Ensure persistent MySQL data directory exists and is owned by mysql
   ansible.builtin.file:
     path: /data/mysql
-    state: absent
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: '0750'
+  check_mode: false
+
+- name: Clear any stray files inside persistent MySQL data directory if uninitialized
+  ansible.builtin.shell: |
+    find /data/mysql -mindepth 1 -delete
   when: not ansible_check_mode
-  changed_when: false
-  # Only remove if the system database files do not exist yet
-  # (checked via a stat task or skipped if already initialized)
+  changed_when: true
+  check_mode: false
 
 - name: Initialize MySQL data directory on persistent storage if uninitialized
   ansible.builtin.command:
