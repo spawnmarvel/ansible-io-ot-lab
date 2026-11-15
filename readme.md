@@ -36,7 +36,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
   - [The Bottom Line](#the-bottom-line)
 - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
-- [Unified Orchestration 🐸🐒🐘](#unified-orchestration-)
+- [Our scenario unified Orchestration 🐸🐒🐘](#our-scenario-unified-orchestration-)
 - [Ansible and Terraform in 60 seconds youtube](#ansible-and-terraform-in-60-seconds-youtube)
 - [You need to learn Ansible right now youtube](#you-need-to-learn-ansible-right-now-youtube)
 - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
@@ -256,7 +256,7 @@ https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high
 
 ---
 
-# Unified Orchestration 🐸🐒🐘
+# Our scenario unified Orchestration 🐸🐒🐘
 
 🚀 Domain Expertise: Each specialized team focuses on the technical areas they master best—whether configuring network switches and firewalls, managing Linux server deployments and patching, or orchestrating virtual machines and Kubernetes clusters.
 
