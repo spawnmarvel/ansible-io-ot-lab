@@ -74,7 +74,7 @@
         group: root
         mode: '0750'
 
-    - name: Ensure persistent mount using UUID in fstab for datadrive1
+    - name: Ensure persistent mount using UUID in fstab for /data
       ansible.builtin.mount:
         path: /data
         src: "UUID={{ data_disk_uuid }}"

@@ -2023,6 +2023,32 @@ Re-run the Playbook from the Control Node or Semaphore
 # check it
 ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_check.yml
 
+```
+
+log
+
+```console
+TASK [Display available block devices] ***************************************************************************************************************************************************
+Sunday 15 November 2026  17:36:52 +0000 (0:00:00.499)       0:00:02.568 *******
+ok: [mysql01] => {
+    "msg": [
+        "NAME     SIZE FSTYPE MOUNTPOINTS",
+        "sda       30G        ",
+        "├─sda1  28.9G ext4   /",
+        "├─sda13 1023M ext4   /boot",
+        "├─sda14    4M        ",
+        "└─sda15  106M vfat   /boot/efi",
+        "sdb        8G        ",
+        "└─sdb1     8G ext4   /mnt",
+        "sdc       16G        ",
+        "└─sdc1    16G ext4   "
+    ]
+}
+```
+
+Mount sdc
+
+```bash
 # mount and run it
 ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
 ```
