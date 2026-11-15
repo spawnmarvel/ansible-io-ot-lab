@@ -106,6 +106,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [1.5 Restart mysql01 and verify datadisk](#15-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
+- [Pause and inspect all playbooks with comments](#pause-and-inspect-all-playbooks-with-comments)
 - [Introduction to Enterprise Ansible Scalability](#introduction-to-enterprise-ansible-scalability)
   - [1. Ansible Roles (Modular Structure)](#1-ansible-roles-modular-structure)
   - [2. Jinja2 Templates (.j2)](#2-jinja2-templates-j2)
@@ -1994,6 +1995,15 @@ Settings in Ui
 
 ![sema_ok](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/sema_ok.png)
 
+
+# Pause and inspect all playbooks with comments
+
+At this point we have done many things, lest.
+
+1. Comment all our playbooks
+2. Understand all functions we have used
+
+We update the quickguides/ansible_quickguide for this
 
 # Introduction to Enterprise Ansible Scalability
 
