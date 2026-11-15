@@ -346,6 +346,8 @@ The given command will be executed on all selected nodes.
 
 * In the web docs: Open the page for ansible.builtin.command (or whichever module you used) and scroll to the Return Values table at the bottom.
 
+* https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html
+
 ![return](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/return.png)
 
 #### 2. 
