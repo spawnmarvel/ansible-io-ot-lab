@@ -67,6 +67,7 @@
   ansible.builtin.blockinfile:
     path: /etc/apparmor.d/usr.sbin.mysqld
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR /DATA/MYSQL"
+    insertbefore: '^}'
     block: |
       /data/mysql/ r,
       /data/mysql/** rwk,
