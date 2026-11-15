@@ -42,5 +42,18 @@
         force: false
 
     # =========================================================================
+    # Interactive Confirmation Prompt before Step 3
+    # =========================================================================
+    - name: Confirm before proceeding to Step 3 (UUID extraction and mounting)
+      ansible.builtin.pause:
+        prompt: "Ready to proceed with Step 3: UUID extraction and mounting at /mnt/datadrive1. Enter 'yes' to continue or anything else to abort."
+      register: confirmation_input
+
+    - name: Abort playbook if user declined confirmation
+      ansible.builtin.fail:
+        msg: "Playbook execution aborted by user at Step 3 confirmation."
+      when: confirmation_input.user_input | lower != 'yes'
+
+    # =========================================================================
     # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1 .
     # =========================================================================
