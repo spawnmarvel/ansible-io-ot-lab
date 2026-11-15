@@ -3,7 +3,7 @@
 # Description: Master playbook to deploy the MySQL role across database servers.
 
 - name: Deploy Secure MySQL Database Server
-  hosts: db_servers
+  hosts: db_servers_mysql
   become: true
   roles:
     - mysql

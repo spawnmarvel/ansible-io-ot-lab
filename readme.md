@@ -2653,6 +2653,8 @@ To allow remote hosts (such as zabbix01 at 10.68.68.5) to connect to your MySQL 
 
 ```bash
 ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
+
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml
 ```
 log
 
