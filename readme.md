@@ -260,7 +260,11 @@ https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high
 
 🚀 Domain Expertise: 
 
-Each specialized team focuses on the technical areas they master best—whether configuring network switches and firewalls, managing Linux server deployments and patching, or orchestrating virtual machines and Kubernetes clusters.
+Each specialized team focuses on the technical areas they master best whether:
+
+* Configuring network switches and firewalls
+* Managing Linux server deployments and patching
+* Orchestrating virtual machines.
 
 🌀 Unified Orchestration: 
 
