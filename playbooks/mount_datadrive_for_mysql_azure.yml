@@ -70,8 +70,8 @@
       ansible.builtin.file:
         path: /mnt/datadrive1
         state: directory
-        owner: mysql
-        group: mysql
+        owner: root
+        group: root
         mode: '0750'
 
     - name: Ensure persistent mount using UUID in fstab for datadrive1
