@@ -379,6 +379,8 @@ https://galaxy.ansible.com/ui/
 
 Now it gets a bit technical, so ready for the ride or just want to see the demo?
 
+![ride](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ride.png)
+
 ## Firewal and practical information
 
 ## Whitelisted repo for ansiblectr01
