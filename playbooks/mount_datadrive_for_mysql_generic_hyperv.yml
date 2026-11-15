@@ -42,5 +42,5 @@
         force: false
 
     # =========================================================================
-    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1
+    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1 .
     # =========================================================================
