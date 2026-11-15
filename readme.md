@@ -119,7 +119,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [Playbook install\_mysql.yml with Roles --check or limit or hosts:groups](#playbook-install_mysqlyml-with-roles---check-or-limit-or-hostsgroups)
     - [1 Role Directory Structure](#1-role-directory-structure)
     - [playbooks/deploy\_mysql\_check.yml](#playbooksdeploy_mysql_checkyml)
-    - [playbooks/deploy\_mysql.yml --limit mysql01](#playbooksdeploy_mysqlyml---limit-mysql01)
+    - [playbooks/deploy\_mysql.yml --limit mysql01 TODO](#playbooksdeploy_mysqlyml---limit-mysql01-todo)
       - [Verify mysql as root and zabbix via ssh on localhost](#verify-mysql-as-root-and-zabbix-via-ssh-on-localhost)
     - [playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
   - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
@@ -2648,7 +2648,7 @@ To allow remote hosts (such as zabbix01 at 10.68.68.5) to connect to your MySQL 
 
 2. User Privileges: MySQL user accounts must be granted access from remote hosts (either a specific IP like 10.68.68.5, a subnet like 10.68.68.%, or globally via %).
 
-### playbooks/deploy_mysql.yml --limit mysql01
+### playbooks/deploy_mysql.yml --limit mysql01 TODO
 
 ```bash
 ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
