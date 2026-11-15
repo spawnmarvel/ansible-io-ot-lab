@@ -24,6 +24,18 @@
   - [Semaphore UI](#semaphore-ui)
   - [10 habits of great Ansible users](#10-habits-of-great-ansible-users)
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
+- [Quickguide for IT OT LAB Basic](#quickguide-for-it-ot-lab-basic)
+  - [ping\_hosts.yml](#ping_hostsyml)
+  - [get\_linux\_version.yml](#get_linux_versionyml)
+  - [configure\_apt\_proxy.yml](#configure_apt_proxyyml)
+  - [verify\_isolation.yml](#verify_isolationyml)
+  - [update\_apt.yml](#update_aptyml)
+  - [mount\_datadrive\_check.yml](#mount_datadrive_checkyml)
+  - [mount\_datadrive\_for\_mysql\_azure.yml](#mount_datadrive_for_mysql_azureyml)
+  - [mount\_datadrive\_for\_mysql\_generic\_hyperv.yml](#mount_datadrive_for_mysql_generic_hypervyml)
+- [Quickguide for IT OT LAB Advanced](#quickguide-for-it-ot-lab-advanced)
+  - [deploy\_mysql\_check.yml](#deploy_mysql_checkyml)
+  - [deploy\_mysql.yml](#deploy_mysqlyml)
 
 ## azure-ansibel quickguide back in 2023
 
@@ -177,11 +189,6 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --syntax-c
  ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --limit mysql01 --check -vvv
 ```
 
-
-
-
-
-
 ## Semaphore UI
 
 Semaphore UI gives your team one self-hosted place to run, share, schedule, secure, and audit operational workflows.
@@ -208,3 +215,29 @@ Whether you're writing playbooks, maintaining inventory, or executing tasks, her
 
 
 https://www.redhat.com/en/blog/10-great-ansible-practices
+
+
+# Quickguide for IT OT LAB Basic
+
+## ping_hosts.yml
+
+## get_linux_version.yml
+
+## configure_apt_proxy.yml
+
+## verify_isolation.yml
+
+## update_apt.yml
+
+## mount_datadrive_check.yml
+
+## mount_datadrive_for_mysql_azure.yml
+
+## mount_datadrive_for_mysql_generic_hyperv.yml
+
+# Quickguide for IT OT LAB Advanced
+
+## deploy_mysql_check.yml
+
+## deploy_mysql.yml
+
