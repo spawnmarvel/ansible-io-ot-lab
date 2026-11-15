@@ -128,7 +128,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
       - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
-  - [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
+- [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 
@@ -3096,7 +3096,7 @@ In the Ansible Semaphore UI, "Login with password" is the correct key type to us
 8. playbooks/login_mysql_user_zabbix.yml
 
 
-## Playbook deploy_zabbix.yml --check or limit or hosts:groups
+# Playbook deploy_zabbix.yml --check or limit or hosts:groups
 
 
 With mysql01 fully deployed, hardened, and pre-seeded with the Zabbix database and remote user privileges, your database backend is completely ready for the Zabbix server and proxy nodes.
