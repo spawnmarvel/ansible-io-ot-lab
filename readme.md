@@ -2099,6 +2099,18 @@ sdb       8:16   0   30G  0 disk
 └─sdb15   8:31   0  106M  0 part /boot/efi
 sdc       8:32   0    8G  0 disk
 └─sdc1    8:33   0    8G  0 part /mnt
+
+# check it
+ cat /etc/fstab
+# CLOUD_IMG: This file was created/modified by the Cloud Image build process
+UUID=e35d8284-eb05-4a00-98b3-487a131894eb       /        ext4   discard,commit=30,errors=remount-ro     0 1
+LABEL=BOOT      /boot   ext4    defaults,discard        0 2
+UUID=5353-05B6  /boot/efi       vfat    umask=0077      0 1
+# UUID=c7facdcd-e40b-4f7b-af81-18f8487eb6e1 /mnt/datadrive1 ext4 defaults,nofail,noatime 0 0
+/dev/disk/cloud/azure_resource-part1    /mnt    auto    defaults,nofail,x-systemd.after=cloud-init-network.service,_netdev,comment=cloudconfig  0       2
+# UUID=0cb1edea-689d-4f8d-a669-50771ea9c493 /data ext4 defaults,nofail,noatime 0 0
+# UUID=3860a288-2e11-421e-8c98-21af4c26b23e /data ext4 defaults,nofail,noatime 0 0
+UUID=0cb1edea-689d-4f8d-a669-50771ea9c493 /data ext4 defaults,nofail,noatime 0 0
 ```
 
 
