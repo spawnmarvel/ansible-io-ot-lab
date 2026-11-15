@@ -99,7 +99,6 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
 - [1. Manually attach a data disk to a Linux VM UUID](#1-manually-attach-a-data-disk-to-a-linux-vm-uuid)
 - [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml (risky)](#11-playbook-linux-mount_datadrive_for_mysqlyml-risky)
-    - [1. A disk is avaliable and we must find it](#1-a-disk-is-avaliable-and-we-must-find-it)
   - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -1778,7 +1777,12 @@ We need to dynamically find the target disk based on size and mount it to /mnt/d
 
 Lets do this in steps
 
-### 1. A disk is avaliable and we must find it
+1. A disk is avaliable and we must find it
+2. The disk we shall format must never be OS disk
+3. It must hardcoded with UUID in fstab so it survies boot
+4. The name will be datadrive1
+5. Then do a boot to verify
+
 
 ```bash
 azureuser@ansiblectr01:~/io_ot_lab
@@ -1791,10 +1795,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --check NA
 
 ```
 
-2. The disk we shall format must never be OS disk
-3. It must hardcoded with UUID in fstab so it survies boot
-4. The name will be datadrive1
-5. Then do a boot to verify
+
 
 
 
