@@ -98,7 +98,8 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
 - [1. Manually attach a data disk to a Linux VM UUID](#1-manually-attach-a-data-disk-to-a-linux-vm-uuid)
-- [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml (risky)](#11-playbook-linux-mount_datadrive_for_mysqlyml-risky)
+- [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml (risky Azure spesific)](#11-playbook-linux-mount_datadrive_for_mysqlyml-risky-azure-spesific)
+  - [1.2 Jinja2 expression is extremely close to a generic template](#12-jinja2-expression-is-extremely-close-to-a-generic-template)
   - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -1760,7 +1761,7 @@ This step is very risky to automate, we muste make sure that.
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
 
-# 1.1 Playbook linux mount_datadrive_for_mysql.yml (risky)
+# 1.1 Playbook linux mount_datadrive_for_mysql.yml (risky Azure spesific)
 
 
 
@@ -1795,11 +1796,25 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --check NA
 
 ```
 
-
-
-
-
 The error occurred because you ran the playbook with the --check (dry run) flag. When running in check mode, Ansible simulates the partitioning task (parted), but it does not actually create /dev/sda1 on the system.
+
+
+## 1.2 Jinja2 expression is extremely close to a generic template
+
+Yes, the loop-free Jinja2 expression is extremely close to a generic template, but with one hardcoded detail—reject('in', ['sda', 'sdb'])—it is currently Azure-specific rather than truly hypervisor-agnostic.
+
+Here is an analysis of how it behaves and how to make it a true generic template that works across KVM, VMware, AWS, and Azure.
+
+
+Here is an analysis of how it behaves and how to make it a true generic template that works across KVM, VMware, AWS, and Azure.
+
+The Catch with Cross-Platform Reuse
+
+* Azure Naming: Uses sda for the OS root disk and sdb for the ephemeral temp storage drive, leaving sdc as your secondary data drive. Hardcoding ['sda', 'sdb'] works perfectly here.
+* KVM / Proxmox / OpenStack Naming: Often uses VirtIO disks (vda, vdb) where vda is the OS root, or NVMe naming (nvme0n1). If you run an Azure-tuned template on a KVM host where vda is root, hardcoding sda/sdb means the filter won't recognize vda as the root device, risking a critical mis-selection.
+
+
+
 
 Run without check mode (Live Execution): Since partition creation and formatting are idempotent or intended to apply changes, run the playbook normally without --check.
 
