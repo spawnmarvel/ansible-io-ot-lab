@@ -1,23 +1,21 @@
-# Version: 2.0.0
-# Description: Production-grade Ansible task file using safe database migration from /var/lib/mysql to /data/mysql.
+# Version: 2.0.1
+# Description: Fixed migration check using /var/lib/mysql/mysql existence to trigger proper rsync migration.
 
-- name: Install MySQL server package
-  ansible.builtin.apt:
-    name:
-      - mysql-server
-    state: present
-    update_cache: true
+- name: Check if default MySQL system database exists in package path
+  ansible.builtin.stat:
+    path: /var/lib/mysql/mysql
+  register: default_mysql_stat
 
 - name: Check if MySQL system database is already initialized on persistent storage
   ansible.builtin.stat:
     path: /data/mysql/mysql
-  register: mysql_db_stat
+  register: persistent_mysql_stat
 
 - name: Stop MySQL service before migrating data directory
   ansible.builtin.service:
     name: mysql
     state: stopped
-  when: not mysql_db_stat.stat.exists
+  when: not persistent_mysql_stat.stat.exists and default_mysql_stat.stat.exists
   check_mode: false
 
 - name: Ensure parent /data directory exists with correct permissions
@@ -27,7 +25,14 @@
     owner: root
     group: root
     mode: '0755'
-  when: not mysql_db_stat.stat.exists
+  when: not persistent_mysql_stat.stat.exists
+  check_mode: false
+
+- name: Ensure persistent MySQL target directory is absent before migration
+  ansible.builtin.file:
+    path: /data/mysql
+    state: absent
+  when: not persistent_mysql_stat.stat.exists
   check_mode: false
 
 - name: Create persistent MySQL target directory
@@ -37,13 +42,13 @@
     owner: mysql
     group: mysql
     mode: '0750'
-  when: not mysql_db_stat.stat.exists
+  when: not persistent_mysql_stat.stat.exists
   check_mode: false
 
 - name: Migrate default MySQL data directory to persistent storage using rsync
   ansible.builtin.shell: |
     rsync -av /var/lib/mysql/ /data/mysql/
-  when: not mysql_db_stat.stat.exists
+  when: not persistent_mysql_stat.stat.exists and default_mysql_stat.stat.exists
   changed_when: true
   check_mode: false
 
