@@ -21,15 +21,13 @@
       when: not azure_lun_check.stat.exists
 
     - name: Resolve real block device path from Azure LUN symlink
-      ansible.builtin.file:
-        path: /dev/disk/azure/scsi1/lun0
-        state: file
+      ansible.builtin.command: "readlink -f /dev/disk/azure/scsi1/lun0"
       register: lun_resolved
       changed_when: false
 
     - name: Extract kernel device name from resolved symlink
       ansible.builtin.set_fact:
-        resolved_data_device: "{{ lun_resolved.target | basename }}"
+        resolved_data_device: "{{ lun_resolved.stdout | basename }}"
 
     - name: Display resolved data disk
       ansible.builtin.debug:
