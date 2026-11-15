@@ -34,11 +34,21 @@
   when: not mysql_db_stat.stat.exists
   check_mode: false
 
-- name: Ensure persistent MySQL data directory is absent if uninitialized to prevent errno 17
+- name: Ensure persistent MySQL data directory exists and is empty if uninitialized
   ansible.builtin.file:
     path: /data/mysql
-    state: absent
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: '0750'
   when: not mysql_db_stat.stat.exists
+  check_mode: false
+
+- name: Clear any stray files inside persistent MySQL data directory if uninitialized
+  ansible.builtin.shell: |
+    find /data/mysql -mindepth 1 -delete
+  when: not mysql_db_stat.stat.exists
+  changed_when: true
   check_mode: false
 
 - name: Initialize MySQL data directory on persistent storage if uninitialized
