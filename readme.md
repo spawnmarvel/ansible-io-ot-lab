@@ -2754,6 +2754,10 @@ Now all playbooks can use that password and it works.
 # Test deploy and check that is works, it does.
 ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01 --check
 
+# Run deploy
+
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
+
 # Now back to verify user
 
 ansible-playbook -i inventory/hosts.ini playbooks/login_mysql_user_zabbix.yml --limit mysql01
