@@ -1768,9 +1768,9 @@ Take a snapshot of the OS disk.
 
 ![snap_vm](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_disk.png)
 
-Snap done.
+Snap done, we have it at the bottom.
 
-![snap_done](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_done.png)
+![snap_done](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_done1.png)
 
 
 We need to dynamically find the target disk based on size and mount it to /var/lib/mysql
