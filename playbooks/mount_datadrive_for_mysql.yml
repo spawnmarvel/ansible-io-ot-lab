@@ -1,20 +1,26 @@
 # Description: Dynamic data disk discovery (size-agnostic), partition, 
 # ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
 
-# Version: 3.1.0
+# Version: 3.1.1
 # Author: aspen
-# Description: Step 1 - Dynamically discover the unpartitioned secondary data disk while safely excluding the OS root device and temporary storage.
+# Description: Step 1 - Debug and dynamically discover the unpartitioned secondary data disk.
 
 - name: Configure data disk storage
   hosts: mysql01
   become: true
   gather_facts: true
   tasks:
+    - name: Debug available ansible facts keys and root device
+      ansible.builtin.debug:
+        msg:
+          - "Root device name: {{ ansible_facts.get('root_device_name', 'Not found at top-level') }}"
+          - "Available devices: {{ ansible_facts.devices.keys() | list }}"
+
     - name: Discover unpartitioned secondary data disk dynamically
       ansible.builtin.set_fact:
         resolved_data_device: "{{ item.key }}"
       when:
-        - item.key != ansible_facts.root_device_name | basename
+        - item.key != ansible_facts.get('root_device_name', '') | basename
         - (item.key.startswith('sd') or item.key.startswith('vd') or item.key.startswith('nvme'))
         - item.value.partitions | length == 0
       loop: "{{ ansible_facts.devices | dict2items }}"
