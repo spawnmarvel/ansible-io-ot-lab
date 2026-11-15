@@ -5,14 +5,18 @@
 
 - name: Configure Internal APT Caching Proxy
   hosts: ot_nodes:idmz_nodes
+  # become is set to true to allow the playbook to execute tasks with elevated privileges, 
+  # which is necessary for modifying system configuration files like the APT proxy settings.
   become: true
   tasks:
     - name: Set APT Proxy configuration file
       ansible.builtin.copy:
+        # Create or update the APT proxy configuration file with the specified content
         dest: /etc/apt/apt.conf.d/01proxy
         content: |
           Acquire::http::Proxy "http://10.68.68.4:3142/ubuntu/";
           Acquire::https::Proxy "http://10.68.68.4:3142/ubuntu/";
         owner: root
         group: root
+        # Set the file permissions to read and write for the owner, and read-only for the group and others
         mode: '0644'

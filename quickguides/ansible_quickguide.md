@@ -285,15 +285,64 @@ Templating (Jinja2)
 
 ## configure_apt_proxy.yml
 
+Here we used:
+
+* ansible.builtin.copy
+
+```yml
+---
+# Version: 1.0.3
+# Author: aspen
+# Description: Configures APT HTTP and HTTPS proxy settings for internal caching across nodes.
+
+- name: Configure Internal APT Caching Proxy
+  hosts: ot_nodes:idmz_nodes
+  # become is set to true to allow the playbook to execute tasks with elevated privileges, 
+  # which is necessary for modifying system configuration files like the APT proxy settings.
+  become: true
+  tasks:
+    - name: Set APT Proxy configuration file
+      ansible.builtin.copy:
+        # Create or update the APT proxy configuration file with the specified content
+        dest: /etc/apt/apt.conf.d/01proxy
+        content: |
+          Acquire::http::Proxy "http://10.68.68.4:3142/ubuntu/";
+          Acquire::https::Proxy "http://10.68.68.4:3142/ubuntu/";
+        owner: root
+        group: root
+        # Set the file permissions to read and write for the owner, and read-only for the group and others
+        mode: '0644'
+```
+
 ## verify_firewall_isolation.yml
+
+Here we used:
+
+We also used some new ansible keyword:
 
 ## update_apt.yml
 
+Here we used:
+
+We also used some new ansible keyword:
+
 ## mount_datadrive_check.yml
+
+Here we used:
+
+We also used some new ansible keyword:
 
 ## mount_datadrive_for_mysql_azure.yml
 
+Here we used:
+
+We also used some new ansible keyword:
+
 ## mount_datadrive_for_mysql_generic_hyperv.yml
+
+Here we used:
+
+We also used some new ansible keyword:
 
 # Quickguide for IT OT LAB Advanced 102
 
