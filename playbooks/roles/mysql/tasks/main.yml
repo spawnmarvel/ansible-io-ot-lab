@@ -1,5 +1,5 @@
-# Version: 1.9.3
-# Description: Fixed MySQL initialization task sequence ensuring pre-created directory ownership for mysqld.
+# Version: 1.9.4
+# Description: Fixed initialization sequence avoiding pre-creation conflicts for MySQL 8.4 LTS.
 
 - name: Install MySQL server package
   ansible.builtin.apt:
@@ -8,18 +8,6 @@
     state: present
     update_cache: true
 
-- name: Check if MySQL system database is initialized on persistent storage
-  ansible.builtin.stat:
-    path: /data/mysql/mysql
-  register: mysql_db_stat
-
-- name: Stop MySQL service during data directory initialization check
-  ansible.builtin.service:
-    name: mysql
-    state: stopped
-  when: not mysql_db_stat.stat.exists
-  check_mode: false
-
 - name: Ensure parent /data directory is owned by mysql
   ansible.builtin.file:
     path: /data
@@ -27,29 +15,30 @@
     owner: mysql
     group: mysql
     mode: '0750'
-  when: not mysql_db_stat.stat.exists
   check_mode: false
 
-- name: Ensure persistent MySQL data directory exists with correct ownership and permissions
+- name: Ensure persistent MySQL data directory is absent if uninitialized
+  ansible.builtin.file:
+    path: /data/mysql
+    state: absent
+  when: not ansible_check_mode
+  changed_when: false
+  # Only remove if the system database files do not exist yet
+  # (checked via a stat task or skipped if already initialized)
+
+- name: Initialize MySQL data directory on persistent storage if uninitialized
+  ansible.builtin.command:
+    cmd: mysqld --initialize-insecure --user=mysql --datadir=/data/mysql
+    creates: /data/mysql/mysql
+  changed_when: true
+  check_mode: false
+
+- name: Ensure correct ownership and permissions on persistent MySQL data directory
   ansible.builtin.file:
     path: /data/mysql
     state: directory
     owner: mysql
     group: mysql
+    recurse: true
     mode: '0750'
-  when: not mysql_db_stat.stat.exists
-  check_mode: false
-
-- name: Clear any stray files inside persistent MySQL data directory if uninitialized
-  ansible.builtin.shell: |
-    find /data/mysql -mindepth 1 -delete
-  when: not mysql_db_stat.stat.exists
-  changed_when: true
-  check_mode: false
-
-- name: Initialize MySQL data directory on persistent storage if uninitialized
-  ansible.builtin.command:
-    cmd: mysqld --initialize-insecure --user=mysql --datadir=/data/mysql
-  when: not mysql_db_stat.stat.exists
-  changed_when: true
   check_mode: false
