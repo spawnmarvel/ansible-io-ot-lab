@@ -337,6 +337,9 @@ Every module's documentation ends with a Return Values section listing every ava
 ```bash
 ansible-doc ansible.builtin.command
 
+The ansible.builtin.command module takes the command name followed by a list of space-delimited arguments.
+The given command will be executed on all selected nodes.
+
 # and scroll down to RETURN VALUES:.
 ```
 
