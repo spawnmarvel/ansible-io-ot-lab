@@ -1,5 +1,5 @@
-# Version: 3.6.0
-# Description: Idempotent data disk discovery (loop-free selection), partitioning, ext4 formatting, UUID extraction, and persistent fstab mounting at /mnt/datadrive1.
+# Version: 3.7.2
+# Description: Deterministic Azure LUN-based data disk discovery, partitioning, ext4 formatting, UUID extraction, and persistent fstab mounting at /data.
 
 - name: Configure data disk storage at /data
   hosts: mysql01
@@ -8,22 +8,30 @@
   tasks:
 
     # =========================================================================
-    # Step 1: Dynamic Secondary Disk Discovery & OS Protection (Loop-Free)
+    # Step 1: Deterministic Azure LUN Discovery (LUN 0 Data Disk)
     # =========================================================================
-    - name: Discover secondary data disk dynamically
-      ansible.builtin.set_fact:
-        # Value Source: Filters the system device keys, matches standard disk prefixes, 
-        # and explicitly rejects 'sda' (OS root) and 'sdb' (Azure temp drive) to pick 'sdc'.
-        resolved_data_device: "{{ (ansible_facts.devices.keys() | select('match', '^(sd|vd|nvme)[a-z]+$') | reject('in', ['sda', 'sdb'])) | first }}"
+    - name: Verify Azure LUN 0 symlink exists
+      ansible.builtin.stat:
+        path: /dev/disk/azure/scsi1/lun0
+      register: azure_lun_check
 
-    - name: Fail if secondary data disk could not be dynamically resolved
+    - name: Fail if Azure LUN 0 data disk is missing
       ansible.builtin.fail:
-        msg: "Critical: No valid secondary data disk could be identified safely."
-      when: resolved_data_device is not defined
+        msg: "Critical: Azure data disk at LUN 0 (/dev/disk/azure/scsi1/lun0) not found."
+      when: not azure_lun_check.stat.exists
+
+    - name: Resolve real block device path from Azure LUN symlink
+      ansible.builtin.command: "readlink -f /dev/disk/azure/scsi1/lun0"
+      register: lun_resolved
+      changed_when: false
+
+    - name: Extract kernel device name from resolved symlink
+      ansible.builtin.set_fact:
+        resolved_data_device: "{{ lun_resolved.stdout | basename }}"
 
     - name: Display resolved data disk
       ansible.builtin.debug:
-        msg: "Successfully resolved secondary data disk: /dev/{{ resolved_data_device }}"
+        msg: "Successfully resolved secondary data disk from Azure LUN 0: /dev/{{ resolved_data_device }}"
 
     # =========================================================================
     # Step 2: Partitioning and ext4 Formatting
@@ -42,20 +50,23 @@
         force: false
 
     # =========================================================================
-    # Interactive Confirmation Prompt before Step 3
+    # Interactive Confirmation Prompt before Step 3 (CLI vs Semaphore Survey)
     # =========================================================================
-    # - name: Confirm before proceeding to Step 3 (UUID extraction and mounting)
-    #  ansible.builtin.pause:
-    #    prompt: "Ready to proceed with Step 3: UUID extraction and mounting at /mnt/datadrive1. Enter 'yes' to continue or anything else to abort."
-    #  register: confirmation_input
+    - name: Confirm before proceeding to Step 3 (UUID extraction and mounting)
+      ansible.builtin.pause:
+        prompt: "Ready to proceed with Step 3: UUID extraction and mounting at /data. Enter 'yes' to continue or anything else to abort."
+      register: confirmation_input
+      when: proceed_to_step3 is not defined or proceed_to_step3 | bool
 
-    #- name: Abort playbook if user declined confirmation
-    #  ansible.builtin.fail:
-    #    msg: "Playbook execution aborted by user at Step 3 confirmation."
-    #  when: confirmation_input.user_input | lower != 'yes'
+    - name: Abort playbook if user declined confirmation
+      ansible.builtin.fail:
+        msg: "Playbook execution aborted by user at Step 3 confirmation."
+      when: 
+        - confirmation_input.user_input is defined
+        - confirmation_input.user_input | lower != 'yes'
 
     # =========================================================================
-    # Step 3: UUID Extraction & Persistent Mounting at /mnt/datadrive1
+    # Step 3: UUID Extraction & Persistent Mounting at /data
     # =========================================================================
     - name: Get UUID of the data disk partition
       ansible.builtin.command: "blkid -s UUID -o value /dev/{{ resolved_data_device }}1"
@@ -101,5 +112,3 @@
     - name: Display mount verification result
       ansible.builtin.debug:
         msg: "{{ mount_check_output.stdout }}"
-
-   
