@@ -98,7 +98,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
 - [1. Manually attach a data disk to a Linux VM UUID](#1-manually-attach-a-data-disk-to-a-linux-vm-uuid)
-  - [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT](#11-playbook-linux-mount_datadrive_for_mysqlyml-this-must-be-done-again--make-new-vm-take-snapshot)
+  - [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml (risky)](#11-playbook-linux-mount_datadrive_for_mysqlyml-risky)
     - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -1759,7 +1759,7 @@ This step is very risky to automate, we muste make sure that.
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
 
-## 1.1 Playbook linux mount_datadrive_for_mysql.yml THIS MUST BE DONE AGAIN / MAKE NEW VM, TAKE SNAPSHOT
+## 1.1 Playbook linux mount_datadrive_for_mysql.yml (risky)
 
 
 
