@@ -16,26 +16,12 @@ Learning kvm linux and ansible tutorial https://github.com/spawnmarvel/kvm-lab/b
 
 In this POC we use Azure so we can share a live demo from Azure simulating IT/OT environment.
 
-# Ansible on Azure Microsoft
-
-Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
-
-https://learn.microsoft.com/en-us/azure/developer/ansible/
-
-
-![ms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ms.png)
-
-
-# Ansible explained in 60 seconds youtube
-
-https://www.youtube.com/shorts/qygKrliJbRg
-
 
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
+  - [Table of content](#table-of-content)
 - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
 - [Ansible explained in 60 seconds youtube](#ansible-explained-in-60-seconds-youtube)
-  - [Table of content](#table-of-content)
 - [IT Automation in OT](#it-automation-in-ot)
 - [Introduction](#introduction)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
@@ -134,6 +120,21 @@ https://www.youtube.com/shorts/qygKrliJbRg
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
+
+
+# Ansible on Azure Microsoft
+
+Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
+
+https://learn.microsoft.com/en-us/azure/developer/ansible/
+
+
+![ms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ms.png)
+
+
+# Ansible explained in 60 seconds youtube
+
+https://www.youtube.com/shorts/qygKrliJbRg
 
 # IT Automation in OT
 
