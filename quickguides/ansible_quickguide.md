@@ -25,7 +25,7 @@
   - [10 habits of great Ansible users](#10-habits-of-great-ansible-users)
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
 - [Playbook Keywords](#playbook-keywords)
-- [Quickguide for IT OT LAB Basic](#quickguide-for-it-ot-lab-basic)
+- [Quickguide for IT OT LAB Basic 101](#quickguide-for-it-ot-lab-basic-101)
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
   - [configure\_apt\_proxy.yml](#configure_apt_proxyyml)
@@ -37,6 +37,7 @@
 - [Quickguide for IT OT LAB Advanced](#quickguide-for-it-ot-lab-advanced)
   - [deploy\_mysql\_check.yml](#deploy_mysql_checkyml)
   - [deploy\_mysql.yml](#deploy_mysqlyml)
+- [Quickguide for IT OT LAB Advanced 102](#quickguide-for-it-ot-lab-advanced-102)
 
 ## azure-ansibel quickguide back in 2023
 
@@ -224,7 +225,7 @@ These are the keywords available on common playbook objects. Keywords are one of
 
 https://docs.ansible.com/projects/ansible/latest/reference_appendices/playbooks_keywords.html
 
-# Quickguide for IT OT LAB Basic
+# Quickguide for IT OT LAB Basic 101
 
 ## ping_hosts.yml
 
@@ -299,3 +300,4 @@ Templating (Jinja2)
 
 ## deploy_mysql.yml
 
+# Quickguide for IT OT LAB Advanced 102
