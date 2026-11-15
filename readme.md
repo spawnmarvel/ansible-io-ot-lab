@@ -1,6 +1,6 @@
 # Ansible stack in Azure Proof of Concept (PoC) 
 
-Do the same as with KVM, Kernel Virtual Machine for repetions and demo online.
+Here we ar doing Do the same as we did with KVM, Kernel Virtual Machine for repetions and demo online.
 It does not matter what hypervisor we run, the concept is the same.
 
 
@@ -43,15 +43,16 @@ https://learn.microsoft.com/en-us/azure/developer/ansible/
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
   - [The Bottom Line](#the-bottom-line)
   - [Unified Orchestration 🐸🐒🐘](#unified-orchestration-)
-  - [You need to learn Ansible right now.](#you-need-to-learn-ansible-right-now)
-      - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
-      - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
-      - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
-      - [Red Hat Ansible Automation Platform Overview:](#red-hat-ansible-automation-platform-overview)
-      - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
-      - [Ansible Network Examples](#ansible-network-examples)
+  - [Ansible and Terraform in 60 seconds youtube](#ansible-and-terraform-in-60-seconds-youtube)
+  - [You need to learn Ansible right now youtube](#you-need-to-learn-ansible-right-now-youtube)
+    - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
+    - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
+    - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
+    - [Red Hat Ansible Automation Platform Overview:](#red-hat-ansible-automation-platform-overview)
+    - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
+    - [Ansible Network Examples](#ansible-network-examples)
       - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
-      - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
+    - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
 - [Back to scenario](#back-to-scenario)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
@@ -246,46 +247,49 @@ If you have a skilled technical team willing to manage your own setup, you never
 
 ![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
+## Ansible and Terraform in 60 seconds youtube
 
-## You need to learn Ansible right now.
+https://www.youtube.com/shorts/q2ZfgKPvp2E
+
+## You need to learn Ansible right now youtube
 
 
 https://www.youtube.com/watch?v=5hycyr-8EKs
 
 
-#### Official Ansible Documentation Portal
+### Official Ansible Documentation Portal
 
 The primary hub for getting started, understanding core concepts (inventories, playbooks, modules), and managing managed nodes.
 
 https://docs.ansible.com/
 
 
-#### Ansible provides open-source automation that reduces complexity and runs everywhere.
+### Ansible provides open-source automation that reduces complexity and runs everywhere.
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
-#### Introduction to Ansible Guide: Ansible Introduction & Use Cases
+### Introduction to Ansible Guide: Ansible Introduction & Use Cases
 
 Covers the foundational design principles (agentless architecture, idempotency, and supported workflows).
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
 
-#### Red Hat Ansible Automation Platform Overview:
+### Red Hat Ansible Automation Platform Overview:
 
 
 Details enterprise-grade execution, multi-vendor network automation, cloud provisioning, and orchestration features.
 
 https://www.redhat.com/en/technologies/management/ansible
 
-#### This module is able to configure a FortiGate or FortiOS (FOS) device
+### This module is able to configure a FortiGate or FortiOS (FOS) device
 
 This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the user to set and modify system feature and interface category. Examples include all parameters and values need to be adjusted to datasources before usage. Tested with FOS v6.0.0
 
 https://docs.ansible.com/projects/ansible/latest/collections/fortinet/fortios/fortios_system_interface_module.html
 
 
-#### Ansible Network Examples
+### Ansible Network Examples
 
 This document describes some examples of using Ansible to manage your network infrastructure.
 
@@ -314,7 +318,7 @@ Major Supported Switch Platforms
 https://docs.ansible.com/projects/ansible/latest/collections/index.html
 
 
-#### Ansible can configure, provision, and manage several major hypervisors and virtualization platforms
+### Ansible can configure, provision, and manage several major hypervisors and virtualization platforms
 
 Ansible can configure, provision, and manage several major hypervisors and virtualization platforms using official or community-supported Ansible collections.
 
