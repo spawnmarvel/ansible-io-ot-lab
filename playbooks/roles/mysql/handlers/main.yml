@@ -1,6 +1,11 @@
 ---
-# Version: 1.0.0
-# Description: Handlers for restarting and enabling the MySQL service.
+# Version: 1.1.0
+# Description: Handlers for MySQL and AppArmor services.
+
+- name: Reload AppArmor service
+  ansible.builtin.service:
+    name: apparmor
+    state: restarted
 
 - name: Restart MySQL
   ansible.builtin.service:
