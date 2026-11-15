@@ -5,7 +5,7 @@
 # Description: Step 1 - Discover secondary data disk dynamically while strictly excluding the OS root device.
 
 - name: Configure data disk storage
-  hosts: db_hosts_mysql
+  hosts: db_servers_mysql
   become: true
   gather_facts: true
   tasks:
