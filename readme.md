@@ -87,7 +87,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
     - [Add ssh keys for new hosts](#add-ssh-keys-for-new-hosts)
     - [Playbook linux yml update hosts and verify current templates](#playbook-linux-yml-update-hosts-and-verify-current-templates)
   - [Run linux ping\_hosts.yml Semaphore](#run-linux-ping_hostsyml-semaphore)
-    - [Playbook Linux verify\_isolation.yml](#playbook-linux-verify_isolationyml)
+    - [Playbook Linux verify\_firewall\_isolation.yml](#playbook-linux-verify_firewall_isolationyml)
     - [Playbook Linux configure\_apt\_proxy.yml](#playbook-linux-configure_apt_proxyyml-1)
     - [Playbook Linux update\_apt.yml patch all hosts with one click](#playbook-linux-update_aptyml-patch-all-hosts-with-one-click)
   - [Playbook Configure a Dedicated Template per Host/Group (Recommended) in Semaphore](#playbook-configure-a-dedicated-template-per-hostgroup-recommended-in-semaphore)
@@ -1493,7 +1493,7 @@ It automatically picks up all our new hosts.
 
 ![sema ping](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/sema_ping.png)
 
-### Playbook Linux verify_isolation.yml
+### Playbook Linux verify_firewall_isolation.yml
 
 verify isolation no internet for linux
 
@@ -2140,7 +2140,7 @@ remote: Compressing objects: 100% (7/7), done.
 azureuser@ansiblectr01:~/ansible-io-ot-lab/playbooks$ ls
 configure_apt_proxy.yml  mount_datadrive.yml        roles
 deploy_mysql.yml         mount_datadrive_check.yml  update_apt.yml
-get_linux_version.yml    ping_hosts.yml             verify_isolation.yml
+get_linux_version.yml    ping_hosts.yml             verify_firewall_isolation.yml
 ```
 
 The directory structure is fully populated and correctly aligned with the roles/ directory containing your MySQL setup.

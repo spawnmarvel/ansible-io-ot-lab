@@ -28,7 +28,7 @@
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
   - [configure\_apt\_proxy.yml](#configure_apt_proxyyml)
-  - [verify\_isolation.yml](#verify_isolationyml)
+  - [verify\_firewall\_isolation.yml](#verify_firewall_isolationyml)
   - [update\_apt.yml](#update_aptyml)
   - [mount\_datadrive\_check.yml](#mount_datadrive_checkyml)
   - [mount\_datadrive\_for\_mysql\_azure.yml](#mount_datadrive_for_mysql_azureyml)
@@ -221,11 +221,16 @@ https://www.redhat.com/en/blog/10-great-ansible-practices
 
 ## ping_hosts.yml
 
+Here we used ansible.builtin.ping
+
+* https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/ping_module.html
+
+
 ## get_linux_version.yml
 
 ## configure_apt_proxy.yml
 
-## verify_isolation.yml
+## verify_firewall_isolation.yml
 
 ## update_apt.yml
 
