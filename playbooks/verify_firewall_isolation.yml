@@ -13,9 +13,15 @@
         url: "https://www.google.com"
         timeout: 5
       register: internet_check
+      # faling the task is expected if the host is properly isolated, 
+      # so we don't want to fail the playbook here
       failed_when: false
 
     - name: Assert that external internet connection failed
+      # Use the assert module to validate that the connection attempt to the public internet failed, 
+      # indicating proper isolation.
+      # assert module checks the condition specified in the 'that' parameter. 
+      # If the condition evaluates to false, the task fails and displays the message defined in 'fail_msg'. If the condition is true, it displays the message in 'success_msg'.
       ansible.builtin.assert:
         that:
           - internet_check.status == -1 or internet_check.failed == true

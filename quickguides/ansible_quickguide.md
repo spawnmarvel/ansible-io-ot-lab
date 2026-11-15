@@ -243,9 +243,9 @@ Here we used:
 
 We also used some new ansible keyword 
 
-* register
-* changed_when
-* inventory_hostname (jinja2)
+* register: uname_output
+* changed_when: false
+* {{ inventory_hostname }}
 
 Ansible uses Jinja2 templating to enable dynamic expressions and access to variables and facts.
 
@@ -318,11 +318,50 @@ Here we used:
 
 Here we used:
 
+* ansible.builtin.uri
+* ansible.builtin.assert
+
 We also used some new ansible keyword:
+
+* failed_when: false
+
+```yml
+---
+# Version: 1.2.0
+# Author: aspen
+# Description: Verifies network isolation by checking if managed nodes can reach www.google.com.
+
+- name: Verify Internet Isolation on Managed Nodes
+  hosts:  ot_nodes:idmz_nodes
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Attempt connection to public internet destination
+      ansible.builtin.uri:
+        url: "https://www.google.com"
+        timeout: 5
+      register: internet_check
+      # faling the task is expected if the host is properly isolated, 
+      # so we don't want to fail the playbook here
+      failed_when: false
+
+    - name: Assert that external internet connection failed
+      # Use the assert module to validate that the connection attempt to the public internet failed, 
+      # indicating proper isolation.
+      # assert module checks the condition specified in the 'that' parameter. 
+      # If the condition evaluates to false, the task fails and displays the message defined in 'fail_msg'. If the condition is true, it displays the message in 'success_msg'.
+      ansible.builtin.assert:
+        that:
+          - internet_check.status == -1 or internet_check.failed == true
+        fail_msg: "SECURITY VIOLATION: Host was able to reach the public internet directly (Status: {{ internet_check.status | default('unknown') }})"
+        success_msg: "Isolation verified: Host cannot reach the public internet directly."
+```
 
 ## update_apt.yml
 
 Here we used:
+
+* 
 
 We also used some new ansible keyword:
 
@@ -330,22 +369,50 @@ We also used some new ansible keyword:
 
 Here we used:
 
+* 
+
 We also used some new ansible keyword:
+
+* 
 
 ## mount_datadrive_for_mysql_azure.yml
 
 Here we used:
 
+* 
+
 We also used some new ansible keyword:
+
+* 
 
 ## mount_datadrive_for_mysql_generic_hyperv.yml
 
 Here we used:
 
+* 
+
 We also used some new ansible keyword:
+
+* 
 
 # Quickguide for IT OT LAB Advanced 102
 
 ## deploy_mysql_check.yml
 
+Here we used:
+
+* 
+
+We also used some new ansible keyword:
+
+* 
+
 ## deploy_mysql.yml
+
+Here we used:
+
+* 
+
+We also used some new ansible keyword:
+
+* 
