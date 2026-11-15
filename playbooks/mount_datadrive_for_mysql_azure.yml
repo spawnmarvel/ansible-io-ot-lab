@@ -95,7 +95,7 @@
         pre_reboot_delay: 2
         post_reboot_delay: 10
       # Note: The reboot task will only execute if the /data mount point is not already active.
-      when: ansible.facts.mounts | selectattr('mount', 'eq', '/data') | list | length == 0
+      when: ansible_facts.mounts | selectattr('mount', 'eq', '/data') | list | length == 0
 
     - name: Verify mount point is active after reboot
       ansible.builtin.command: "df -h /data"
