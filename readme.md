@@ -114,9 +114,7 @@ In this POC we use Azure so we can share a live demo.
       - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
   - [Playbook linux tbd.yml --check or limit or hosts:groups](#playbook-linux-tbdyml---check-or-limit-or-hostsgroups)
-- [Create a Windows host](#create-a-windows-host)
-  - [15 Ansible Playbooks Example for Windows Administration](#15-ansible-playbooks-example-for-windows-administration)
-  - [Playbook update\_windows\_KB.yml TBD](#playbook-update_windows_kbyml-tbd)
+- [Windows project ansible-io-ot-lab-windows](#windows-project-ansible-io-ot-lab-windows)
 
 # IT Automation in OT
 
@@ -2373,50 +2371,21 @@ ansible-playbook -i inventory/hosts.ini playbooks/
 
 ```
 
-# Create a Windows host
-
-## 15 Ansible Playbooks Example for Windows Administration
 
 
-https://gist.github.com/devops-school/52c8de8924555f91c50e3a016556060f
+# Windows project ansible-io-ot-lab-windows
 
-## Playbook update_windows_KB.yml TBD
+For windows navigate to that folder:
+
+ansible-io-ot-lab-windows
+
+1. Create the same folder structure
+2. inventory, hosts.ini
+3. ansible.cfg
+4. playbooks
+
+That way we separated IT OT Linux and Windows into two projects with each own configurations.
 
 
-Yes, absolutely. Ansible handles Windows updates natively and can target specific Microsoft KB numbers across your Windows VMs (such as your OT target nodes) using the ansible.windows.win_updates module.
-
-The module provides built-in parameters like include_kb to enforce precise patch selection, along with automatic reboot handling if an update requires it.
-
-
-```yml
----
-# Version: 1.0.0
-# Description: Installs specific Microsoft KB updates on Windows target nodes and handles reboots automatically.
-
-- name: Apply Targeted Windows Updates
-  hosts: ot_windows_nodes
-  gather_facts: false
-  tasks:
-    - name: Install specific Microsoft KB updates
-      ansible.windows.win_updates:
-        category_names:
-          - SecurityUpdates
-          - CriticalUpdates
-          - UpdateRollups
-        include_kb:
-          - KB5034441
-          - KB5034127
-        state: installed
-        reboot: true
-        reboot_timeout: 1200
-      register: kb_install_result
-
-    - name: Display update execution summary
-      ansible.ansible.builtin.debug:
-        msg: >
-          Host {{ inventory_hostname }} update status:
-          Reboot required: {{ kb_install_result.reboot_required }}
-          Updated count: {{ kb_install_result.installed_update_count }}
-```
 
 
