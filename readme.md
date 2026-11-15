@@ -126,6 +126,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
     - [1. Encrypt Your Variables File](#1-encrypt-your-variables-file)
       - [Option A: Interactive Prompt (Best for Manual Runs)](#option-a-interactive-prompt-best-for-manual-runs)
       - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
+      - [Reboot mysql01 and verify playbooks](#reboot-mysql01-and-verify-playbooks)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
   - [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
@@ -3071,6 +3072,12 @@ mysql : Stop MySQL service before migrating data directory ---------------------
 
 PLAYBOOK RECAP *****************************************************************************************************
 ```
+
+#### Reboot mysql01 and verify playbooks
+
+1. Mount ok
+2. Deploy mysql ok
+3. Login mysql ok
 
 #### Configure Semaphore with a Vault Password
 
