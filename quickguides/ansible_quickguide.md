@@ -24,6 +24,7 @@
   - [Semaphore UI](#semaphore-ui)
   - [10 habits of great Ansible users](#10-habits-of-great-ansible-users)
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
+  - [Playbook Keywords](#playbook-keywords)
 - [Quickguide for IT OT LAB Basic](#quickguide-for-it-ot-lab-basic)
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
@@ -217,6 +218,12 @@ Whether you're writing playbooks, maintaining inventory, or executing tasks, her
 https://www.redhat.com/en/blog/10-great-ansible-practices
 
 
+## Playbook Keywords
+
+These are the keywords available on common playbook objects. Keywords are one of several sources for configuring Ansible behavior. See Controlling how Ansible behaves: precedence rules for details on the relative precedence of each source.
+
+https://docs.ansible.com/projects/ansible/latest/reference_appendices/playbooks_keywords.html
+
 # Quickguide for IT OT LAB Basic
 
 ## ping_hosts.yml
@@ -227,6 +234,52 @@ Here we used ansible.builtin.ping
 
 
 ## get_linux_version.yml
+
+Here we used:
+
+* ansible.builtin.command
+* ansible.builtin.debug
+
+
+We also used some new ansible keyword 
+
+* register
+* changed_when
+* inventory_hostname (jinja2)
+
+Ansible uses Jinja2 templating to enable dynamic expressions and access to variables and facts.
+
+```yml
+---
+# Version: 1.1.1
+# Author: aspen
+# Description: Gathers and displays Linux distribution, release version, and kernel details using modern ansible_facts syntax.
+
+- name: Gather and Display Linux Version and Kernel Information
+  hosts: ot_nodes:idmz_nodes
+  gather_facts: true
+  become: false
+  tasks:
+    - name: Get kernel architecture details via uname
+      # Use the command module to run 'uname -a' and capture the output
+      ansible.builtin.command: uname -a
+      # Register the output to a variable for later use
+      register: uname_output
+      # Indicate that this task does not change the system state
+      changed_when: false
+
+    - name: Display distribution, release version, and kernel info
+      # Use the debug module to print the gathered information in a structured format
+      # inventory_hostname we can use since we have gathered facts enabled, we can access ansible_facts for distribution and version details
+      # inventory_hostname is jinja variable that represents the name of the current host being processed in the playbook. 
+      # It is useful for displaying host-specific information in a multi-host playbook run.
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }} is running {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} (Codename: {{ ansible_facts.distribution_release }}) | Kernel: {{ uname_output.stdout }}"
+```
+
+Templating (Jinja2)
+
+* https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_templating.html
 
 ## configure_apt_proxy.yml
 

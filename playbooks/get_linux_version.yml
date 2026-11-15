@@ -9,10 +9,17 @@
   become: false
   tasks:
     - name: Get kernel architecture details via uname
+      # Use the command module to run 'uname -a' and capture the output
       ansible.builtin.command: uname -a
+      # Register the output to a variable for later use
       register: uname_output
+      # Indicate that this task does not change the system state
       changed_when: false
 
     - name: Display distribution, release version, and kernel info
+      # Use the debug module to print the gathered information in a structured format
+      # inventory_hostname we can use since we have gathered facts enabled, we can access ansible_facts for distribution and version details
+      # inventory_hostname is jinja variable that represents the name of the current host being processed in the playbook. 
+      # It is useful for displaying host-specific information in a multi-host playbook run.
       ansible.builtin.debug:
         msg: "{{ inventory_hostname }} is running {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} (Codename: {{ ansible_facts.distribution_release }}) | Kernel: {{ uname_output.stdout }}"
