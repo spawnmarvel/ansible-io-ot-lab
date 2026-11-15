@@ -26,9 +26,15 @@ https://learn.microsoft.com/en-us/azure/developer/ansible/
 ![ms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ms.png)
 
 
+# Ansible explained in 60 seconds youtube
+
+https://www.youtube.com/shorts/qygKrliJbRg
+
+
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
 - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
+- [Ansible explained in 60 seconds youtube](#ansible-explained-in-60-seconds-youtube)
   - [Table of content](#table-of-content)
 - [IT Automation in OT](#it-automation-in-ot)
 - [Introduction](#introduction)
@@ -250,6 +256,7 @@ If you have a skilled technical team willing to manage your own setup, you never
 ## Ansible and Terraform in 60 seconds youtube
 
 https://www.youtube.com/shorts/q2ZfgKPvp2E
+
 
 ## You need to learn Ansible right now youtube
 
