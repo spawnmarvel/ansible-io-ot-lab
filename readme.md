@@ -3107,9 +3107,13 @@ azureuser@ansiblectr01:
 
 cd ansible-io-ot-lab/
 
+cd playbooks/roles/zabbix/
+ls
+defaults  handlers  tasks  templates
+
 # if the play is ok, remove --check with --diff and or --limit
 
-ansible-playbook -i inventory/hosts.ini playbooks/
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_zabbix.yml
 
 ```
 
