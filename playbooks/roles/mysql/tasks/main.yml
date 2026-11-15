@@ -153,4 +153,36 @@
   changed_when: false
 
 - name: Create remote-accessible Zabbix database user and database
-  ansible
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'%' IDENTIFIED BY '{{ zabbix_password }}'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%'; FLUSH PRIVILEGES;"
+  when: zabbix_user_check.rc != 0 or zabbix_user_check.stdout == ""
+  changed_when: true
+
+
+# ==============================================================================
+# Subsection 4: Security Hardening & Cleanup
+# ==============================================================================
+
+- name: Check if anonymous MySQL users exist
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='';"
+  register: anon_user_check
+  failed_when: false
+  changed_when: false
+
+- name: Remove anonymous MySQL users
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "DROP USER IF EXISTS ''@'localhost'; DROP USER IF EXISTS ''@'{{ ansible_facts.hostname }}'; FLUSH PRIVILEGES;"
+  when: anon_user_check.rc == 0 and anon_user_check.stdout | length > 0
+  changed_when: true
+
+- name: Check if test database exists
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT SCHEMA_NAME FROM information_schema.schemata WHERE schema_name = 'test';"
+  register: test_db_check
+  failed_when: false
+  changed_when: false
+
+- name: Remove test database
+  ansible.builtin.command: >
+    mysql -u root -p'{{ mysql_root_password }}' -e "DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;"
+  when: test_db_check.rc == 0 and test_db_check.stdout | length > 0
+  changed_when: true
