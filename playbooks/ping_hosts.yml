@@ -4,6 +4,11 @@
 # Description: Ping validation playbook with privilege escalation explicitly disabled
 
 - name: Verify Connectivity Across Purdue Lab Nodes
+  # This playbook is designed to validate the connectivity of all nodes in the Purdue lab environment
+  # by performing a simple ping test. It targets the 'ot_nodes' and 'idmz_nodes' groups, 
+  # ensuring that each host is reachable and responsive. 
+  # The playbook is configured to run without gathering facts or escalating privileges, 
+  # making it lightweight and efficient for connectivity checks.
   hosts: ot_nodes:idmz_nodes
   # Gathering facts is disabled to speed up the playbook execution since we only need to check connectivity.
   # Gathering facts is used to collect information about the remote hosts, but it is not necessary for this playbook's purpose.

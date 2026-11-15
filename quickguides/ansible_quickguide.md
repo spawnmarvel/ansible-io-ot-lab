@@ -232,6 +232,25 @@ Here we used ansible.builtin.ping
 
 * https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/ping_module.html
 
+```yml
+---
+# Version: 1.0.1
+# Author: aspen
+# Description: Ping validation playbook with privilege escalation explicitly disabled
+
+- name: Verify Connectivity Across Purdue Lab Nodes
+  hosts: ot_nodes:idmz_nodes
+  # Gathering facts is disabled to speed up the playbook execution since we only need to check connectivity.
+  # Gathering facts is used to collect information about the remote hosts, but it is not necessary for this playbook's purpose.
+  gather_facts: false
+  # Become is set to false to ensure that the playbook does not attempt to escalate privileges on the remote hosts, as pinging does not require elevated permissions.
+  become: false
+  tasks:
+    - name: Ping all inventory hosts
+      # The ansible.builtin.ping module is used to test connectivity to the remote hosts. It sends a simple ping request and expects a pong response, confirming that the host is reachable and responsive. 
+      ansible.builtin.ping:
+```
+
 
 ## get_linux_version.yml
 
