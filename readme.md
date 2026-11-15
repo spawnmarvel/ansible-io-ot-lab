@@ -100,6 +100,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [1. Manually attach a data disk to a Linux VM UUID](#1-manually-attach-a-data-disk-to-a-linux-vm-uuid)
 - [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml (risky Azure spesific)](#11-playbook-linux-mount_datadrive_for_mysqlyml-risky-azure-spesific)
   - [1.2 Jinja2 expression is extremely close to a generic template](#12-jinja2-expression-is-extremely-close-to-a-generic-template)
+  - [1.3 Add prompt before executing Step 3 ansible.builtin.pause](#13-add-prompt-before-executing-step-3-ansiblebuiltinpause)
   - [1.2 Restart mysql01 and verify datadisk](#12-restart-mysql01-and-verify-datadisk)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -1823,6 +1824,24 @@ We create two playbooks
 This shall work on all, but we focus first on the azure template and when that works we do the same exercies and focus on the generic one.
 
 So we need to restore a couple of times.
+
+## 1.3 Add prompt before executing Step 3 ansible.builtin.pause
+
+
+```yml
+    # =========================================================================
+    # Interactive Confirmation Prompt before Step 3
+    # =========================================================================
+    - name: Confirm before proceeding to Step 3 (UUID extraction and mounting)
+      ansible.builtin.pause:
+        prompt: "Ready to proceed with Step 3: UUID extraction and mounting at /mnt/datadrive1. Enter 'yes' to continue or anything else to abort."
+      register: confirmation_input
+
+    - name: Abort playbook if user declined confirmation
+      ansible.builtin.fail:
+        msg: "Playbook execution aborted by user at Step 3 confirmation."
+      when: confirmation_input.user_input | lower != 'yes'
+```
 
 Run without check mode (Live Execution): Since partition creation and formatting are idempotent or intended to apply changes, run the playbook normally without --check.
 
