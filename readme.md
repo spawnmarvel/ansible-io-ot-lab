@@ -2752,7 +2752,7 @@ Now all playbooks can use that password and it works.
 
 ```bash
 # Test deploy and check that is works, it does.
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01 --check
 
 # Now back to verify user
 

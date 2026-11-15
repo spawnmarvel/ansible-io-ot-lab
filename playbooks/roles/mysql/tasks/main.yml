@@ -16,6 +16,8 @@
   ansible.builtin.service:
     name: mysql
     state: stopped
+  when: not mysql_db_stat.stat.exists
+  check_mode: false
 
 - name: Check if MySQL is initialized on persistent storage
   ansible.builtin.stat:
