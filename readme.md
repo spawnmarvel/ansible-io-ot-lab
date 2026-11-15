@@ -24,7 +24,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
 - [Ansible explained in 60 seconds youtube](#ansible-explained-in-60-seconds-youtube)
 - [IT Automation in OT](#it-automation-in-ot)
-- [Introduction](#introduction)
+- [Introduction to scenario](#introduction-to-scenario)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
 - [1. Topology for the future](#1-topology-for-the-future)
 - [Ansible](#ansible)
@@ -140,7 +140,7 @@ https://www.youtube.com/shorts/qygKrliJbRg
 
 # IT Automation in OT
 
-# Introduction
+# Introduction to scenario
 
 🎯 Objectives & Key Highlights
 
