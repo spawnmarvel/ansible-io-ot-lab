@@ -1855,6 +1855,45 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azur
 
 log
 ```console
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
+
+PLAY [Configure data disk storage] ************************************************************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************************************************************************
+Sunday 15 November 2026  12:28:44 +0000 (0:00:00.012)       0:00:00.012 *******
+ok: [mysql01]
+
+TASK [Discover secondary data disk dynamically] ***********************************************************************************************************************************
+Sunday 15 November 2026  12:28:46 +0000 (0:00:01.982)       0:00:01.995 *******
+ok: [mysql01]
+
+TASK [Fail if secondary data disk could not be dynamically resolved] **************************************************************************************************************
+Sunday 15 November 2026  12:28:46 +0000 (0:00:00.052)       0:00:02.047 *******
+skipping: [mysql01]
+
+TASK [Display resolved data disk] *************************************************************************************************************************************************
+Sunday 15 November 2026  12:28:46 +0000 (0:00:00.028)       0:00:02.076 *******
+ok: [mysql01] => {
+    "msg": "Successfully resolved secondary data disk: /dev/sdc"
+}
+
+TASK [Ensure partition 1 exists on data disk] *************************************************************************************************************************************
+Sunday 15 November 2026  12:28:46 +0000 (0:00:00.028)       0:00:02.105 *******
+ok: [mysql01]
+
+TASK [Format data partition to ext4 if not already formatted] *********************************************************************************************************************
+Sunday 15 November 2026  12:28:47 +0000 (0:00:00.575)       0:00:02.680 *******
+ok: [mysql01]
+
+TASK [Confirm before proceeding to Step 3 (UUID extraction and mounting)] *********************************************************************************************************
+Sunday 15 November 2026  12:28:48 +0000 (0:00:00.613)       0:00:03.294 *******
+[Confirm before proceeding to Step 3 (UUID extraction and mounting)]
+Ready to proceed with Step 3: UUID extraction and mounting at /mnt/datadrive1. Enter 'yes' to continue or anything else to abort.:
+ok: [mysql01]
+
+TASK [Abort playbook if user declined confirmation] *******************************************************************************************************************************
+Sunday 15 November 2026  12:28:49 +0000 (0:00:01.786)       0:00:05.081 *******
+[ERROR]: Task failed: Action failed: Playbook execution aborted by user at Step 3 confirmation.
 
 ```
 
