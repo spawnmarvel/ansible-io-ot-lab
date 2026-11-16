@@ -38,7 +38,6 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
 - [Our scenario unified orchestration 🐸🐒🐘](#our-scenario-unified-orchestration-)
 - [Ansible and Terraform in 60 seconds youtube](#ansible-and-terraform-in-60-seconds-youtube)
-- [You need to learn Ansible right now youtube](#you-need-to-learn-ansible-right-now-youtube)
 - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
 - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
 - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -290,11 +289,6 @@ By combining their specialized knowledge and working in close harmony, the teams
 
 https://www.youtube.com/shorts/q2ZfgKPvp2E
 
-
-# You need to learn Ansible right now youtube
-
-
-https://www.youtube.com/watch?v=5hycyr-8EKs
 
 
 # Official Ansible Documentation Portal
