@@ -11,17 +11,13 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [Ansible](#ansible)
   - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
   - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
-- [IT Automation in OT](#it-automation-in-ot)
-- [Introduction to scenario](#introduction-to-scenario)
-  - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
-- [Topology for the future](#topology-for-the-future)
 - [Ansible](#ansible-1)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
   - [The Bottom Line](#the-bottom-line)
-- [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
-- [Our scenario unified orchestration 🐸🐒🐘](#our-scenario-unified-orchestration-)
+    - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
+- [Unified orchestration 🐸🐒🐘](#unified-orchestration-)
 - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
 - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
 - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -30,6 +26,10 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [Ansible Network Examples](#ansible-network-examples)
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
+- [IT Automation in OT](#it-automation-in-ot)
+  - [Introduction to scenario](#introduction-to-scenario)
+  - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
+- [Topology for the future](#topology-for-the-future)
 - [Back to scenario (or jump to online demo ?) it gets technical from here](#back-to-scenario-or-jump-to-online-demo--it-gets-technical-from-here)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
@@ -143,50 +143,6 @@ You need to learn Ansible right now - 20 min
 
 * https://www.youtube.com/watch?v=5hycyr-8EKs
 
-# IT Automation in OT
-
-# Introduction to scenario
-
-🎯 Objectives & Key Highlights
-
-* Multi-Zone Network Segregation: Isolates management tasks in an internal DMZ (iDMZ / Zone 2.5) from operational technology targets (OT / Zone 2.0) using Azure Network Security Groups (NSGs).
-
-* Controlled Caching & Software Delivery: Implements an internal caching proxy (apt-cacher-ng) on the control node (ansiblectr01) to safely handle system packages, updates, and repository mirroring without exposing target nodes directly to the public internet.
-
-* Modern Web Orchestration: Deploys Ansible Semaphore UI fronted by an Apache HTTPS reverse proxy with TLS termination for secure, role-based pipeline and playbook execution.
-
-* Infrastructure as Code (IaC): MySQL, Zabbix Zabbix proxy, update Linux servers , etc,  and cross-platform configuration playbooks entirely through version-controlled automation.
-
-* Multi-Platform Support: Orchestrates management routines across both modern Linux distributions (Ubuntu Server) and Windows Server targets using native Ansible execution modules.
-
-🔄 Operational Scenario
-
-1. Day 1 (Infrastructure Provisioning): The core infrastructure team provisions clean Ubuntu and Windows Server virtual machines within Azure following standard deployment templates.
-
-2. Day 2 (Control Plane & Security Baseline): The automation team establishes ansiblectr01 as the central control node, configures secure SSH key-based authentication, sets up internal package caching, and deploys Semaphore UI.
-
-3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
-
-## Team 1 and Team 2 scenario
-
-Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI..
-
-Day-2 automation begins immediately after IP and credential handover.
-
-![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
-
-
-# Topology for the future
-
-This is the final set up (ip may change but the concept is the same)
-
-1. Team 1 can use Terraform / Ansible or do it manually for network, firewall, provision servers etc.
-2. Team 2 will use Ansible for configuration management, install, montitoring, patching etc.
-
----
-
-![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
-
 # Ansible
 
 ![ansible1](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible1.png)
@@ -235,7 +191,7 @@ While there are no technical walls, you will eventually face operational trade-o
 If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
 
 
-# Red Hat Ansible Automation Platform delivers on high ROI expectations
+### Red Hat Ansible Automation Platform delivers on high ROI expectations
 
 In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
 
@@ -245,7 +201,7 @@ https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high
 
 ---
 
-# Our scenario unified orchestration 🐸🐒🐘
+# Unified orchestration 🐸🐒🐘
 
 🚀 Domain Expertise: 
 
@@ -353,6 +309,52 @@ https://docs.ansible.com/projects/ansible/latest/collections/index.html
 Ansible Galaxy
 
 https://galaxy.ansible.com/ui/
+
+# IT Automation in OT
+
+## Introduction to scenario
+
+🎯 Objectives & Key Highlights
+
+* Multi-Zone Network Segregation: Isolates management tasks in an internal DMZ (iDMZ / Zone 2.5) from operational technology targets (OT / Zone 2.0) using Azure Network Security Groups (NSGs).
+
+* Controlled Caching & Software Delivery: Implements an internal caching proxy (apt-cacher-ng) on the control node (ansiblectr01) to safely handle system packages, updates, and repository mirroring without exposing target nodes directly to the public internet.
+
+* Modern Web Orchestration: Deploys Ansible Semaphore UI fronted by an Apache HTTPS reverse proxy with TLS termination for secure, role-based pipeline and playbook execution.
+
+* Infrastructure as Code (IaC): MySQL, Zabbix Zabbix proxy, update Linux servers , etc,  and cross-platform configuration playbooks entirely through version-controlled automation.
+
+* Multi-Platform Support: Orchestrates management routines across both modern Linux distributions (Ubuntu Server) and Windows Server targets using native Ansible execution modules.
+
+🔄 Operational Scenario
+
+1. Day 1 (Infrastructure Provisioning): The core infrastructure team provisions clean Ubuntu and Windows Server virtual machines within Azure following standard deployment templates.
+
+2. Day 2 (Control Plane & Security Baseline): The automation team establishes ansiblectr01 as the central control node, configures secure SSH key-based authentication, sets up internal package caching, and deploys Semaphore UI.
+
+3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
+
+## Team 1 and Team 2 scenario
+
+Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI..
+
+Day-2 automation begins immediately after IP and credential handover.
+
+![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
+
+
+# Topology for the future
+
+This is the final set up (ip may change but the concept is the same)
+
+1. Team 1 can use Terraform / Ansible or do it manually for network, firewall, provision servers etc.
+2. Team 2 will use Ansible for configuration management, install, montitoring, patching etc.
+
+---
+
+![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
+
+
 
 
 
