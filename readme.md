@@ -290,7 +290,6 @@ By combining their specialized knowledge and working in close harmony, the teams
 https://www.youtube.com/shorts/q2ZfgKPvp2E
 
 
-
 # Official Ansible Documentation Portal
 
 The primary hub for getting started, understanding core concepts (inventories, playbooks, modules), and managing managed nodes.
