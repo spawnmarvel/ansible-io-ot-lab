@@ -5,7 +5,6 @@
 - [BG](#bg)
   - [Table of content](#table-of-content)
   - [bg 1deploy\_mysql.yml information on multiple deploy](#bg-1deploy_mysqlyml-information-on-multiple-deploy)
-  - [Playbook fix\_mysql.yml tbd](#playbook-fix_mysqlyml-tbd)
   - [bg2](#bg2)
 
 ## bg 1deploy_mysql.yml information on multiple deploy 
@@ -31,13 +30,12 @@ sudo systemctl start mysql
 sudo systemctl status mysql
 
 ```
-Check sql if needed, but if the service is running it should be ok.
 
-```sql
-sudo mysql -u root -e "SHOW VARIABLES LIKE 'datadir';"
-```
+Playbooks to make
 
-## Playbook fix_mysql.yml tbd
+
+* check_mysql_permission
+* fix_mysql.yml
 
 Lets try to investegate the above fix and create a playbook for it.
 
