@@ -4,8 +4,16 @@
 
 - [BG](#bg)
   - [Table of content](#table-of-content)
+  - [bg](#bg-1)
   - [bg 1deploy\_mysql.yml information on multiple deploy](#bg-1deploy_mysqlyml-information-on-multiple-deploy)
   - [bg2](#bg2)
+
+
+## bg
+
+Things that we need to investgate and test is marked with bg and a number.
+
+In Bg we do the job manually, understand the case and document, then apply automation with playbooks.
 
 ## bg 1deploy_mysql.yml information on multiple deploy 
 

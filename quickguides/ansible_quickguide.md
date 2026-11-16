@@ -27,6 +27,7 @@
 - [Playbook Keywords](#playbook-keywords)
   - [How to test and understand sys admin](#how-to-test-and-understand-sys-admin)
   - [Ansible test in Azure](#ansible-test-in-azure)
+  - [Testing Strategies “how can I best integrate testing with Ansible playbooks?”](#testing-strategies-how-can-i-best-integrate-testing-with-ansible-playbooks)
 - [Quickguide for IT OT LAB Basic 101](#quickguide-for-it-ot-lab-basic-101)
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
@@ -99,17 +100,48 @@ https://dev.to/anushree_gm/getting-started-with-ansible-a-beginners-guide-3deh
 ## Inventory
 
 ```bash
-ssh espenk@192.168.10.70
-mkdir mkdir io_ot_lab_build
+mkdir mkdir ansible-it-ot-lab
+cd ansible-it-ot-lab
+mkdir inventory
+cd inventory
+touch hosts.ini
 ```
 
 ## SSH key-based authentication
 
+```bash
+azureuser@ansiblectr01
+
+ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
+
+ls -la ~/.ssh/id_rsa.pub
+
+# Copy Public Key to Target Node
+ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.5
+
+# ssh login with key no pass
+ssh azureuser@10.68.68.5
+```
+
 ### host_key_checking ansible.cfg
+
+```ini
+[defaults]
+host_key_checking = False
+
+```
+
+Security trade-off. Disabling host_key_checking prevents interactive SSH prompts when provisioning new or ephemeral servers, but it leaves connections vulnerable to man-in-the-middle (MitM) attacks and server spoofing
+
+Temporary override. If you only want to bypass verification for a single session or CI/CD pipeline run without modifying ansible.cfg, set the environment variable ANSIBLE_HOST_KEY_CHECKING=False
+
+Safer automation. For production environments, consider keeping host_key_checking = True and passing ssh_args = -o StrictHostKeyChecking=accept-new under [ssh_connection] so Ansible automatically trusts new hosts while still blocking changed keys
 
 
 
 ## Ansible Ad-hoc commands
+
+https://docs.ansible.com/projects/ansible/latest/command_guide/intro_adhoc.html
 
 ## Sample Ansible setup
 
@@ -244,6 +276,12 @@ This may not be the same for kvm, hyper-v and similar.
 
 ```
 
+
+## Testing Strategies “how can I best integrate testing with Ansible playbooks?”
+
+Many times, people ask, “how can I best integrate testing with Ansible playbooks?” There are many options. Ansible is actually designed to be a “fail-fast” and ordered system, therefore it makes it easy to embed testing directly in Ansible playbooks. In this chapter, we’ll go into some patterns for integrating tests of infrastructure and discuss the right level of testing that may be appropriate.
+
+https://docs.ansible.com/projects/ansible/latest/reference_appendices/test_strategies.html
 
 # Quickguide for IT OT LAB Basic 101
 
