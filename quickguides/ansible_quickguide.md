@@ -131,11 +131,11 @@ host_key_checking = False
 
 ```
 
-Security trade-off. Disabling host_key_checking prevents interactive SSH prompts when provisioning new or ephemeral servers, but it leaves connections vulnerable to man-in-the-middle (MitM) attacks and server spoofing
-
-Temporary override. If you only want to bypass verification for a single session or CI/CD pipeline run without modifying ansible.cfg, set the environment variable ANSIBLE_HOST_KEY_CHECKING=False
-
-Safer automation. For production environments, consider keeping host_key_checking = True and passing ssh_args = -o StrictHostKeyChecking=accept-new under [ssh_connection] so Ansible automatically trusts new hosts while still blocking changed keys
+| Approach                      | Best For                                                                                | How to Configure                                                                                                                                                                                                             |
+| :---------------------------- | :-------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Accept-New (Recommended)**  | Dynamic data centers where VMs/servers are frequently spun up and torn down             | Keep `host_key_checking = True` and set `ssh_args = -o StrictHostKeyChecking=accept-new` in `ansible.cfg`. It auto-accepts brand-new servers on first boot while still blocking any unexpected key changes on existing ones. |
+| **Pre-populated known_hosts** | Static, long-lived bare-metal or VM infrastructure                                      | Keep `host_key_checking = True` and scan/inject host keys into `~/.ssh/known_hosts` during your initial server provisioning pipeline (e.g., via Terraform, Kickstart, or cloud-init).                                        |
+| **Disabled (`False`)**        | Isolated lab/test networks or disposable environments rebuilt from scratch on every run | Set `host_key_checking = False` in `ansible.cfg` or via environment variables to completely bypass host key verification.                                                                                                    |
 
 
 
