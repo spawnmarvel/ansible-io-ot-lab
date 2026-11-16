@@ -16,8 +16,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
     - [The Bottom Line](#the-bottom-line)
     - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
-- [Unified orchestration](#unified-orchestration)
-- [More Ansible](#more-ansible)
+    - [Unified orchestration](#unified-orchestration)
     - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
     - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
     - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -200,7 +199,7 @@ https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high
 
 ---
 
-# Unified orchestration
+### Unified orchestration
 
 🚀 Domain Expertise: 
 
@@ -221,8 +220,6 @@ By combining their specialized knowledge and working in close harmony, the teams
 ![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
 
-
-# More Ansible
 
 ### Official Ansible Documentation Portal
 
