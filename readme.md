@@ -53,7 +53,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
   - [Playbook linux update\_apt.yml with callbacks\_enabled = profile\_tasks, timer](#playbook-linux-update_aptyml-with-callbacks_enabled--profile_tasks-timer)
   - [Current vms](#current-vms)
 - [Semaphore UI POC](#semaphore-ui-poc)
-  - [Install Semaphore UI on ansiblectr01](#install-semaphore-ui-on-ansiblectr01)
+  - [Install Semaphore UI on ansiblectr01 with SQLite](#install-semaphore-ui-on-ansiblectr01-with-sqlite)
     - [We could do it with Ansible playbook also/ this is manual install to get to know it](#we-could-do-it-with-ansible-playbook-also-this-is-manual-install-to-get-to-know-it)
     - [Accessing Semaphore UI](#accessing-semaphore-ui)
     - [SSL/TLS Certificates](#ssltls-certificates)
@@ -962,7 +962,7 @@ Now we have more output for time and date and more.
 
 # Semaphore UI POC
 
-## Install Semaphore UI on ansiblectr01
+## Install Semaphore UI on ansiblectr01 with SQLite
 
 ### We could do it with Ansible playbook also/ this is manual install to get to know it
 
