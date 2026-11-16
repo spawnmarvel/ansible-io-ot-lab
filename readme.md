@@ -9,9 +9,9 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
 - [Ansible](#ansible)
-  - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
-  - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
-  - [Semaphore UI for Ansible](#semaphore-ui-for-ansible)
+    - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
+    - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
+    - [Semaphore UI for Ansible](#semaphore-ui-for-ansible)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
@@ -119,7 +119,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 
 # Ansible 
 
-## Ansible on Azure Microsoft
+### Ansible on Azure Microsoft
 
 Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
 
@@ -129,7 +129,7 @@ https://learn.microsoft.com/en-us/azure/developer/ansible/
 ![ms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ms.png)
 
 
-## Ansible explained in 60 seconds youtube and other videos
+### Ansible explained in 60 seconds youtube and other videos
 
 Ansible explained in 60 seconds
 
@@ -148,7 +148,7 @@ You need to learn Ansible right now - 20 min
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 
-## Semaphore UI for Ansible
+### Semaphore UI for Ansible
 
 https://www.youtube.com/watch?v=LVKwud2Wno4
 
