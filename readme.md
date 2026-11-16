@@ -14,22 +14,23 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
-  - [The Bottom Line](#the-bottom-line)
+    - [The Bottom Line](#the-bottom-line)
     - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
-- [Unified orchestration 🐸🐒🐘](#unified-orchestration-)
-- [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
-- [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
-- [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
-  - [Red Hat Ansible Automation Platform Overview:](#red-hat-ansible-automation-platform-overview)
-  - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
-  - [Ansible Network Examples](#ansible-network-examples)
+- [Unified orchestration](#unified-orchestration)
+- [More Ansible](#more-ansible)
+    - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
+    - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
+    - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
+    - [Red Hat Ansible Automation Platform Overview:](#red-hat-ansible-automation-platform-overview)
+    - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
+    - [Ansible Network Examples](#ansible-network-examples)
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
 - [IT Automation in OT](#it-automation-in-ot)
   - [Introduction to scenario](#introduction-to-scenario)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
 - [Topology for the future](#topology-for-the-future)
-- [Back to scenario (or jump to online demo ?) it gets technical from here](#back-to-scenario-or-jump-to-online-demo--it-gets-technical-from-here)
+- [Start IT/OT Lab](#start-itot-lab)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
   - [Firewall Rule Matrix (Purdue / ISA-95 Architecture)](#firewall-rule-matrix-purdue--isa-95-architecture)
@@ -184,7 +185,7 @@ While there are no technical walls, you will eventually face operational trade-o
 
 
 
-## The Bottom Line
+### The Bottom Line
 
 If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
 
@@ -199,7 +200,7 @@ https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high
 
 ---
 
-# Unified orchestration 🐸🐒🐘
+# Unified orchestration
 
 🚀 Domain Expertise: 
 
@@ -221,40 +222,41 @@ By combining their specialized knowledge and working in close harmony, the teams
 
 
 
+# More Ansible
 
-# Official Ansible Documentation Portal
+### Official Ansible Documentation Portal
 
 The primary hub for getting started, understanding core concepts (inventories, playbooks, modules), and managing managed nodes.
 
 https://docs.ansible.com/
 
 
-# Ansible provides open-source automation that reduces complexity and runs everywhere.
+### Ansible provides open-source automation that reduces complexity and runs everywhere.
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
-# Introduction to Ansible Guide: Ansible Introduction & Use Cases
+### Introduction to Ansible Guide: Ansible Introduction & Use Cases
 
 Covers the foundational design principles (agentless architecture, idempotency, and supported workflows).
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
 
-## Red Hat Ansible Automation Platform Overview:
+### Red Hat Ansible Automation Platform Overview:
 
 
 Details enterprise-grade execution, multi-vendor network automation, cloud provisioning, and orchestration features.
 
 https://www.redhat.com/en/technologies/management/ansible
 
-## This module is able to configure a FortiGate or FortiOS (FOS) device
+### This module is able to configure a FortiGate or FortiOS (FOS) device
 
 This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the user to set and modify system feature and interface category. Examples include all parameters and values need to be adjusted to datasources before usage. Tested with FOS v6.0.0
 
 https://docs.ansible.com/projects/ansible/latest/collections/fortinet/fortios/fortios_system_interface_module.html
 
 
-## Ansible Network Examples
+### Ansible Network Examples
 
 This document describes some examples of using Ansible to manage your network infrastructure.
 
@@ -353,10 +355,7 @@ This is the final set up (ip may change but the concept is the same)
 ![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
 
 
-
-
-
-# Back to scenario (or jump to online demo ?) it gets technical from here
+# Start IT/OT Lab
 
 Now it gets a bit technical, so ready for the ride or just want to see the demo?
 
