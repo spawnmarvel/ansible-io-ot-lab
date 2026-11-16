@@ -1,19 +1,6 @@
 # Ansible stack in Azure Proof of Concept (PoC) 
 
-Here we are doing the same as we did with KVM, Kernel Virtual Machine for repetions and demo online.
-
-It does not matter what hypervisor we run, the concept is the same for a demo.
-
-
-If you want to check out the same with KVM:
-
-* KVM (Kernel-based Virtual Machine) is a free and open-source full-virtualization module built directly into the Linux kernel. 
-* It turns a standard Linux operating system into a high-performance Type-1 (1.5) hypervisor.
-
-*  https://www.redhat.com/en/topics/virtualization/what-is-KVM
-
-
-Learning kvm linux and ansible tutorial https://github.com/spawnmarvel/kvm-lab/blob/main/readme.md
+Use Azure together with Ansible to build a POC for IT/OT Lab environment.
 
 In this POC we use Azure so we can share a live demo from Azure simulating IT/OT environment.
 
@@ -22,22 +9,18 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
 - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
-- [Ansible explained in 60 seconds youtube](#ansible-explained-in-60-seconds-youtube)
+  - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
 - [IT Automation in OT](#it-automation-in-ot)
 - [Introduction to scenario](#introduction-to-scenario)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
-- [1. Topology for the future](#1-topology-for-the-future)
+- [Topology for the future](#topology-for-the-future)
 - [Ansible](#ansible)
-    - [Ansible idempotent](#ansible-idempotent)
-    - [Ansible cheat sheet](#ansible-cheat-sheet)
-    - [Ansible quick guide](#ansible-quick-guide)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
   - [The Bottom Line](#the-bottom-line)
 - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
 - [Our scenario unified orchestration 🐸🐒🐘](#our-scenario-unified-orchestration-)
-- [Ansible and Terraform in 60 seconds youtube](#ansible-and-terraform-in-60-seconds-youtube)
 - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
 - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
 - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -143,9 +126,19 @@ https://learn.microsoft.com/en-us/azure/developer/ansible/
 ![ms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ms.png)
 
 
-# Ansible explained in 60 seconds youtube
+## Ansible explained in 60 seconds youtube and other videos
 
-https://www.youtube.com/shorts/qygKrliJbRg
+Ansible explained in 60 seconds
+
+* https://www.youtube.com/shorts/qygKrliJbRg
+
+Ansible and Terraform in 60 seconds youtube
+
+* https://www.youtube.com/shorts/q2ZfgKPvp2E
+
+You need to learn Ansible right now - 20 min
+
+* https://www.youtube.com/watch?v=5hycyr-8EKs
 
 # IT Automation in OT
 
@@ -159,7 +152,7 @@ https://www.youtube.com/shorts/qygKrliJbRg
 
 * Modern Web Orchestration: Deploys Ansible Semaphore UI fronted by an Apache HTTPS reverse proxy with TLS termination for secure, role-based pipeline and playbook execution.
 
-* Infrastructure as Code (IaC): Manages dynamic storage partitioning (ext4 filesystems persistently mounted to /var/lib/mysql), static inventory structures, and cross-platform configuration playbooks entirely through version-controlled automation.
+* Infrastructure as Code (IaC): MySQL, Zabbix Zabbix proxy, update Linux servers , etc,  and cross-platform configuration playbooks entirely through version-controlled automation.
 
 * Multi-Platform Support: Orchestrates management routines across both modern Linux distributions (Ubuntu Server) and Windows Server targets using native Ansible execution modules.
 
@@ -180,7 +173,7 @@ Day-2 automation begins immediately after IP and credential handover.
 ![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
 
 
-# 1. Topology for the future
+# Topology for the future
 
 This is the final set up (ip may change but the concept is the same)
 
@@ -197,28 +190,12 @@ This is the final set up (ip may change but the concept is the same)
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 
-### Ansible idempotent
-
-Yes, Ansible is idempotent by design when using its built-in modules, meaning you can run a playbook multiple times without changing the system after the first run unless the desired state change
-
-### Ansible cheat sheet
-
-View this folder ansible-it-ot-lab/quickguides
-
-### Ansible quick guide
-
-The quick guide will also be updated as we go.
-
-https://github.com/spawnmarvel/kvm-lab/blob/main/ansible_quickguide.md
-
 
 ### Ansible and Red Hat models 🎩
 
 Ansible is owned by Red Hat, a subsidiary of IBM.
 
 Open-Source Core: The core Ansible project (including Ansible Core) is free and open-source software licensed under the GNU General Public License version 3 (GPL-3.0)
-
-
 
 "The core Ansible project (including Ansible Core)"
 
@@ -285,9 +262,7 @@ By combining their specialized knowledge and working in close harmony, the teams
 
 ![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
-# Ansible and Terraform in 60 seconds youtube
 
-https://www.youtube.com/shorts/q2ZfgKPvp2E
 
 
 # Official Ansible Documentation Portal
