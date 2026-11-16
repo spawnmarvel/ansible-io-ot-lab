@@ -11,7 +11,6 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [Ansible](#ansible)
   - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
   - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
-- [Ansible](#ansible-1)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
@@ -143,7 +142,6 @@ You need to learn Ansible right now - 20 min
 
 * https://www.youtube.com/watch?v=5hycyr-8EKs
 
-# Ansible
 
 ![ansible1](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible1.png)
 
