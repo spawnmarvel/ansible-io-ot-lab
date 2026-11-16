@@ -127,7 +127,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
       - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
-  - [deploy\_mysql.yml information on multiple deploy](#deploy_mysqlyml-information-on-multiple-deploy)
+  - [deploy\_mysql.yml information on multiple deploy bg1](#deploy_mysqlyml-information-on-multiple-deploy-bg1)
   - [Playbook fix\_mysql.yml tbd](#playbook-fix_mysqlyml-tbd)
 - [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
@@ -3090,7 +3090,7 @@ In the Ansible Semaphore UI, "Login with password" is the correct key type to us
 7. playbooks/deploy_mysql.yml
 8. playbooks/login_mysql_user_zabbix.yml
 
-## deploy_mysql.yml information on multiple deploy
+## deploy_mysql.yml information on multiple deploy bg1
 
 Sometimes a clean VM power cycle is all it takes to clear out lingering hypervisor-level disk locks, socket descriptors, or stale cache states.
 
