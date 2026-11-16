@@ -25,6 +25,8 @@
   - [10 habits of great Ansible users](#10-habits-of-great-ansible-users)
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
 - [Playbook Keywords](#playbook-keywords)
+  - [How to test and understand sys admin](#how-to-test-and-understand-sys-admin)
+  - [Ansible test in Azure](#ansible-test-in-azure)
 - [Quickguide for IT OT LAB Basic 101](#quickguide-for-it-ot-lab-basic-101)
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
@@ -226,6 +228,22 @@ https://www.redhat.com/en/blog/10-great-ansible-practices
 These are the keywords available on common playbook objects. Keywords are one of several sources for configuring Ansible behavior. See Controlling how Ansible behaves: precedence rules for details on the relative precedence of each source.
 
 https://docs.ansible.com/projects/ansible/latest/reference_appendices/playbooks_keywords.html
+
+## How to test and understand sys admin
+
+1. Do things manually first on linux, windows, network etc
+2. Then understand them and document
+3. Then automate last
+
+
+## Ansible test in Azure
+
+This may not be the same for kvm, hyper-v and similar.
+
+```bash
+
+```
+
 
 # Quickguide for IT OT LAB Basic 101
 
