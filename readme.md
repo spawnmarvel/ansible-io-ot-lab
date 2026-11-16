@@ -28,7 +28,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [IT Automation in OT](#it-automation-in-ot)
   - [Introduction to scenario](#introduction-to-scenario)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
-- [Topology for the future](#topology-for-the-future)
+  - [Topology for the future](#topology-for-the-future)
 - [Start IT/OT Lab](#start-itot-lab)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
@@ -340,7 +340,7 @@ Day-2 automation begins immediately after IP and credential handover.
 ![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
 
 
-# Topology for the future
+## Topology for the future
 
 This is the final set up (ip may change but the concept is the same)
 
