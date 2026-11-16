@@ -129,6 +129,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
   - [deploy\_mysql.yml information on multiple deploy](#deploy_mysqlyml-information-on-multiple-deploy)
+  - [Playbook fix\_mysql.yml tbd](#playbook-fix_mysqlyml-tbd)
 - [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
@@ -3124,6 +3125,12 @@ Check sql if needed, but if the service is running it should be ok.
 ```sql
 sudo mysql -u root -e "SHOW VARIABLES LIKE 'datadir';"
 ```
+
+## Playbook fix_mysql.yml tbd
+
+Lets try to investegate the above fix and create a playbook for it.
+
+What is the real cause, it is permission denied after boot so it seems.
 
 
 
