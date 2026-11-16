@@ -128,6 +128,7 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
       - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
+  - [deploy\_mysql.yml information on multiple deploy](#deploy_mysqlyml-information-on-multiple-deploy)
 - [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
@@ -3094,6 +3095,36 @@ In the Ansible Semaphore UI, "Login with password" is the correct key type to us
 6. playbooks/deploy_mysql_check.yml
 7. playbooks/deploy_mysql.yml
 8. playbooks/login_mysql_user_zabbix.yml
+
+## deploy_mysql.yml information on multiple deploy
+
+Sometimes a clean VM power cycle is all it takes to clear out lingering hypervisor-level disk locks, socket descriptors, or stale cache states.
+
+```bash
+azureuser@mysql01:~$ 
+sudo chown root:root /data
+sudo chmod 755 /data
+
+# The namei output confirms that the parent /data directory permissions (drwxr-xr-x root root) are correct, granting the mysql user full traversal rights to reach /data/mysql.
+azureuser@mysql01:~$ namei -l /data/mysql
+f: /data/mysql
+drwxr-xr-x root  root  /
+drwxr-xr-x root  root  data
+drwxr-x--- mysql mysql mysql
+
+sudo systemctl reset-failed mysql
+sudo systemctl start mysql
+
+# Verification: Run sudo systemctl status mysql to confirm whether the status reports active (running)
+sudo systemctl status mysql
+
+```
+Check sql if needed, but if the service is running it should be ok.
+
+```sql
+sudo mysql -u root -e "SHOW VARIABLES LIKE 'datadir';"
+```
+
 
 
 # Playbook deploy_zabbix.yml --check or limit or hosts:groups
