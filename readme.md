@@ -8,13 +8,14 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
-- [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
+- [Ansible](#ansible)
+  - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
   - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
 - [IT Automation in OT](#it-automation-in-ot)
 - [Introduction to scenario](#introduction-to-scenario)
   - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
 - [Topology for the future](#topology-for-the-future)
-- [Ansible](#ansible)
+- [Ansible](#ansible-1)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
@@ -116,7 +117,9 @@ In this POC we use Azure so we can share a live demo from Azure simulating IT/OT
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 
-# Ansible on Azure Microsoft
+# Ansible 
+
+## Ansible on Azure Microsoft
 
 Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
 
