@@ -47,6 +47,6 @@ Playbooks to make
 
 Lets try to investegate the above fix and create a playbook for it.
 
-What is the real cause, it is permission denied after boot so it seems.
+What is the real cause, it is permission denied after boot so it seems, but it does not happen everytime.
 
 ## bg2
