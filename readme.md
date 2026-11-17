@@ -146,14 +146,36 @@ You need to learn Ansible right now - 20 min
 
 * https://www.youtube.com/watch?v=5hycyr-8EKs
 
+---
 
 ![ansible1](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible1.png)
+
+
+As shown in the preceding figure, most Ansible environments have three main components:
+
+* Control node
+  A system on which Ansible is installed. You run Ansible commands such as ansible or ansible-inventory on a control node.
+
+* Inventory
+  A list of managed nodes that are logically organized. You create an inventory on the control node to describe host deployments to Ansible.
+
+* Managed node
+  A remote system, or host, that Ansible controls.
 
 https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 
 ### Semaphore UI for Ansible
 
-https://www.youtube.com/watch?v=LVKwud2Wno4
+Short video
+
+* https://www.youtube.com/watch?v=LVKwud2Wno4
+
+
+Docs
+
+* https://semaphoreui.com/
+
+![ui](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ui.png)
 
 
 ### Ansible and Red Hat models 🎩
