@@ -162,7 +162,9 @@ As shown in the preceding figure, most Ansible environments have three main comp
 * Managed node
   A remote system, or host, that Ansible controls.
 
-https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
+Docs
+
+* https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 
 ### Semaphore UI for Ansible
 
