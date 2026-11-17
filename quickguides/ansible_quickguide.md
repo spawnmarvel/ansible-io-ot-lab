@@ -28,6 +28,7 @@
   - [How to test and understand sys admin](#how-to-test-and-understand-sys-admin)
   - [Ansible test in Azure](#ansible-test-in-azure)
   - [Testing Strategies “how can I best integrate testing with Ansible playbooks?”](#testing-strategies-how-can-i-best-integrate-testing-with-ansible-playbooks)
+- [Getting started with Ansible Learn Linux TV](#getting-started-with-ansible-learn-linux-tv)
 - [Quickguide for IT OT LAB Basic 101](#quickguide-for-it-ot-lab-basic-101)
   - [ping\_hosts.yml](#ping_hostsyml)
   - [get\_linux\_version.yml](#get_linux_versionyml)
@@ -282,6 +283,19 @@ This may not be the same for kvm, hyper-v and similar.
 Many times, people ask, “how can I best integrate testing with Ansible playbooks?” There are many options. Ansible is actually designed to be a “fail-fast” and ordered system, therefore it makes it easy to embed testing directly in Ansible playbooks. In this chapter, we’ll go into some patterns for integrating tests of infrastructure and discuss the right level of testing that may be appropriate.
 
 https://docs.ansible.com/projects/ansible/latest/reference_appendices/test_strategies.html
+
+# Getting started with Ansible Learn Linux TV
+
+1.  
+2.  
+3.  
+4.  
+5.  
+6.  Writing ourfirst playbook 
+7.  
+8.   
+
+https://www.youtube.com/watch?v=VANub3AhZpI&list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70&index=6
 
 # Quickguide for IT OT LAB Basic 101
 
