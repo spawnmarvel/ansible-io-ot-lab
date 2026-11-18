@@ -1,6 +1,7 @@
 ---
-# Check permissions of /data/mysql using namei command
-#
+# Version: 1.0.2
+# Description: Check permissions of /data/mysql using namei command with proper block scalar indentation.
+
 - name: Check permissions namei -l /data/mysql    
   hosts: db_servers_mysql
   gather_facts: false
@@ -11,8 +12,9 @@
       register: namei_output
       # Indicate that this task does not change the system state
       changed_when: false
+
     - name: Display the permissions of /data/mysql
       ansible.builtin.debug: 
         msg: |
-        Permissions of /data/mysql are: 
-        {{ namei_output.stdout }}
+          Permissions of /data/mysql are: 
+          {{ namei_output.stdout }}
