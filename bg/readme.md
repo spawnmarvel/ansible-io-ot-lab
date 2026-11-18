@@ -42,7 +42,7 @@ sudo systemctl status mysql
 Playbooks to make
 
 
-* check_mysql_permission
+* test_and_check_mysql_permission
 * fix_mysql.yml
 
 Lets try to investegate the above fix and create a playbook for it.
