@@ -657,6 +657,7 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.5
 # ssh login with key no pass
 ssh azureuser@10.68.68.5
 
+# permission annd access to /opt/ansible
 sudo mkdir -p /opt/ansible
 sudo chown -R azureuser:azureuser /opt/ansible
 ```
