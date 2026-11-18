@@ -14,7 +14,5 @@
       changed_when: false
 
     - name: Display the permissions of /data/mysql
-      ansible.builtin.debug: 
-        msg: |
-          Permissions of /data/mysql are: 
-          {{ namei_output.stdout }}
+      ansible.builtin.debug:
+        var: namei_output.stdout_lines
