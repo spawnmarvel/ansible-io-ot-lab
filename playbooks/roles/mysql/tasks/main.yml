@@ -6,6 +6,7 @@
 # ==============================================================================
 
 - name: Install MySQL server package
+  # Note: This task installs the MySQL server package using the apt package manager, ensuring that the latest version is present and the package cache is updated.
   ansible.builtin.apt:
     name:
       - mysql-server
@@ -13,16 +14,19 @@
     update_cache: true
 
 - name: Check if default MySQL system database exists in package path
+  # Note: This task checks if the default MySQL system database exists in the package path (/var/lib/mysql/mysql) to determine if migration is necessary.
   ansible.builtin.stat:
     path: /var/lib/mysql/mysql
   register: default_mysql_stat
 
 - name: Check if MySQL system database is already initialized on persistent storage
+  # Note: This task checks if the MySQL system database is already initialized on persistent storage (/data/mysql/mysql) to avoid unnecessary migration.
   ansible.builtin.stat:
     path: /data/mysql/mysql
   register: persistent_mysql_stat
 
 - name: Stop MySQL service before migrating data directory
+  # Note: This task stops the MySQL service to ensure that no processes are using the default data directory during migration.
   ansible.builtin.service:
     name: mysql
     state: stopped
@@ -30,6 +34,7 @@
   check_mode: false
 
 - name: Ensure parent /data directory exists with correct permissions
+  # Note: This task ensures that the /data directory exists with the correct ownership and permissions before creating the /data/mysql directory.
   ansible.builtin.file:
     path: /data
     state: directory
@@ -40,6 +45,7 @@
   check_mode: false
 
 - name: Ensure persistent MySQL target directory is absent before migration
+  # Note: This task ensures that the /data/mysql directory is absent before migration to avoid conflicts.
   ansible.builtin.file:
     path: /data/mysql
     state: absent
@@ -47,6 +53,7 @@
   check_mode: false
 
 - name: Create persistent MySQL target directory
+  # Note: This task creates the /data/mysql directory with the correct ownership and permissions for MySQL.
   ansible.builtin.file:
     path: /data/mysql
     state: directory
@@ -57,6 +64,7 @@
   check_mode: false
 
 - name: Migrate default MySQL data directory to persistent storage using rsync
+  # Note: Using rsync to preserve permissions and ownership
   ansible.builtin.shell: |
     rsync -av /var/lib/mysql/ /data/mysql/
   when: not persistent_mysql_stat.stat.exists and default_mysql_stat.stat.exists
@@ -64,6 +72,7 @@
   check_mode: false
 
 - name: Update AppArmor profile to allow access to custom datadir
+  # Note: This task modifies the AppArmor profile for MySQL to allow access to the new /data/mysql directory.
   ansible.builtin.blockinfile:
     path: /etc/apparmor.d/usr.sbin.mysqld
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR /DATA/MYSQL"
@@ -74,12 +83,14 @@
   check_mode: false
 
 - name: Reload AppArmor service to apply new rules
+  # Note: This task reloads the AppArmor service to apply the new rules for MySQL.
   ansible.builtin.service:
     name: apparmor
     state: reloaded
   check_mode: false
 
 - name: Ensure correct ownership and permissions on persistent MySQL data directory
+  # Note: This task ensures that the /data/mysql directory has the correct ownership and permissions for MySQL to function properly.
   ansible.builtin.file:
     path: /data/mysql
     state: directory
@@ -90,6 +101,7 @@
   check_mode: false
 
 - name: Apply custom MySQL configuration override pointing to datadir
+  # Note: This task applies a custom MySQL configuration override to point to the new data directory.
   ansible.builtin.template:
     src: override.cnf.j2
     dest: /etc/mysql/mysql.conf.d/99-override.cnf
@@ -100,6 +112,7 @@
   check_mode: false
 
 - name: Ensure MySQL service is restarted if configuration changed
+  # Note: This task restarts the MySQL service if the configuration override was applied, ensuring that MySQL uses the new data directory.
   ansible.builtin.service:
     name: mysql
     state: restarted
@@ -107,6 +120,7 @@
   check_mode: false
 
 - name: Ensure MySQL service is started and enabled
+  # Note: This task ensures that the MySQL service is started and enabled.
   ansible.builtin.service:
     name: mysql
     state: started
@@ -119,24 +133,28 @@
 # ==============================================================================
 
 - name: Check if root password is already configured
+  # Note: This task checks if the root password is already configured.
   ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT 1;"
   register: root_password_check
   failed_when: false
   changed_when: false
 
 - name: Set root password for MySQL root user on localhost
+  # Note: This task sets the root password for the MySQL root user on localhost.
   ansible.builtin.command: >
     mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
   when: root_password_check.rc != 0
   changed_when: true
 
 - name: Check if root@127.0.0.1 user exists and is configured
+  # Note: This task checks if the root@127.0.0.1 user exists and is configured.
   ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='root' AND Host='127.0.0.1';"
   register: root_loopback_check
   failed_when: false
   changed_when: false
 
 - name: Create root user for 127.0.0.1 and ::1
+  # Note: This task creates the root user for 127.0.0.1 and ::1 with the specified password and grants all privileges.
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'127.0.0.1' IDENTIFIED BY '{{ mysql_root_password }}'; CREATE USER IF NOT EXISTS 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; ALTER USER 'root'@'::1' IDENTIFIED BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'root'@'::1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
   when: root_loopback_check.rc != 0 or root_loopback_check.stdout == ""
@@ -148,12 +166,14 @@
 # ==============================================================================
 
 - name: Check if Zabbix database user exists
+  # Note: This task checks if the Zabbix database user exists.
   ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='zabbix' AND Host='10.68.68.%';"
   register: zabbix_user_check
   failed_when: false
   changed_when: false
 
 - name: Create remote-accessible Zabbix database user and database
+  # Note: This task creates the Zabbix database user and database with the specified password and grants all privileges.
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "CREATE USER IF NOT EXISTS 'zabbix'@'%' IDENTIFIED BY '{{ zabbix_password }}'; CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%'; FLUSH PRIVILEGES;"
   when: zabbix_user_check.rc != 0 or zabbix_user_check.stdout == ""
@@ -165,24 +185,28 @@
 # ==============================================================================
 
 - name: Check if anonymous MySQL users exist
+  # Note: This task checks if any anonymous MySQL users exist.
   ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='';"
   register: anon_user_check
   failed_when: false
   changed_when: false
 
 - name: Remove anonymous MySQL users
+  # Note: This task removes any anonymous MySQL users found.
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "DROP USER IF EXISTS ''@'localhost'; DROP USER IF EXISTS ''@'{{ ansible_facts.hostname }}'; FLUSH PRIVILEGES;"
   when: anon_user_check.rc == 0 and anon_user_check.stdout | length > 0
   changed_when: true
 
 - name: Check if test database exists
+  # Note: This task checks if the test database exists.
   ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT SCHEMA_NAME FROM information_schema.schemata WHERE schema_name = 'test';"
   register: test_db_check
   failed_when: false
   changed_when: false
 
 - name: Remove test database
+  # Note: This task removes the test database if it exists.
   ansible.builtin.command: >
     mysql -u root -p'{{ mysql_root_password }}' -e "DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;"
   when: test_db_check.rc == 0 and test_db_check.stdout | length > 0

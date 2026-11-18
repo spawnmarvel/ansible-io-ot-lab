@@ -5,5 +5,6 @@
 - name: Deploy Secure MySQL Database Server
   hosts: db_servers_mysql
   become: true
+  # Note: This playbook deploys the MySQL role to all hosts in the db_servers_mysql group, ensuring that the MySQL database server is installed, secured, and configured properly.
   roles:
     - mysql
