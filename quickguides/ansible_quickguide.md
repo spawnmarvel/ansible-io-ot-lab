@@ -10,6 +10,8 @@
   - [Key Advantages](#key-advantages)
   - [Ansible Agentless Architecture Linux and Windows](#ansible-agentless-architecture-linux-and-windows)
   - [Essential Ansible concepts](#essential-ansible-concepts)
+  - [Ansible.Builtin](#ansiblebuiltin)
+  - [Ansible Collection Index](#ansible-collection-index)
   - [Getting Started with Ansible: A Beginner’s Guide](#getting-started-with-ansible-a-beginners-guide)
   - [Inventory](#inventory)
   - [SSH key-based authentication](#ssh-key-based-authentication)
@@ -93,6 +95,15 @@ https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 ## Essential Ansible concepts
 
 https://developers.redhat.com/learning/learn:ansible:foundations-ansible/resource/resources:essential-ansible-concepts
+
+
+## Ansible.Builtin
+
+* https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html
+
+## Ansible Collection Index
+
+* https://docs.ansible.com/projects/ansible/latest/collections/index.html
 
 ## Getting Started with Ansible: A Beginner’s Guide
 
