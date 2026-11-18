@@ -12,5 +12,7 @@
       # Indicate that this task does not change the system state
       changed_when: false
     - name: Display the permissions of /data/mysql
-      ansible.builtin.debug:
-        msg: "Permissions {{ namei_output.stdout }}"
+      ansible.builtin.debug: 
+        msg: |
+        Permissions of /data/mysql are: 
+        {{ namei_output.stdout }}
