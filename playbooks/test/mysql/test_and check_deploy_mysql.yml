@@ -1,8 +1,8 @@
 ---
-# 
+# Check permissions of /data/mysql using namei command
 #
 - name: Check permissions namei -l /data/mysql    
-  hosts: ot_nodes:idmz_nodes
+  hosts: db_servers_mysql
   gather_facts: false
   become: true
   tasks:
@@ -13,4 +13,4 @@
       changed_when: false
     - name: Display the permissions of /data/mysql
       ansible.builtin.debug:
-        msg: "Permissions of /data/mysql:\n{{ namei_output.stdout }}"
+        msg: "Permissions {{ namei_output.stdout }}"
