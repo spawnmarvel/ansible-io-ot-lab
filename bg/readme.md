@@ -5,7 +5,8 @@
 - [BG](#bg)
   - [Table of content](#table-of-content)
   - [bg](#bg-1)
-  - [bg 1deploy\_mysql.yml information on multiple deploy](#bg-1deploy_mysqlyml-information-on-multiple-deploy)
+  - [bg 1 deploy\_mysql.yml information on multiple deploy](#bg-1-deploy_mysqlyml-information-on-multiple-deploy)
+    - [Playbooks bg1](#playbooks-bg1)
   - [bg2](#bg2)
 
 
@@ -15,7 +16,7 @@ Things that we need to investgate and test is marked with bg and a number.
 
 In Bg we do the job manually, understand the case and document, then apply automation with playbooks.
 
-## bg 1deploy_mysql.yml information on multiple deploy 
+## bg 1 deploy_mysql.yml information on multiple deploy 
 
 Sometimes a clean VM power cycle is all it takes to clear out lingering hypervisor-level disk locks, socket descriptors, or stale cache states.
 
@@ -39,11 +40,10 @@ sudo systemctl status mysql
 
 ```
 
-Playbooks to make
-
+### Playbooks bg1
 
 * playbooks\test\mysql\test_and_check_mysql_permission
-* fix_mysql.yml
+* playbooks\test\mysql\test_and_fix_mysql_permission.yml
 
 Lets try to investegate the above fix and create a playbook for it.
 
