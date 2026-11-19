@@ -167,7 +167,7 @@
 
 - name: Check if Zabbix database user exists
   # Note: This task checks if the Zabbix database user exists.
-  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='zabbix' AND Host='10.68.68.%';"
+  ansible.builtin.command: mysql -u root -p'{{ mysql_root_password }}' -e "SELECT User FROM mysql.user WHERE User='zabbix' AND Host='%';"
   register: zabbix_user_check
   failed_when: false
   changed_when: false
