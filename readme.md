@@ -181,9 +181,11 @@ When the system is in the state your playbook describes, Ansible does not change
 ### Ansible is owned and sponsored by Red Hat
 
 
-• Original creator: Michael DeHaan released the first version in February 2012 and co-founded AnsibleWorks, Inc. (later Ansible, Inc.) in 2013.
-• Red Hat acquisition: Red Hat announced its acquisition of Ansible, Inc. in October 2015.
-• IBM acquisition: IBM acquired Red Hat in 2019, making IBM the ultimate parent company while Red Hat continues to manage and sponsor Ansible's open-source project and commercial Ansible Automation Platform
+* Original creator: Michael DeHaan released the first version in February 2012 and co-founded AnsibleWorks, Inc. (later Ansible, Inc.) in 2013.
+* Red Hat acquisition: Red Hat announced its acquisition of Ansible, Inc. in October 2015.
+* IBM acquisition: 
+  
+IBM acquired Red Hat in 2019, making IBM the ultimate parent company while Red Hat continues to manage and sponsor Ansible's open-source project and commercial Ansible Automation Platform
 
 
 
