@@ -28,6 +28,7 @@ KVM is open source software. The kernel component of KVM is included in mainline
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
 - [Ansible](#ansible)
+    - [Introduction to Ansible](#introduction-to-ansible)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -140,6 +141,42 @@ KVM is open source software. The kernel component of KVM is included in mainline
 
 # Ansible 
 
+
+###  Introduction to Ansible
+
+
+Ansible provides open-source automation that reduces complexity and runs everywhere. Using Ansible lets you automate virtually any task. Here are some common use cases for Ansible:
+
+* Eliminate repetition and simplify workflows
+
+* Manage and maintain system configuration
+
+* Continuously deploy complex software
+
+* Perform zero-downtime rolling updates
+
+Ansible uses simple, human-readable scripts called playbooks to automate your tasks. You declare the desired state of a local or remote system in your playbook. Ansible ensures that the system remains in that state.
+
+As automation technology, Ansible is designed around the following principles:
+
+* Agent-less architecture
+
+Low maintenance overhead by avoiding the installation of additional software across IT infrastructure.
+
+* Simplicity
+
+Automation playbooks use straightforward YAML syntax for code that reads like documentation. Ansible is also decentralized, using SSH with existing OS credentials to access remote machines.
+
+* Scalability and flexibility
+
+Easily and quickly scale the systems you automate through a modular design that supports a large range of operating systems, cloud platforms, and network devices.
+
+* Idempotence and predictability
+
+When the system is in the state your playbook describes, Ansible does not change anything, even if the playbook runs multiple times.
+
+* https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
+
 ### Ansible on Azure Microsoft
 
 Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
@@ -148,6 +185,8 @@ https://learn.microsoft.com/en-us/azure/developer/ansible/
 
 
 ![ms](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ms.png)
+
+
 
 
 ### Ansible explained in 60 seconds youtube and other videos
