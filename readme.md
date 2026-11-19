@@ -167,6 +167,22 @@ As shown in the preceding figure, most Ansible environments have three main comp
 * Inventory
   A list of managed nodes that are logically organized. You create an inventory on the control node to describe host deployments to Ansible.
 
+
+```ini
+# Version: 2.0.0
+# Description: Multi-zone Ansible static inventory defining topological zones, functional roles, and connection parameters.
+
+[control_node]
+ansiblectr01 ansible_host=10.68.68.4 ansible_user=azureuser ansible_connection=local
+
+[idmz_nodes]
+zabbix01 ansible_host=10.68.68.5 ansible_user=azureuser
+mysql01 ansible_host=10.68.68.6 ansible_user=azureuser
+
+[ot_nodes]
+zabbix02 ansible_host=10.68.20.4 ansible_user=azureuser
+```
+
 * Managed node
   A remote system, or host, that Ansible controls.
 
