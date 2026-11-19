@@ -27,7 +27,7 @@ KVM is open source software. The kernel component of KVM is included in mainline
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
-- [Ansible](#ansible)
+- [Ansible automation tool](#ansible-automation-tool)
     - [Introduction to Ansible](#introduction-to-ansible)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
@@ -140,7 +140,7 @@ KVM is open source software. The kernel component of KVM is included in mainline
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 
-# Ansible 
+# Ansible automation tool
 
 
 ###  Introduction to Ansible
