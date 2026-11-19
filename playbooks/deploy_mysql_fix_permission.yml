@@ -18,10 +18,11 @@
         owner: root
         group: root
         mode: "0755"
+      # Note: This task ensures that the /data directory has the correct ownership and permissions, which is crucial for MySQL to function properly.
       when: >
         data_stat.stat.pw_name != 'root' or
         data_stat.stat.gr_name != 'root' or
-        data_stat.stat.mode != '0755'
+        data_stat.stat.mode != '0755' 
 
     - name: Check permissions of /data/mysql using namei
       ansible.builtin.command: namei -l /data/mysql
