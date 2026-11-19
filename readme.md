@@ -178,6 +178,8 @@ When the system is in the state your playbook describes, Ansible does not change
 
 * https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
+![before](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before.png)
+
 ### Ansible is owned and sponsored by Red Hat
 
 
