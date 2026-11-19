@@ -184,7 +184,7 @@ zabbix02 ansible_host=10.68.20.4 ansible_user=azureuser
 ```
 
 * Managed node
-  A remote system, or host, that Ansible controls.
+  A remote system, or host, that Ansible controls, all the host in the inventory.
 
 
 * Playbook
