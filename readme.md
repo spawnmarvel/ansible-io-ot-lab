@@ -187,6 +187,8 @@ Docs
 
 ansible.windows.win_updates:
 
+* https://docs.ansible.com/projects/ansible/latest/collections/ansible/windows/win_updates_module.html
+
 ### Semaphore UI for Ansible
 
 Short video
