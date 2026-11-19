@@ -20,6 +20,9 @@ In Bg we do the job manually, understand the case and document, then apply autom
 - [Ansible](#ansible)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
+    - [Ansible.Builtin](#ansiblebuiltin)
+    - [Ansible Collection Index](#ansible-collection-index)
+    - [Example ansible.windows.win\_updates module – Download and install Windows update](#example-ansiblewindowswin_updates-module--download-and-install-windows-update)
     - [Semaphore UI for Ansible](#semaphore-ui-for-ansible)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
@@ -170,6 +173,19 @@ As shown in the preceding figure, most Ansible environments have three main comp
 Docs
 
 * https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
+
+
+### Ansible.Builtin
+
+* https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html
+
+### Ansible Collection Index
+
+* https://docs.ansible.com/projects/ansible/latest/collections/index.html
+
+### Example ansible.windows.win_updates module – Download and install Windows update
+
+ansible.windows.win_updates:
 
 ### Semaphore UI for Ansible
 
