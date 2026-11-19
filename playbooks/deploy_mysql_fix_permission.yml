@@ -1,0 +1,33 @@
+---
+# Version: 1.0.4
+# Description: Check permissions of /data/mysql using namei and enforce 0755 root:root on /data if needed.
+
+- name: Check and enforce permissions for /data and /data/mysql
+  hosts: db_servers_mysql
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Inspect /data mount point attributes
+      ansible.builtin.stat:
+        path: /data
+      register: data_stat
+
+    - name: Ensure /data is owned by root:root with 0755 permissions
+      ansible.builtin.file:
+        path: /data
+        owner: root
+        group: root
+        mode: "0755"
+      when: >
+        data_stat.stat.pw_name != 'root' or
+        data_stat.stat.gr_name != 'root' or
+        data_stat.stat.mode != '0755'
+
+    - name: Check permissions of /data/mysql using namei
+      ansible.builtin.command: namei -l /data/mysql
+      register: namei_output
+      changed_when: false
+
+    - name: Display the permissions of /data/mysql
+      ansible.builtin.debug:
+        var: namei_output.stdout_lines
