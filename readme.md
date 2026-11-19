@@ -29,6 +29,7 @@ KVM is open source software. The kernel component of KVM is included in mainline
   - [Table of content](#table-of-content)
 - [Ansible](#ansible)
     - [Introduction to Ansible](#introduction-to-ansible)
+    - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -176,6 +177,17 @@ Easily and quickly scale the systems you automate through a modular design that 
 When the system is in the state your playbook describes, Ansible does not change anything, even if the playbook runs multiple times.
 
 * https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
+
+### Ansible is owned and sponsored by Red Hat
+
+
+• Original creator: Michael DeHaan released the first version in February 2012 and co-founded AnsibleWorks, Inc. (later Ansible, Inc.) in 2013.
+• Red Hat acquisition: Red Hat announced its acquisition of Ansible, Inc. in October 2015.
+• IBM acquisition: IBM acquired Red Hat in 2019, making IBM the ultimate parent company while Red Hat continues to manage and sponsor Ansible's open-source project and commercial Ansible Automation Platform
+
+
+
+https://www.windmill.dev/blog/ansible-history
 
 ### Ansible on Azure Microsoft
 
