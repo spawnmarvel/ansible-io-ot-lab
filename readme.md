@@ -170,7 +170,28 @@ As shown in the preceding figure, most Ansible environments have three main comp
 * Managed node
   A remote system, or host, that Ansible controls.
 
+
+* Playbook
+
+```yml
+---
+# Version: 1.0.1
+# Author: aspen
+# Description: Ping validation playbook with privilege escalation explicitly disabled
+
+- name: Verify Connectivity Across Purdue Lab Nodes
+  hosts: ot_nodes:idmz_nodes
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Ping all inventory hosts
+      ansible.builtin.ping:
+```
+
 Docs
+
+
+
 
 * https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 
