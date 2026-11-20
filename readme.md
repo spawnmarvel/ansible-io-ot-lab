@@ -191,9 +191,7 @@ When the system is in the state your playbook describes, Ansible does not change
   
 IBM acquired Red Hat in 2019, making IBM the ultimate parent company while Red Hat continues to manage and sponsor Ansible's open-source project and commercial Ansible Automation Platform
 
-
-
-https://www.windmill.dev/blog/ansible-history
+https://www.redhat.com/en/technologies/management/ansible
 
 ### Why 10–30 VMs Is a Sweet Spot
 
