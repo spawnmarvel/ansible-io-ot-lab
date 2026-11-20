@@ -28,6 +28,7 @@ KVM is open source software. The kernel component of KVM is included in mainline
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
 - [Ansible automation tool](#ansible-automation-tool)
+    - [Tools to automate data center](#tools-to-automate-data-center)
     - [Introduction to Ansible](#introduction-to-ansible)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
@@ -144,6 +145,17 @@ KVM is open source software. The kernel component of KVM is included in mainline
 
 # Ansible automation tool
 
+
+### Tools to automate data center
+
+The right automation tool depends on which part of the data center you want to automate—infrastructure provisioning, workload scheduling, networking, or physical facilities.
+
+Infrastructure & Configuration Automation (IaC)
+
+* Terraform & Pulumi: Provision servers, virtual machines, and cloud/on-prem resources using version-controlled code.
+* Ansible: Automate server setup, configuration management, patching, and repeatable operational tasks
+
+https://www.aptlytech.com/data-center-automation/
 
 ###  Introduction to Ansible
 
