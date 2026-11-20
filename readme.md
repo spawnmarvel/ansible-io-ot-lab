@@ -644,6 +644,8 @@ This is the final set up (ip may change but the concept is the same)
 
 Now it gets a bit technical, so ready for the ride or just want to see the demo?
 
+Live demo or private video, it does the same.
+
 ![ride](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ride2.png)
 
 ## Firewal and practical information
