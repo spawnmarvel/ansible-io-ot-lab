@@ -49,8 +49,10 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
     - [Red Hat Ansible Automation Platform Overview:](#red-hat-ansible-automation-platform-overview)
   - [Modules](#modules)
-    - [This module is part of the ansible.windows collection ansible.windows.win\_updates module – Download and install Windows update](#this-module-is-part-of-the-ansiblewindows-collection-ansiblewindowswin_updates-module--download-and-install-windows-update)
+    - [This module is able to Download and install Windows update](#this-module-is-able-to-download-and-install-windows-update)
     - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
+    - [How to automate devices using the Ansible CIP collection Rockwell Automation and Red Hat](#how-to-automate-devices-using-the-ansible-cip-collection-rockwell-automation-and-red-hat)
+    - [Collection to manage Programmable Logic Controllers (PLC) via the Common Industrial Protocol (CIP).](#collection-to-manage-programmable-logic-controllers-plc-via-the-common-industrial-protocol-cip)
     - [Ansible Network Examples](#ansible-network-examples)
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
@@ -447,7 +449,9 @@ https://www.redhat.com/en/technologies/management/ansible
 
 ## Modules
 
-### This module is part of the ansible.windows collection ansible.windows.win_updates module – Download and install Windows update
+### This module is able to Download and install Windows update
+
+This module is part of the ansible.windows collection (version 3.9.2).
 
 ansible.windows.win_updates:
 
@@ -459,6 +463,14 @@ This module is able to configure a FortiGate or FortiOS (FOS) device by allowing
 
 https://docs.ansible.com/projects/ansible/latest/collections/fortinet/fortios/fortios_system_interface_module.html
 
+
+### How to automate devices using the Ansible CIP collection Rockwell Automation and Red Hat
+
+https://developers.redhat.com/articles/2023/01/10/automate-devices-using-ansible-cip
+
+### Collection to manage Programmable Logic Controllers (PLC) via the Common Industrial Protocol (CIP).
+
+https://github.com/ansible-collections/community.cip
 
 ### Ansible Network Examples
 
