@@ -34,7 +34,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
   - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
-  - [Use case support departemnt](#use-case-support-departemnt)
+  - [Use case support department](#use-case-support-department)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -251,7 +251,7 @@ Doing so frees up time and resources that can be better used to deliver the esse
 
 https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
 
-## Use case support departemnt
+## Use case support department
 
 We will show that other departments can effectively use Ansible also, but let's focus on day-2 operations, support, and maintenance.
 
