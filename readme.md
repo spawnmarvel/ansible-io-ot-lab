@@ -57,7 +57,7 @@ KVM is open source software. The kernel component of KVM is included in mainline
 - [IT Automation in OT](#it-automation-in-ot)
   - [Introduction to scenario](#introduction-to-scenario)
     - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
-  - [1. Topology for the future](#1-topology-for-the-future)
+    - [1. Topology for the future](#1-topology-for-the-future)
 - [Start IT/OT Lab](#start-itot-lab)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
@@ -544,7 +544,7 @@ Day-2 automation begins immediately after IP and credential handover.
 ![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
 
 
-## 1. Topology for the future
+### 1. Topology for the future
 
 This is the final set up (ip may change but the concept is the same)
 
