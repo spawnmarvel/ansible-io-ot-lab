@@ -54,7 +54,7 @@ KVM is open source software. The kernel component of KVM is included in mainline
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
 - [IT Automation in OT](#it-automation-in-ot)
   - [Introduction to scenario](#introduction-to-scenario)
-  - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
+    - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
   - [1. Topology for the future](#1-topology-for-the-future)
 - [Start IT/OT Lab](#start-itot-lab)
   - [Firewal and practical information](#firewal-and-practical-information)
@@ -519,9 +519,9 @@ https://galaxy.ansible.com/ui/
 
 3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
 
-## Team 1 and Team 2 scenario
+### Team 1 and Team 2 scenario
 
-Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI..
+Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI.
 
 Day-2 automation begins immediately after IP and credential handover.
 
@@ -532,8 +532,8 @@ Day-2 automation begins immediately after IP and credential handover.
 
 This is the final set up (ip may change but the concept is the same)
 
-1. Team 1 can use Terraform / Ansible or do it manually for network, firewall, provision servers etc.
-2. Team 2 will use Ansible for configuration management, install, montitoring, patching etc.
+1. Team 1 can use Terraform / Ansible for network, firewall, provision servers etc.
+2. Team 2 will can use Ansible for configuration management, install, montitoring, patching etc.
 
 ---
 
