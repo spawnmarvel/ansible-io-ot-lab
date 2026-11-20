@@ -29,9 +29,9 @@ KVM is open source software. The kernel component of KVM is included in mainline
   - [Table of content](#table-of-content)
 - [Ansible automation tool](#ansible-automation-tool)
     - [Introduction to Ansible](#introduction-to-ansible)
+    - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
-    - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -182,6 +182,19 @@ When the system is in the state your playbook describes, Ansible does not change
 
 ![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
 
+### Ansible is owned and sponsored by Red Hat
+
+
+* Original creator: Michael DeHaan released the first version in February 2012 and co-founded AnsibleWorks, Inc. (later Ansible, Inc.) in 2013.
+* Red Hat acquisition: Red Hat announced its acquisition of Ansible, Inc. in October 2015.
+* IBM acquisition: 
+  
+IBM acquired Red Hat in 2019, making IBM the ultimate parent company while Red Hat continues to manage and sponsor Ansible's open-source project and commercial Ansible Automation Platform
+
+
+
+https://www.windmill.dev/blog/ansible-history
+
 ### Why 10–30 VMs Is a Sweet Spot
 
 10 to 30 VMs across network configuration, Proxmox or VMware VM provisioning, mixed Ubuntu and Windows management, and some switches and routers is a strong fit for Ansible. At that scale, manual clicks and one-off scripts get repetitive and error-prone, while Ansible gives you repeatable playbooks, inventory grouping, and consistent state without needing agents on target nodes.
@@ -206,19 +219,6 @@ Easier Handoffs & Team Support
 * Clearer specialization across teams: Network engineers, Linux/Windows admins, and virtualization owners can work cleanly within their own inventories, roles, and variables without stepping on each other's changes.
 * Faster onboarding: New teammates can read structured playbooks and group_vars to understand the environment far faster than reading scattered notes or reverse-engineering live machines.
 
-
-### Ansible is owned and sponsored by Red Hat
-
-
-* Original creator: Michael DeHaan released the first version in February 2012 and co-founded AnsibleWorks, Inc. (later Ansible, Inc.) in 2013.
-* Red Hat acquisition: Red Hat announced its acquisition of Ansible, Inc. in October 2015.
-* IBM acquisition: 
-  
-IBM acquired Red Hat in 2019, making IBM the ultimate parent company while Red Hat continues to manage and sponsor Ansible's open-source project and commercial Ansible Automation Platform
-
-
-
-https://www.windmill.dev/blog/ansible-history
 
 ### Ansible on Azure Microsoft
 
