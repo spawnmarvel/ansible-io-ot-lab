@@ -34,6 +34,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
   - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
+  - [Use case support departemnt](#use-case-support-departemnt)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -249,6 +250,42 @@ In a world where organizations are continually asked to do more with less, IT le
 Doing so frees up time and resources that can be better used to deliver the essential technologies needed to drive business success.
 
 https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
+
+## Use case support departemnt
+
+We will show that other departments can effectively use Ansible also, but let's focus on day-2 operations, support, and maintenance.
+
+Manual work for support with 10 virtual machines:
+
+🟡 Windows and Linux patching
+
+🟡 Installing software
+
+🟡 Fixing and checking vulnerabilities
+
+🟡 Adding new users
+
+🟡 Updating certificates
+
+🟡 Looking in wikis and documentation for doing the task
+
+🟡 Dependent on people
+
+Ansible automation for support with 10 virtual machines:
+
+🟢 Repeatable Windows and Linux patching across all 10 VMs
+
+🟢 Consistent software installation from playbooks
+
+🟢 Repeatable vulnerability checks and fixes across targets
+
+🟢 Standardized user creation driven by variables
+
+🟢 Automated certificate updates and service reloads
+
+🟢 Playbooks and task names act as living documentation
+
+🟢 Less dependent on specific people with repeatable runs and clear logs
 
 ### Ansible on Azure Microsoft
 
