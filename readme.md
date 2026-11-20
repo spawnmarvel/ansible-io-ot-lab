@@ -48,11 +48,13 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
     - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
     - [Red Hat Ansible Automation Platform Overview:](#red-hat-ansible-automation-platform-overview)
-  - [Modules](#modules)
+  - [Modules and scenarios](#modules-and-scenarios)
     - [This module is able to Download and install Windows update](#this-module-is-able-to-download-and-install-windows-update)
     - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
     - [How to automate devices using the Ansible CIP collection Rockwell Automation and Red Hat](#how-to-automate-devices-using-the-ansible-cip-collection-rockwell-automation-and-red-hat)
     - [Collection to manage Programmable Logic Controllers (PLC) via the Common Industrial Protocol (CIP).](#collection-to-manage-programmable-logic-controllers-plc-via-the-common-industrial-protocol-cip)
+    - [Siemens automates communication security with Red Hat Ansible](#siemens-automates-communication-security-with-red-hat-ansible)
+    - [Equinor Building and deploying with speed](#equinor-building-and-deploying-with-speed)
     - [Ansible Network Examples](#ansible-network-examples)
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
@@ -447,7 +449,7 @@ Details enterprise-grade execution, multi-vendor network automation, cloud provi
 
 https://www.redhat.com/en/technologies/management/ansible
 
-## Modules
+## Modules and scenarios
 
 ### This module is able to Download and install Windows update
 
@@ -471,6 +473,17 @@ https://developers.redhat.com/articles/2023/01/10/automate-devices-using-ansible
 ### Collection to manage Programmable Logic Controllers (PLC) via the Common Industrial Protocol (CIP).
 
 https://github.com/ansible-collections/community.cip
+
+### Siemens automates communication security with Red Hat Ansible
+
+https://www.redhat.com/en/resources/siemens-case-study
+
+
+### Equinor Building and deploying with speed
+
+"While everyone does a little bit of everything in the team, they also have certain areas they’re more focused on. Petter’s working on what they call the “lower layer”; where they develop the cluster that Fibra runs on. This means he’s working heavily with Kubernetes, Docker, Helm charts, server operations and Ansible."
+
+https://www.equinor.com/magazine/fibra-frontier
 
 ### Ansible Network Examples
 
