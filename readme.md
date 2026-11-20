@@ -33,7 +33,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
-    - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
+  - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -236,7 +236,7 @@ Easier Handoffs & Team Support
 
 ![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
 
-### Red Hat Ansible Automation Platform delivers on high ROI expectations
+## Red Hat Ansible Automation Platform delivers on high ROI expectations
 
 In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
 
