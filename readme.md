@@ -532,6 +532,11 @@ Ansible and Octopus Deploy can definitely live together in the same environment�
 
 Let Ansible prepare the baseline, and Octopus deploy on top: For example, Ansible spins up the VM, configures the network/storage/base OS, and installs prerequisites, while Octopus deploys the application package or runs operational runbooks against that target.
 
+
+Yes—you can use Ansible alone for the entire scenario: provisioning VMs on Proxmox or VMware, configuring switches and routers, managing and updating Ubuntu and Windows VMs, and handling backup jobs or maintenance tasks.
+
+You only need another tool if you specifically want dedicated release/deployment pipelines, UI approval gates, or a separate operational runbook portal—otherwise, Ansible alone is more than enough to cover this whole environment.
+
 ## Introduction to scenario
 
 🎯 Objectives & Key Highlights
