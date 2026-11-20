@@ -154,6 +154,7 @@ Infrastructure & Configuration Automation (IaC)
 
 * Terraform & Pulumi: Provision servers, virtual machines, and cloud/on-prem resources using version-controlled code.
 * Ansible: Automate server setup, configuration management, patching, and repeatable operational tasks
+* ...
 
 https://www.aptlytech.com/data-center-automation/
 
