@@ -287,6 +287,12 @@ Ansible automation for support with 10 virtual machines:
 
 🟢 Less dependent on specific people with repeatable runs and clear logs
 
+For those day-2 tasks across 10 VMs (patching, software installs, vulnerability checks/fixes, user creation, certificate updates, and skipping wiki lookups), Ansible typically saves 60% to 85%+ of hands-on engineering time on repeat runs:
+
+* Per-run hands-on time: Drops from roughly 30–90+ minutes manually across 10 VMs to a few minutes of playbook execution (plus any natural OS reboot/update wait time).
+* Wiki & lookup overhead: Saves 10–20 minutes per task because steps, flags, and variables live in version-controlled playbooks rather than being looked up and re-typed from memory.
+* Biggest payoff: Tasks done often (patching, adding users, rotating certs, checking/fixing vulnerabilities) pay back the playbook writing time within just a few runs.
+
 ### Ansible on Azure Microsoft
 
 Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
