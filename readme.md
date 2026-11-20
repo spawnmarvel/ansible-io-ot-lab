@@ -33,6 +33,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
+    - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -42,7 +43,6 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
     - [The Bottom Line](#the-bottom-line)
-    - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
     - [Unified orchestration](#unified-orchestration)
     - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
     - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
@@ -236,6 +236,14 @@ Easier Handoffs & Team Support
 
 ![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
 
+### Red Hat Ansible Automation Platform delivers on high ROI expectations
+
+In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
+
+Doing so frees up time and resources that can be better used to deliver the essential technologies needed to drive business success.
+
+https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
+
 ### Ansible on Azure Microsoft
 
 Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
@@ -385,14 +393,6 @@ While there are no technical walls, you will eventually face operational trade-o
 
 If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
 
-
-### Red Hat Ansible Automation Platform delivers on high ROI expectations
-
-In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
-
-Doing so frees up time and resources that can be better used to deliver the essential technologies needed to drive business success.
-
-https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
 
 ---
 
