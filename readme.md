@@ -183,7 +183,6 @@ When the system is in the state your playbook describes, Ansible does not change
 
 * https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
-![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
 
 ### Ansible is owned and sponsored by Red Hat
 
@@ -220,6 +219,7 @@ Easier Handoffs & Team Support
 * Clearer specialization across teams: Network engineers, Linux/Windows admins, and virtualization owners can work cleanly within their own inventories, roles, and variables without stepping on each other's changes.
 * Faster onboarding: New teammates can read structured playbooks and group_vars to understand the environment far faster than reading scattered notes or reverse-engineering live machines.
 
+![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
 
 ### Ansible on Azure Microsoft
 
