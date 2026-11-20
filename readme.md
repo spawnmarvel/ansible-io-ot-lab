@@ -29,6 +29,8 @@ KVM is open source software. The kernel component of KVM is included in mainline
   - [Table of content](#table-of-content)
 - [Ansible automation tool](#ansible-automation-tool)
     - [Introduction to Ansible](#introduction-to-ansible)
+    - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
+    - [Day-two support](#day-two-support)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
@@ -179,6 +181,31 @@ When the system is in the state your playbook describes, Ansible does not change
 * https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
 ![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
+
+### Why 10–30 VMs Is a Sweet Spot
+
+10 to 30 VMs across network configuration, Proxmox or VMware VM provisioning, mixed Ubuntu and Windows management, and some switches and routers is a strong fit for Ansible. At that scale, manual clicks and one-off scripts get repetitive and error-prone, while Ansible gives you repeatable playbooks, inventory grouping, and consistent state without needing agents on target nodes.
+
+* Ten to thirty nodes—plus a handful of switches and routers—is large enough that manual changes drift quickly, yet small enough that you can run playbooks cleanly against groups or batches (serial) with clear visibility.
+
+* You can organize host and group variables (group_vars/ubuntu.yml, group_vars/windows.yml, group_vars/network.yml, and environment inventories) so differences between OSes, hypervisors, network gear, and subnets stay structured instead of copy-pasted.
+
+### Day-two support
+
+When a setup is built and maintained with Ansible instead of manual steps, day-two support and troubleshooting get much faster and less guesswork-heavy. Because this touches operations, handoffs, and incident response, here is a quick breakdown of what you gain.
+
+Clearer System State & Faster Root-Cause Checks
+
+* A single source of truth
+* Repeatable checks and diffs
+* Consistent logs and outputs
+
+Easier Handoffs & Team Support
+
+* Less "tribal knowledge": Support does not depend on remembering who built VM #12 or how a router interface was tweaked manually.
+* Clearer specialization across teams: Network engineers, Linux/Windows admins, and virtualization owners can work cleanly within their own inventories, roles, and variables without stepping on each other's changes.
+* Faster onboarding: New teammates can read structured playbooks and group_vars to understand the environment far faster than reading scattered notes or reverse-engineering live machines.
+
 
 ### Ansible is owned and sponsored by Red Hat
 
