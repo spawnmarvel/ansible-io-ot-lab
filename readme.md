@@ -158,7 +158,9 @@ Infrastructure & Configuration Automation (IaC)
 * Ansible: Automate server setup, configuration management, patching, and repeatable operational tasks
 * ...
 
-https://www.aptlytech.com/data-center-automation/
+What Can Be Automated in a Data Center?
+
+* https://www.aptlytech.com/data-center-automation/
 
 ###  Introduction to Ansible
 
