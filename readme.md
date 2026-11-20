@@ -55,6 +55,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
 - [IT Automation in OT](#it-automation-in-ot)
+  - [](#)
   - [Introduction to scenario](#introduction-to-scenario)
     - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
     - [1. Topology for the future](#1-topology-for-the-future)
@@ -512,6 +513,19 @@ Ansible Galaxy
 https://galaxy.ansible.com/ui/
 
 # IT Automation in OT
+
+##
+
+| Area                     | Octopus Deploy                                                                                   | Ansible                                                                              |
+| :----------------------- | :----------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- |
+| **Best Strength**        | Release pipelines, operational Runbooks, Windows/Linux app & maintenance tasks with UI/approvals | Agentless multi-domain automation across VMs, OSes, hypervisors, and network devices |
+| **Ubuntu & Windows VMs** | Strong via Tentacle / SSH + PowerShell, Bash, or Python                                          | Strong via SSH + Python (Linux) and WinRM/PSRP (Windows)                             |
+| **Proxmox / VMware VMs** | Possible via Runbook scripts/APIs, less native                                                   | Strong via dedicated hypervisor modules/collections                                  |
+| **Switches & Routers**   | Script/API-driven via Workers (no agent on gear)                                                 | Strong via dedicated network modules/collections                                     |
+| **Backup Jobs**          | Built-in Runbooks, schedules, and task logs                                                      | Strong via scheduled playbooks, roles, and scripts                                   |
+
+
+If your main goal is VM creation on Proxmox/VMware + network switch/router config + mixed OS management, Ansible fits that end-to-end infrastructure scope more naturally, while Octopus Deploy shines when you want a strong UI, approval gates, and operational Runbooks for application rollouts and maintenance tasks.
 
 ## Introduction to scenario
 
