@@ -56,6 +56,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Collection to manage Programmable Logic Controllers (PLC) via the Common Industrial Protocol (CIP).](#collection-to-manage-programmable-logic-controllers-plc-via-the-common-industrial-protocol-cip)
     - [Siemens automates communication security with Red Hat Ansible](#siemens-automates-communication-security-with-red-hat-ansible)
     - [Equinor Building and deploying with speed](#equinor-building-and-deploying-with-speed)
+    - [BP modernizes infrastructure, introduces DevOps with self-service platform](#bp-modernizes-infrastructure-introduces-devops-with-self-service-platform)
     - [Ansible Network Examples](#ansible-network-examples)
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
@@ -517,6 +518,10 @@ https://www.redhat.com/en/resources/siemens-case-study
 "While everyone does a little bit of everything in the team, they also have certain areas they’re more focused on. Petter’s working on what they call the “lower layer”; where they develop the cluster that Fibra runs on. This means he’s working heavily with Kubernetes, Docker, Helm charts, server operations and Ansible."
 
 https://www.equinor.com/magazine/fibra-frontier
+
+### BP modernizes infrastructure, introduces DevOps with self-service platform
+
+https://www.redhat.com/en/success-stories/bp
 
 ### Ansible Network Examples
 
