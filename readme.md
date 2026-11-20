@@ -258,33 +258,21 @@ We will show that other departments can effectively use Ansible also, but let's 
 Manual work for support with 10 virtual machines:
 
 🟡 Windows and Linux patching
-
 🟡 Installing software
-
 🟡 Fixing and checking vulnerabilities
-
 🟡 Adding new users
-
 🟡 Updating certificates
-
 🟡 Looking in wikis and documentation for doing the task
-
 🟡 Dependent on people
 
 Ansible automation for support with 10 virtual machines:
 
 🟢 Repeatable Windows and Linux patching across all 10 VMs
-
 🟢 Consistent software installation from playbooks
-
 🟢 Repeatable vulnerability checks and fixes across targets
-
 🟢 Standardized user creation driven by variables
-
 🟢 Automated certificate updates and service reloads
-
 🟢 Playbooks and task names act as living documentation
-
 🟢 Less dependent on specific people with repeatable runs and clear logs
 
 For those day-2 tasks across 10 VMs (patching, software installs, vulnerability checks/fixes, user creation, certificate updates, and skipping wiki lookups), Ansible typically saves 60% to 85%+ of hands-on engineering time on repeat runs:
