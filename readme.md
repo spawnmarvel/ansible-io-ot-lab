@@ -37,7 +37,6 @@ KVM is open source software. The kernel component of KVM is included in mainline
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
     - [Ansible Collection Index](#ansible-collection-index)
-    - [Example ansible.windows.win\_updates module – Download and install Windows update](#example-ansiblewindowswin_updates-module--download-and-install-windows-update)
     - [Semaphore UI for Ansible](#semaphore-ui-for-ansible)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
@@ -49,6 +48,8 @@ KVM is open source software. The kernel component of KVM is included in mainline
     - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
     - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
     - [Red Hat Ansible Automation Platform Overview:](#red-hat-ansible-automation-platform-overview)
+  - [Modules](#modules)
+    - [This module is part of the ansible.windows collection ansible.windows.win\_updates module – Download and install Windows update](#this-module-is-part-of-the-ansiblewindows-collection-ansiblewindowswin_updates-module--download-and-install-windows-update)
     - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
     - [Ansible Network Examples](#ansible-network-examples)
     - [Ansible can configure and manage network switches from a wide variety of hardware vendors using specialized](#ansible-can-configure-and-manage-network-switches-from-a-wide-variety-of-hardware-vendors-using-specialized)
@@ -329,12 +330,6 @@ Docs
 
 * https://docs.ansible.com/projects/ansible/latest/collections/index.html
 
-### Example ansible.windows.win_updates module – Download and install Windows update
-
-ansible.windows.win_updates:
-
-* https://docs.ansible.com/projects/ansible/latest/collections/ansible/windows/win_updates_module.html
-
 ### Semaphore UI for Ansible
 
 Short video
@@ -446,6 +441,14 @@ https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.ht
 Details enterprise-grade execution, multi-vendor network automation, cloud provisioning, and orchestration features.
 
 https://www.redhat.com/en/technologies/management/ansible
+
+## Modules
+
+### This module is part of the ansible.windows collection ansible.windows.win_updates module – Download and install Windows update
+
+ansible.windows.win_updates:
+
+* https://docs.ansible.com/projects/ansible/latest/collections/ansible/windows/win_updates_module.html
 
 ### This module is able to configure a FortiGate or FortiOS (FOS) device
 
