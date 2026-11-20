@@ -178,6 +178,9 @@ Easily and quickly scale the systems you automate through a modular design that 
 
 When the system is in the state your playbook describes, Ansible does not change anything, even if the playbook runs multiple times.
 
+
+![how](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/how.png)
+
 * https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html
 
 ![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
