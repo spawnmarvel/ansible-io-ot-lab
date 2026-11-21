@@ -66,6 +66,8 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Introduction to scenario](#introduction-to-scenario)
     - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
     - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
+    - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
+    - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
 - [Start IT/OT Lab](#start-itot-lab)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
@@ -664,6 +666,48 @@ This is the final set up (ip may change but the concept is the same)
 
 ![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
 
+### 2 What now and what about other departments?
+
+Analysis by Department
+
+Network Team
+
+🟠 Why they should evaluate Ansible: Switches, routers, VLANs, interfaces, and firewall/security group policies suffer heavily from manual CLI drift and high-risk typos. Using Ansible collections (cisco.ios, cisco.nxos, arista.eos, junipernetworks.junos, fortinet.fortios, or community.network) lets network engineers standardize configs and back up or audit state across zones.
+
+* What they need to test: Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab segment, and safe rollback/out-of-band precautions so nobody risks locking out a device or breaking iDMZ/OT segmentation.
+
+🟢 Expected payoff: Fewer configuration mismatches across network gear, faster troubleshooting when traffic fails between segments, and shared network facts/inventories for other teams.
+
+Hypervisor Team
+
+🟠 Why they should evaluate Ansible: Provisioning VMs, adjusting CPU/memory/disks, managing templates, and keeping hypervisor hosts consistent across Proxmox, VMware, Hyper-V, or KVM/Libvirt takes repetitive GUI work when scaling from a handful of VMs to dozens. Collections like community.proxmox, community.vmware / vmware.vmware, microsoft.hyperv, or community.libvirt let the hypervisor team standardize VM creation.
+
+🟡 What they need to test: Cloning from baseline templates, attaching disks/networks consistently, and handing clean host details (IP, OS, role, zone) into inventory or downstream automation.
+
+🟢 Expected payoff: Faster, uniform VM builds ("Day 1" handover) with fewer "snowflake" VMs and less back-and-forth during provisioning.
+
+
+Cybersecurity Team
+
+🟠 Why they should evaluate Ansible: Security teams often spend time checking baseline hardening, verifying patch posture, enforcing firewall/access rules, or remediating vulnerabilities across mixed Linux and Windows hosts. Ansible lets security teams turn checklists and compliance requirements into repeatable audit (--check) and remediation playbooks instead of manual spot-checks.
+
+🟡 What they need to test: Non-disruptive compliance/drift checks, targeted vulnerability fixes or configuration hardening on test VMs, certificate/key handling practices, and audit logging/approval controls (such as through Semaphore UI or Git reviews).
+
+🟢 Expected payoff: Continuous, verifiable baseline checks rather than one-off audits, faster remediation when a vulnerability is announced, and clear records of what changed and when.
+
+### 2.1 How to Coordinate Across Departments Without Stepping on Toes
+
+🟢 Keep clear ownership boundaries: Let hypervisor and network teams own provisioning and network/firewall layers, let security define baselines and guardrails, and let support/operations run day-2 maintenance and service playbooks within agreed boundaries.
+
+🟢 Share conventions, not one giant messy playbook: Agree on common folder structure, naming, inventory layout, vault/secret handling, and testing habits (--syntax-check, --check, --diff), while keeping team-specific variables and playbooks modular.
+
+🟡 Measure whether it actually helps: After each department runs its trial, compare manual effort, error rates, and handoff speed—if Ansible makes daily work clearer and safer, expand it; if a task is too rare or risky to automate cleanly, keep it documented and manual.
+
+
+
+Having a dedicated Ansible control node in Purdue Zone 3.5 for the network team and another control node in Zone 2.5 (iDMZ) for the support team makes a lot of sense in a segmented IT/OT environment.
+
+![2ansible](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/2ansible.png)
 
 # Start IT/OT Lab
 
