@@ -186,6 +186,9 @@ Configuration Management & Image Building
 
 Building a data center—whether on-premises bare-metal, a private cloud, or a virtual cloud data center—with Infrastructure as Code (IaC) requires layering different tools for provisioning, configuration, and state management.
 
+
+![iac](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/iac.png)
+
 ### What Can Be Automated in a Data Center?
 
 * https://www.aptlytech.com/data-center-automation/
