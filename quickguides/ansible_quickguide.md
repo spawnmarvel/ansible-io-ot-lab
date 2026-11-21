@@ -14,6 +14,8 @@
     - [Ansible.Builtin (core)](#ansiblebuiltin-core)
     - [Ansible Community](#ansible-community)
     - [Ansible Collection](#ansible-collection)
+    - [Ansible Galaxy](#ansible-galaxy)
+    - [How to Check and Install a Collection When You Only Have ansible-core](#how-to-check-and-install-a-collection-when-you-only-have-ansible-core)
   - [Getting Started with Ansible: A Beginner’s Guide](#getting-started-with-ansible-a-beginners-guide)
   - [Inventory](#inventory)
   - [SSH key-based authentication](#ssh-key-based-authentication)
@@ -106,6 +108,8 @@ https://docs.ansible.com/ecosystem.html
 
 ### Ansible.Builtin (core)
 
+ansible-core is the lightweight execution engine plus a small set of built-in modules (ansible.builtin.*, such as file, copy, template, systemd, service, command, shell, mount, stat, debug). It runs playbooks, manages inventory, handles variables/vaults, and executes tasks.
+
 * https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html
 
 ### Ansible Community
@@ -116,11 +120,39 @@ https://docs.ansible.com/projects/ansible/latest/collections/community/index.htm
 
 ### Ansible Collection
 
-The standard format for packaging and distributing playbooks, roles, modules, and plugins
+Ansible collections are modular packages that add extra modules, roles, plugins, and documentation for specific technologies outside ansible-core—such as community.general (for parted and many OS utilities), ansible.posix (for sysctl, mount extras, firewalld/posix tasks), azure.azcollection, or network/hypervisor collections.
 
 * https://docs.ansible.com/collections.html
 
 * https://docs.ansible.com/projects/ansible/latest/collections/index.html
+
+### Ansible Galaxy
+
+Ansible Galaxy (galaxy.ansible.com): The public hub/registry where authors publish community collections and roles so you can search for them and download them.
+
+ansible-galaxy CLI tool (included with ansible-core): The command-line tool that fetches, lists, and installs collections. You don't have to pull from the public Galaxy website if you use local .tar.gz archives, internal Git repos, or a local cache/mirror.
+
+### How to Check and Install a Collection When You Only Have ansible-core
+
+```bash
+# (Successful run: prints a table or list of installed collections; if community.general is not listed, you need to install it before using community.general.parted.)
+ansible-galaxy collection list
+
+# Install the collection (online via Galaxy or from a local .tar.gz file):
+# From Galaxy:
+ansible-galaxy collection install community.general
+
+# Or from a pre-downloaded archive:
+ansible-galaxy collection install ./community-general-*.tar.gz
+
+# How to Install community.general just the collection and not all
+# Install from Ansible Galaxy (if your control node has outbound Galaxy access)
+ansible-galaxy collection install community.general
+
+# Or install from a local .tar.gz file (if installing offline / via local cache):
+ansible-galaxy collection install ./community-general-*.tar.gz
+
+```
 
 ## Getting Started with Ansible: A Beginner’s Guide
 
