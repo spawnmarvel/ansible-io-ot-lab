@@ -43,7 +43,7 @@
     # =========================================================================
     # Interactive Confirmation Prompt before Step 3 (CLI vs Semaphore Survey)
     # =========================================================================
-     - name: Confirm before proceeding to Step 3 (UUID extraction and mounting)
+    - name: Confirm before proceeding to Step 3 (UUID extraction and mounting)
       ansible.builtin.pause:
         prompt: "Ready to proceed with Step 3: UUID extraction and mounting at /data. Enter 'yes' to continue or anything else to abort."
       register: confirmation_input
