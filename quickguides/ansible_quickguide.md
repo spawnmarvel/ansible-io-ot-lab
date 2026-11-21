@@ -314,6 +314,7 @@ mysql_port: 3306
 
 ansible-vault encrypt roles/mysql/defaults/main.yml
 
+# the vault password you musy keep secure and it can be used in semaphore UI
 New Vault password:
 Confirm New Vault password:
 Encryption successful
@@ -345,6 +346,13 @@ $ANSIBLE_VAULT;1.1;AES256
 
 ```
 
+Run a playbook
+
+```bash
+
+ansible-playbook -i inventory/hosts_azure.ini playbooks/login_mysql_user_zabbix.yml --ask-vault-password
+Vault password:
+```
 
 
 ## How to test and understand sys admin
