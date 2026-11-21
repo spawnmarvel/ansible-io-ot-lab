@@ -759,7 +759,7 @@ By having every department manage their infrastructure through code within a sha
 
 # Start IT/OT Lab
 
-Now it gets a bit technical, so ready for the ride or just want to see the demo?
+Now it gets a bit technical, so ready for the ride or just want to see the live demo or video?
 
 Live demo or private video, it does the same.
 
