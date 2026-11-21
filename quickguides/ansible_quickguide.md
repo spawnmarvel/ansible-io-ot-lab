@@ -10,8 +10,10 @@
   - [Key Advantages](#key-advantages)
   - [Ansible Agentless Architecture Linux and Windows](#ansible-agentless-architecture-linux-and-windows)
   - [Essential Ansible concepts](#essential-ansible-concepts)
-  - [Ansible.Builtin](#ansiblebuiltin)
-  - [Ansible Collection Index](#ansible-collection-index)
+  - [Ansible ecosystem](#ansible-ecosystem)
+    - [Ansible.Builtin (core)](#ansiblebuiltin-core)
+    - [Ansible Community](#ansible-community)
+    - [Ansible Collection](#ansible-collection)
   - [Getting Started with Ansible: A Beginner’s Guide](#getting-started-with-ansible-a-beginners-guide)
   - [Inventory](#inventory)
   - [SSH key-based authentication](#ssh-key-based-authentication)
@@ -26,6 +28,7 @@
   - [Semaphore UI](#semaphore-ui)
   - [10 habits of great Ansible users](#10-habits-of-great-ansible-users)
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
+- [Development with Ai tips](#development-with-ai-tips)
 - [Playbook Keywords](#playbook-keywords)
 - [Ansible vault](#ansible-vault)
   - [How to test and understand sys admin](#how-to-test-and-understand-sys-admin)
@@ -97,18 +100,31 @@ https://docs.ansible.com/projects/ansible/latest/getting_started/index.html
 
 https://developers.redhat.com/learning/learn:ansible:foundations-ansible/resource/resources:essential-ansible-concepts
 
+## Ansible ecosystem
 
-## Ansible.Builtin
+https://docs.ansible.com/ecosystem.html
+
+### Ansible.Builtin (core)
 
 * https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html
 
-## Ansible Collection Index
+### Ansible Community
+
+A bundled package containing ansible-core along with a curated collection of standard community modules.
+
+https://docs.ansible.com/projects/ansible/latest/collections/community/index.html
+
+### Ansible Collection
+
+The standard format for packaging and distributing playbooks, roles, modules, and plugins
+
+* https://docs.ansible.com/collections.html
 
 * https://docs.ansible.com/projects/ansible/latest/collections/index.html
 
 ## Getting Started with Ansible: A Beginner’s Guide
 
-https://dev.to/anushree_gm/getting-started-with-ansible-a-beginners-guide-3deh
+https://docs.ansible.com/projects/ansible-core/2.13/getting_started/index.html
 
 ## Inventory
 
@@ -226,7 +242,7 @@ https://www.yamllint.com/
 
 ## Playbooks --check with --diff and or --limit and or --syntax-check and or --vvv
 
-Combine --check with --diff to see a before-and-after text comparison of any configuration files that would be modified:
+Combine --check with --diff to see a before-and-after text comparison of any configuration files that would be modified.
 
 
 ```bash
@@ -273,6 +289,15 @@ Whether you're writing playbooks, maintaining inventory, or executing tasks, her
 
 https://www.redhat.com/en/blog/10-great-ansible-practices
 
+
+
+# Development with Ai tips
+
+1. Check all modules used, if it suggest ansible.builtin.apt or community.general.parted, verify it in docs.
+2. Add versioning to the playbook, for tracking.
+3. Get a second opinion
+4. Use Combine --check with --diff to see a before-and-after text comparison of any configuration files that would be modified.
+5.   
 
 # Playbook Keywords
 
