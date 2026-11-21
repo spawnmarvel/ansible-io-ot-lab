@@ -2943,7 +2943,30 @@ port = {{ mysql_port }}
 datadir = /data/mysql
 ```
 
+```bash
+cat playbooks/roles/mysql/vars
+# empty
+```
 
+The playbook that calls mysql folder content
+
+```bash
+cat playbooks/deploy_mysql.yml
+```
+
+```yml
+---
+# Version: 1.0.0
+# Description: Master playbook to deploy the MySQL role across database servers.
+
+- name: Deploy Secure MySQL Database Server
+  hosts: db_servers_mysql
+  become: true
+  # Note: This playbook deploys the MySQL role to all hosts in the db_servers_mysql group, ensuring that the MySQL database server is installed, secured, and configured properly.
+  roles:
+    - mysql
+
+```
 
 
 ## 2. Jinja2 Templates (.j2)
