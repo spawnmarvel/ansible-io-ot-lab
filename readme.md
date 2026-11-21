@@ -1,4 +1,4 @@
-# Ansible stack in Azure Proof of Concept (PoC) 
+# Ansible stack in Azure Proof of Concept (PoC) for a IT/OT support department
 
 Use Azure together with Ansible to build a POC for IT/OT Lab environment.
 
@@ -25,7 +25,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
 </details>
 
 ## Table of content
-- [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
+- [Ansible stack in Azure Proof of Concept (PoC) for a IT/OT support department](#ansible-stack-in-azure-proof-of-concept-poc-for-a-itot-support-department)
   - [Table of content](#table-of-content)
 - [Ansible for Infrastructure as Code](#ansible-for-infrastructure-as-code)
     - [Tools to automate data center](#tools-to-automate-data-center)
