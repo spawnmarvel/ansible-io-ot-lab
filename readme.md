@@ -182,6 +182,7 @@ Configuration Management & Image Building
 * Puppet & Chef: Established configuration management tools for enforcing desired states and managing large-scale or complex environments.
 * Packer: Builds pre-configured machine and container images for consistent deployments
 
+Building a data center—whether on-premises bare-metal, a private cloud, or a virtual cloud data center—with Infrastructure as Code (IaC) requires layering different tools for provisioning, configuration, and state management.
 
 ### What Can Be Automated in a Data Center?
 
