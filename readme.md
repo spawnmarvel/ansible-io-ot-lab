@@ -63,7 +63,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
 - [IT Automation in OT](#it-automation-in-ot)
   - [Octopus Deploy vs. Ansible at a Glance](#octopus-deploy-vs-ansible-at-a-glance)
-  - [Introduction to scenario](#introduction-to-scenario)
+  - [Introduction to scenario for a suport department](#introduction-to-scenario-for-a-suport-department)
     - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
     - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
     - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
@@ -638,7 +638,7 @@ Yes—you can use Ansible alone for the entire scenario: provisioning VMs on Pro
 
 You only need another tool if you specifically want dedicated release/deployment pipelines, UI approval gates, or a separate operational runbook portal—otherwise, Ansible alone is more than enough to cover this whole environment.
 
-## Introduction to scenario
+## Introduction to scenario for a suport department
 
 🎯 Objectives & Key Highlights
 
