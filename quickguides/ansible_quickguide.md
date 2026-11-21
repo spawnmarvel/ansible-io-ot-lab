@@ -27,6 +27,7 @@
   - [10 habits of great Ansible users](#10-habits-of-great-ansible-users)
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
 - [Playbook Keywords](#playbook-keywords)
+- [Ansible vault](#ansible-vault)
   - [How to test and understand sys admin](#how-to-test-and-understand-sys-admin)
   - [Ansible test in Azure](#ansible-test-in-azure)
   - [Testing Strategies “how can I best integrate testing with Ansible playbooks?”](#testing-strategies-how-can-i-best-integrate-testing-with-ansible-playbooks)
@@ -277,7 +278,74 @@ https://www.redhat.com/en/blog/10-great-ansible-practices
 
 These are the keywords available on common playbook objects. Keywords are one of several sources for configuring Ansible behavior. See Controlling how Ansible behaves: precedence rules for details on the relative precedence of each source.
 
+
 https://docs.ansible.com/projects/ansible/latest/reference_appendices/playbooks_keywords.html
+
+# Ansible vault
+
+As you deploy MySQL databases and Zabbix integrations, your playbooks and inventory will require sensitive data such as database root passwords, API tokens, and Windows administrator credentials.
+
+```bash
+# If you are currently in your project root (~/ansible-io-ot-lab), you do not need to cd into the playbooks directory. 
+# Running the command from the root ensures Ansible finds the correct path to your role's defaults file.
+
+/home/azureuser/ansible-io-ot-lab
+
+cat playbooks/roles/mysql/defaults/main.yml
+
+```
+Before
+
+```yml
+---
+# Version: 1.0.0
+# Description: Default variables for MySQL role deployment.
+
+mysql_root_password: "SecureLabRootPassword123!-Thisisnotused"
+zabbix_password: "ZabbixSecurePassword123!-Thisisnotused"
+mysql_bind_address: "0.0.0.0"
+mysql_port: 3306
+```
+
+```bash
+
+/home/azureuser/ansible-io-ot-lab
+/home/azureuser/ansible-io-ot-lab/playbooks
+
+ansible-vault encrypt roles/mysql/defaults/main.yml
+
+New Vault password:
+Confirm New Vault password:
+Encryption successful
+
+```
+
+
+After
+
+```bash
+
+cat playbooks/roles/mysql/defaults/main.yml
+$ANSIBLE_VAULT;1.1;AES256
+63393062633438373536613463316434373865356133323332303263613237313563666266313033
+6133653233623463646134306462303963333939313063640a613436646633396333306261313866
+66666131386365646266626162633335356339316564616431396161646261366531353433316530
+6361373939396139330a343137396631363339633164373965313639633664613162663565353639
+33626132653961653330356661626163323232653735643761616236623562323934643936616465
+65666633383037656436373434303735323635323033633436336465616237643237626165663932
+34646263323036393666303230343465393134663838356466653831353738393231346135653735
+30336439376266353739323936616161336262656333303437316131356130623032383935303236
+33336636346230633262343339376439633462616335386564656463663533666338653462613631
+32613066626663393366386239376130636430343531346462303564366362333338356337306337
+32313063633931336635383335343139333030303233666439366437653733363065323135383733
+65613231303039616439353837653738383661313136613865653435373836666132323565363066
+39336638653733303862356366386338666338623365326239353666623634373762636431363439
+65356130343031393333336131383962303562363535666261363964376661323832663662633565
+353036623963353066626436643963303062
+
+```
+
+
 
 ## How to test and understand sys admin
 

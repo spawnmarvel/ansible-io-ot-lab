@@ -3267,11 +3267,13 @@ If you want to encrypt your existing role defaults file (roles/mysql/defaults/ma
 
 ```bash
 
-azureuser@ansiblectr01:~/ansible-io-ot-lab
+/home/azureuser/ansible-io-ot-lab/playbooks
 
 # If you are currently in your project root (~/ansible-io-ot-lab), you do not need to cd into the playbooks directory. 
 # Running the command from the root ensures Ansible finds the correct path to your role's defaults file.
 
+pwd
+/home/azureuser/ansible-io-ot-lab/playbooks
 ansible-vault encrypt roles/mysql/defaults/main.yml
 
 New Vault password:
