@@ -686,28 +686,46 @@ Analysis by Department
 
 Network Team
 
-🟠 Why they should evaluate Ansible: Switches, routers, VLANs, interfaces, and firewall/security group policies suffer heavily from manual CLI drift and high-risk typos. Using Ansible collections (cisco.ios, cisco.nxos, arista.eos, junipernetworks.junos, fortinet.fortios, or community.network) lets network engineers standardize configs and back up or audit state across zones.
+🟠 Why they should evaluate Ansible: 
 
-🟡 What they need to test: Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab segment, and safe rollback/out-of-band precautions so nobody risks locking out a device or breaking iDMZ/OT segmentation.
+Switches, routers, VLANs, interfaces, and firewall/security group policies suffer heavily from manual CLI drift and high-risk typos. Using Ansible collections (cisco.ios, cisco.nxos, arista.eos, junipernetworks.junos, fortinet.fortios, or community.network) lets network engineers standardize configs and back up or audit state across zones.
 
-🟢 Expected payoff: Fewer configuration mismatches across network gear, faster troubleshooting when traffic fails between segments, and shared network facts/inventories for other teams.
+🟡 What they need to test: 
+
+Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab segment, and safe rollback/out-of-band precautions so nobody risks locking out a device or breaking iDMZ/OT segmentation.
+
+🟢 Expected payoff: 
+
+Fewer configuration mismatches across network gear, faster troubleshooting when traffic fails between segments, and shared network facts/inventories for other teams.
 
 Hypervisor Team
 
-🟠 Why they should evaluate Ansible: Provisioning VMs, adjusting CPU/memory/disks, managing templates, and keeping hypervisor hosts consistent across Proxmox, VMware, Hyper-V, or KVM/Libvirt takes repetitive GUI work when scaling from a handful of VMs to dozens. Collections like community.proxmox, community.vmware / vmware.vmware, microsoft.hyperv, or community.libvirt let the hypervisor team standardize VM creation.
+🟠 Why they should evaluate Ansible: 
 
-🟡 What they need to test: Cloning from baseline templates, attaching disks/networks consistently, and handing clean host details (IP, OS, role, zone) into inventory or downstream automation.
+Provisioning VMs, adjusting CPU/memory/disks, managing templates, and keeping hypervisor hosts consistent across Proxmox, VMware, Hyper-V, or KVM/Libvirt takes repetitive GUI work when scaling from a handful of VMs to dozens. Collections like community.proxmox, community.vmware / vmware.vmware, microsoft.hyperv, or community.libvirt let the hypervisor team standardize VM creation.
 
-🟢 Expected payoff: Faster, uniform VM builds ("Day 1" handover) with fewer "snowflake" VMs and less back-and-forth during provisioning.
+🟡 What they need to test: 
+
+Cloning from baseline templates, attaching disks/networks consistently, and handing clean host details (IP, OS, role, zone) into inventory or downstream automation.
+
+🟢 Expected payoff: 
+
+Faster, uniform VM builds ("Day 1" handover) with fewer "snowflake" VMs and less back-and-forth during provisioning.
 
 
 Cybersecurity Team
 
-🟠 Why they should evaluate Ansible: Security teams often spend time checking baseline hardening, verifying patch posture, enforcing firewall/access rules, or remediating vulnerabilities across mixed Linux and Windows hosts. Ansible lets security teams turn checklists and compliance requirements into repeatable audit (--check) and remediation playbooks instead of manual spot-checks.
+🟠 Why they should evaluate Ansible: 
 
-🟡 What they need to test: Non-disruptive compliance/drift checks, targeted vulnerability fixes or configuration hardening on test VMs, certificate/key handling practices, and audit logging/approval controls (such as through Semaphore UI or Git reviews).
+Security teams often spend time checking baseline hardening, verifying patch posture, enforcing firewall/access rules, or remediating vulnerabilities across mixed Linux and Windows hosts. Ansible lets security teams turn checklists and compliance requirements into repeatable audit (--check) and remediation playbooks instead of manual spot-checks.
 
-🟢 Expected payoff: Continuous, verifiable baseline checks rather than one-off audits, faster remediation when a vulnerability is announced, and clear records of what changed and when.
+🟡 What they need to test: 
+
+Non-disruptive compliance/drift checks, targeted vulnerability fixes or configuration hardening on test VMs, certificate/key handling practices, and audit logging/approval controls (such as through Semaphore UI or Git reviews).
+
+🟢 Expected payoff: 
+
+Continuous, verifiable baseline checks rather than one-off audits, faster remediation when a vulnerability is announced, and clear records of what changed and when.
 
 ### 2.1 How to Coordinate Across Departments Without Stepping on Toes
 
