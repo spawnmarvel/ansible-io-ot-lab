@@ -30,7 +30,8 @@ In Bg we do the job manually, understand the case and document, then apply autom
 - [Ansible for Infrastructure as Code](#ansible-for-infrastructure-as-code)
     - [Tools to automate data center](#tools-to-automate-data-center)
     - [What Can Be Automated in a Data Center?](#what-can-be-automated-in-a-data-center)
-    - [Introduction to Ansible](#introduction-to-ansible)
+  - [Business leaders: The benefits of Infrastructure as Code (IaC)](#business-leaders-the-benefits-of-infrastructure-as-code-iac)
+    - [Introduction to Ansible IaC](#introduction-to-ansible-iac)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
@@ -193,7 +194,13 @@ Building a data center—whether on-premises bare-metal, a private cloud, or a v
 
 * https://www.aptlytech.com/data-center-automation/
 
-###  Introduction to Ansible
+## Business leaders: The benefits of Infrastructure as Code (IaC)
+
+Infrastructure as Code is growing in importance for modern IT and business environments. Here's the benefits and limitations of adopting it at your organization.
+
+* https://www.pluralsight.com/resources/blog/tech-operations/business-benefits-infrastructure-as-code-iac
+
+###  Introduction to Ansible IaC
 
 
 Ansible provides open-source automation that reduces complexity and runs everywhere. Using Ansible lets you automate virtually any task. Here are some common use cases for Ansible:
