@@ -688,7 +688,7 @@ Network Team
 
 🟠 Why they should evaluate Ansible: Switches, routers, VLANs, interfaces, and firewall/security group policies suffer heavily from manual CLI drift and high-risk typos. Using Ansible collections (cisco.ios, cisco.nxos, arista.eos, junipernetworks.junos, fortinet.fortios, or community.network) lets network engineers standardize configs and back up or audit state across zones.
 
-* What they need to test: Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab segment, and safe rollback/out-of-band precautions so nobody risks locking out a device or breaking iDMZ/OT segmentation.
+🟡 What they need to test: Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab segment, and safe rollback/out-of-band precautions so nobody risks locking out a device or breaking iDMZ/OT segmentation.
 
 🟢 Expected payoff: Fewer configuration mismatches across network gear, faster troubleshooting when traffic fails between segments, and shared network facts/inventories for other teams.
 
