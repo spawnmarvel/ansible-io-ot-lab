@@ -124,15 +124,21 @@ touch hosts.ini
 ```bash
 azureuser@ansiblectr01
 
+# choose you host
+ssh-keygen -f '/home/azureuser/.ssh/known_hosts' -R '10.68.68.6'
+
 ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
 
 ls -la ~/.ssh/id_rsa.pub
 
 # Copy Public Key to Target Node
-ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.5
+ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.6
 
+# Now try logging into the machine, with:
 # ssh login with key no pass
-ssh azureuser@10.68.68.5
+ssh azureuser@10.68.68.6
+
+# and check to make sure that only the key(s) you wanted were added.
 ```
 
 ### host_key_checking ansible.cfg
