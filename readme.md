@@ -137,10 +137,10 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [4. Ansible Vault (Secure Secret Management)](#4-ansible-vault-secure-secret-management)
   - [5. Custom Facts and Block/Rescue Error Handling](#5-custom-facts-and-blockrescue-error-handling)
 - [Let's start Enterprise Ansible Scalability](#lets-start-enterprise-ansible-scalability)
-  - [Playbook install\_mysql.yml with Roles --check or limit or hosts:groups](#playbook-install_mysqlyml-with-roles---check-or-limit-or-hostsgroups)
+  - [Playbook deploy\_mysql.yml with Roles --check or limit or hosts:groups](#playbook-deploy_mysqlyml-with-roles---check-or-limit-or-hostsgroups)
     - [1 Role Directory Structure](#1-role-directory-structure)
-    - [playbooks/deploy\_mysql\_check.yml](#playbooksdeploy_mysql_checkyml)
-    - [playbooks/deploy\_mysql.yml --limit mysql01](#playbooksdeploy_mysqlyml---limit-mysql01)
+    - [2. playbooks/deploy\_mysql\_check.yml](#2-playbooksdeploy_mysql_checkyml)
+    - [3. playbooks/deploy\_mysql.yml --limit mysql01](#3-playbooksdeploy_mysqlyml---limit-mysql01)
       - [Verify mysql as root and zabbix via ssh on localhost](#verify-mysql-as-root-and-zabbix-via-ssh-on-localhost)
     - [playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
   - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
@@ -2880,7 +2880,7 @@ Custom Facts: You can gather environment-specific variables dynamically during t
 
 # Let's start Enterprise Ansible Scalability
 
-## Playbook install_mysql.yml with Roles --check or limit or hosts:groups
+## Playbook deploy_mysql.yml with Roles --check or limit or hosts:groups
 
 ### 1 Role Directory Structure
 Create the following directory layout inside your repository root (roles/mysql/):
@@ -2946,7 +2946,7 @@ get_linux_version.yml    ping_hosts.yml             verify_firewall_isolation.ym
 
 The directory structure is fully populated and correctly aligned with the roles/ directory containing your MySQL setup.
 
-### playbooks/deploy_mysql_check.yml
+### 2. playbooks/deploy_mysql_check.yml
 
 Let's run our playbook for check candidate on ubunt 26.04, mysql is shipped default!
 
@@ -2992,7 +2992,7 @@ To allow remote hosts (such as zabbix01 at 10.68.68.5) to connect to your MySQL 
 
 2. User Privileges: MySQL user accounts must be granted access from remote hosts (either a specific IP like 10.68.68.5, a subnet like 10.68.68.%, or globally via %).
 
-### playbooks/deploy_mysql.yml --limit mysql01
+### 3. playbooks/deploy_mysql.yml --limit mysql01
 
 
 Run in check mode
