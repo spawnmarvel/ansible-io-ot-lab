@@ -118,14 +118,14 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Update inventory/host.ini](#update-inventoryhostini)
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
-- [1. Manually attach a data disk to a Linux VM UUID](#1-manually-attach-a-data-disk-to-a-linux-vm-uuid)
-- [1.1 Playbook linux mount\_datadrive\_for\_mysql.yml (risky Azure spesific)](#11-playbook-linux-mount_datadrive_for_mysqlyml-risky-azure-spesific)
-  - [1.2 Jinja2 expression is extremely close to a generic template](#12-jinja2-expression-is-extremely-close-to-a-generic-template)
-  - [1.3 Add prompt before executing Step 3 ansible.builtin.pause](#13-add-prompt-before-executing-step-3-ansiblebuiltinpause)
+- [Manually attach a data disk to a Linux VM UUID](#manually-attach-a-data-disk-to-a-linux-vm-uuid)
+- [Playbook linux mount\_datadrive\_for\_mysql.yml (risky Azure spesific)](#playbook-linux-mount_datadrive_for_mysqlyml-risky-azure-spesific)
+  - [1Jinja2 expression is extremely close to a generic template](#1jinja2-expression-is-extremely-close-to-a-generic-template)
+  - [2 Add prompt before executing Step 3 ansible.builtin.pause](#2-add-prompt-before-executing-step-3-ansiblebuiltinpause)
       - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
-    - [1.4  Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.](#14--idempotent-data-disk-discovery-partitioning-ext4-formatting-uuid-extraction-persistent-fstab-mounting-at-mntdatadrive1-and-reboot-verification)
-  - [1.5 Restart mysql01 and verify datadisk](#15-restart-mysql01-and-verify-datadisk)
-  - [1.6 Run the mount\_datadrive\_for\_mysql\_azure.yml with boot step](#16-run-the-mount_datadrive_for_mysql_azureyml-with-boot-step)
+    - [Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.](#idempotent-data-disk-discovery-partitioning-ext4-formatting-uuid-extraction-persistent-fstab-mounting-at-mntdatadrive1-and-reboot-verification)
+  - [3. Restart mysql01 and verify datadisk](#3-restart-mysql01-and-verify-datadisk)
+  - [4. Run the mount\_datadrive\_for\_mysql\_azure.yml with boot step](#4-run-the-mount_datadrive_for_mysql_azureyml-with-boot-step)
     - [The output from blkid and findmnt confirms that your storage configuration is working exactly as designed to handle Azure's device letter shuffling.](#the-output-from-blkid-and-findmnt-confirms-that-your-storage-configuration-is-working-exactly-as-designed-to-handle-azures-device-letter-shuffling)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -2099,7 +2099,7 @@ Playbook run took 0 days, 0 hours, 0 minutes, 1 seconds
 
 ```
 
-# 1. Manually attach a data disk to a Linux VM UUID
+# Manually attach a data disk to a Linux VM UUID
 
 This step is very risky to automate, we muste make sure that.
 
@@ -2111,7 +2111,7 @@ This step is very risky to automate, we muste make sure that.
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
 
-# 1.1 Playbook linux mount_datadrive_for_mysql.yml (risky Azure spesific)
+# Playbook linux mount_datadrive_for_mysql.yml (risky Azure spesific)
 
 
 
@@ -2149,7 +2149,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --check NA
 The error occurred because you ran the playbook with the --check (dry run) flag. When running in check mode, Ansible simulates the partitioning task (parted), but it does not actually create /dev/sda1 on the system.
 
 
-## 1.2 Jinja2 expression is extremely close to a generic template
+## 1Jinja2 expression is extremely close to a generic template
 
 Yes, the loop-free Jinja2 expression is extremely close to a generic template, but with one hardcoded detail—reject('in', ['sda', 'sdb'])—it is currently Azure-specific rather than truly hypervisor-agnostic.
 
@@ -2174,7 +2174,7 @@ This shall work on all, but we focus first on the azure template and when that w
 
 So we need to restore a couple of times.
 
-## 1.3 Add prompt before executing Step 3 ansible.builtin.pause
+## 2 Add prompt before executing Step 3 ansible.builtin.pause
 
 
 ```yml
@@ -2245,7 +2245,7 @@ Sunday 15 November 2026  12:28:49 +0000 (0:00:01.786)       0:00:05.081 *******
 
 ```
 
-### 1.4  Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.
+### Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.
 
 Lets build the fstab step
 
@@ -2310,12 +2310,12 @@ sdc       8:32   0   16G  0 disk
 ```
 
 
-## 1.5 Restart mysql01 and verify datadisk
+## 3. Restart mysql01 and verify datadisk
 
 ![mount_ok](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/mount_ok.png)
 
 
-## 1.6 Run the mount_datadrive_for_mysql_azure.yml with boot step
+## 4. Run the mount_datadrive_for_mysql_azure.yml with boot step
 
 
 Azure didn't break anything—it just demonstrated the exact reason why static device names like /dev/sdc cannot be trusted.
