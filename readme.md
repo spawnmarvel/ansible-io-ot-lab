@@ -751,7 +751,7 @@ Having a dedicated Ansible control node in Purdue Zone 3.5 for the network team 
 
 ### 2.2 Unified Infrastructure Automation
 
-By having every department manage their infrastructure through code within a shared repository, we are adopting a GitOps workflow. This means we achieve Unified Infrastructure Automation, where changes from the Network, Security, and Support teams are safely coordinated, documented, and deployed in a single, reliable step.
+By having every department manage their infrastructure through code within a shared repository, we are adopting a GitOps workflow. This means we achieve Unified Infrastructure Automation, where changes from the Network, Security, and Support teams are safely coordinated, documented, and deployed in a single, reliable steps.
 
 ![now](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/now.png)
 
