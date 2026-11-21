@@ -142,11 +142,11 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [2. playbooks/deploy\_mysql\_check.yml](#2-playbooksdeploy_mysql_checkyml)
     - [3. playbooks/deploy\_mysql.yml --limit mysql01](#3-playbooksdeploy_mysqlyml---limit-mysql01)
       - [Verify mysql as root and zabbix via ssh on localhost](#verify-mysql-as-root-and-zabbix-via-ssh-on-localhost)
-    - [playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
+    - [4. playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#4-playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
   - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
-    - [1. Encrypt Your Variables File](#1-encrypt-your-variables-file)
-      - [Option A: Interactive Prompt (Best for Manual Runs)](#option-a-interactive-prompt-best-for-manual-runs)
-      - [Option B: Vault Password File (Best for Automation / CI/CD)](#option-b-vault-password-file-best-for-automation--cicd)
+    - [1. Encrypt Your Variables File (implemented)](#1-encrypt-your-variables-file-implemented)
+      - [Option A: Interactive Prompt (Best for Manual Runs) --ask-vault-pass](#option-a-interactive-prompt-best-for-manual-runs---ask-vault-pass)
+      - [Option B: Vault Password File (Best for Automation / CI/CD) implemented](#option-b-vault-password-file-best-for-automation--cicd-implemented)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
   - [deploy\_mysql.yml information on multiple deploy bg1](#deploy_mysqlyml-information-on-multiple-deploy-bg1)
@@ -3123,7 +3123,7 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 ```
 
 
-### playbooks/login_mysql_check.yml --limit mysql01 with var zabbix_password
+### 4. playbooks/login_mysql_check.yml --limit mysql01 with var zabbix_password
 
 Let's try to login and verfiy our zabbix user.
 
@@ -3223,7 +3223,7 @@ What we did is bad, password in file....
 
 To eliminate plain-text passwords from your repository, the industry-standard approach in Ansible is Ansible Vault. Vault allows you to encrypt sensitive variable files (like your role defaults or dedicated secret files) while keeping them fully transparent to Ansible during execution.
 
-### 1. Encrypt Your Variables File
+### 1. Encrypt Your Variables File (implemented)
 
 If you want to encrypt your existing role defaults file (roles/mysql/defaults/main.yml), run the following command on your control node:
 
@@ -3247,7 +3247,7 @@ Encryption successful
 ![ignore](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ignore.png)
 
 
-#### Option A: Interactive Prompt (Best for Manual Runs)
+#### Option A: Interactive Prompt (Best for Manual Runs) --ask-vault-pass
 
 Add the --ask-vault-pass flag when running your playbooks:
 
@@ -3255,7 +3255,7 @@ Add the --ask-vault-pass flag when running your playbooks:
 ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --ask-vault-pass
 ```
 
-#### Option B: Vault Password File (Best for Automation / CI/CD)
+#### Option B: Vault Password File (Best for Automation / CI/CD) implemented
 
 For automated pipelines or local convenience without repeated password prompts, you can store the vault password in a local file (e.g., .vault_pass.txt) and reference it:
 
