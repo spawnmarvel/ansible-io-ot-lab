@@ -267,7 +267,6 @@ Easier Handoffs & Team Support
 * Clearer specialization across teams: Network engineers, Linux/Windows admins, and virtualization owners can work cleanly within their own inventories, roles, and variables without stepping on each other's changes.
 * Faster onboarding: New teammates can read structured playbooks and group_vars to understand the environment far faster than reading scattered notes or reverse-engineering live machines.
 
-![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
 
 ## Red Hat Ansible Automation Platform delivers on high ROI expectations
 
@@ -308,6 +307,8 @@ For those day-2 tasks across 10 VMs (patching, software installs, vulnerability 
 🟢 Wiki & lookup overhead: Saves 10–20 minutes per task because steps, flags, and variables live in version-controlled playbooks rather than being looked up and re-typed from memory.
 
 🟢 Biggest payoff: Tasks done often (patching, adding users, rotating certs, checking/fixing vulnerabilities) pay back the playbook writing time within just a few runs.
+
+![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
 
 ### Ansible on Azure Microsoft (the POC lab)
 
