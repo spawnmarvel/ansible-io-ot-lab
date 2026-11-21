@@ -763,6 +763,8 @@ Now it gets a bit technical, so ready for the ride or just want to see the live 
 
 Live demo or private video, it does the same.
 
+Let's see it in action private video on youtube.
+
 ![ride](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ride2.png)
 
 ## Firewal and practical information
