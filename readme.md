@@ -120,7 +120,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
 - [Manually attach a data disk to a Linux VM UUID](#manually-attach-a-data-disk-to-a-linux-vm-uuid)
 - [Playbook linux mount\_datadrive\_for\_mysql.yml (risky Azure spesific)](#playbook-linux-mount_datadrive_for_mysqlyml-risky-azure-spesific)
-  - [1Jinja2 expression is extremely close to a generic template](#1jinja2-expression-is-extremely-close-to-a-generic-template)
+  - [1. Jinja2 expression is extremely close to a generic template](#1-jinja2-expression-is-extremely-close-to-a-generic-template)
   - [2 Add prompt before executing Step 3 ansible.builtin.pause](#2-add-prompt-before-executing-step-3-ansiblebuiltinpause)
       - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
     - [Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.](#idempotent-data-disk-discovery-partitioning-ext4-formatting-uuid-extraction-persistent-fstab-mounting-at-mntdatadrive1-and-reboot-verification)
@@ -2149,7 +2149,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --check NA
 The error occurred because you ran the playbook with the --check (dry run) flag. When running in check mode, Ansible simulates the partitioning task (parted), but it does not actually create /dev/sda1 on the system.
 
 
-## 1Jinja2 expression is extremely close to a generic template
+## 1. Jinja2 expression is extremely close to a generic template
 
 Yes, the loop-free Jinja2 expression is extremely close to a generic template, but with one hardcoded detail—reject('in', ['sda', 'sdb'])—it is currently Azure-specific rather than truly hypervisor-agnostic.
 
