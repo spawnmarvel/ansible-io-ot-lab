@@ -69,7 +69,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
     - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
     - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
-    - [2.2 Landscape we paint together](#22-landscape-we-paint-together)
+    - [2.2 Landscape Cross-Domain IaC](#22-landscape-cross-domain-iac)
 - [Start IT/OT Lab](#start-itot-lab)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
@@ -749,7 +749,9 @@ Continuous, verifiable baseline checks rather than one-off audits, faster remedi
 
 Having a dedicated Ansible control node in Purdue Zone 3.5 for the network team and another control node in Zone 2.5 (iDMZ) for the support team makes a lot of sense in a segmented IT/OT environment.
 
-### 2.2 Landscape we paint together
+### 2.2 Landscape Cross-Domain IaC
+
+By having every department manage their infrastructure through code within a shared repository, we are adopting a GitOps workflow. This means we achieve Unified Infrastructure Automation, where changes from the Network, Security, and Support teams are safely coordinated, documented, and deployed in a single, reliable step.
 
 ![now](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/now.png)
 
