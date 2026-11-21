@@ -328,9 +328,19 @@ Ansible explained in 60 seconds
 
 * https://www.youtube.com/shorts/qygKrliJbRg
 
+
+Ansible in 100 Seconds
+
+* https://www.youtube.com/watch?v=xRMPKQweySE
+
 Ansible and Terraform in 60 seconds youtube
 
 * https://www.youtube.com/shorts/q2ZfgKPvp2E
+
+
+Terraform in 100 Seconds
+
+* https://www.youtube.com/watch?v=tomUWcQ0P3k
 
 You need to learn Ansible right now - 20 min
 
