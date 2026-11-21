@@ -2875,12 +2875,75 @@ roles/
 ```
 Why use it? It allows the database team, network team, and monitoring team to write and maintain their own isolated roles without stepping on each other's code, which can then be called cleanly from a master playbook:
 
+Example
+
+```bash
+cat playbooks/roles/mysql/defaults/main.yml
+
+```
+```yml
+---
+# Version: 1.0.0
+# Description: Default variables for MySQL role deployment.
+
+mysql_root_password: "SecureLabRootPassword123!"
+zabbix_password: "ZabbixSecurePassword123!"
+mysql_bind_address: "0.0.0.0"
+mysql_port: 3306
+
+```
+```bash
+cat playbooks/roles/mysql/handlers/main.yml
+
+```
 
 ```yml
-- hosts: db_servers
-  roles:
-    - mysql
+---
+# Version: 1.1.0
+# Description: Handlers for MySQL and AppArmor services.
+
+- name: Reload AppArmor service
+  ansible.builtin.service:
+    name: apparmor
+    state: restarted
+
+- name: Restart MySQL
+  ansible.builtin.service:
+    name: mysql
+    state: restarted
+    enabled: true
+
+
 ```
+
+```bash
+cat playbooks/roles/mysql/tasks/main.yml
+
+```
+
+```yml
+---
+# Version: 2.0.3
+# Description: Complete and robust Ansible task file for installing, migrating, securing, and configuring MySQL 8.4 LTS with persistent /data/mysql storage.
+
+```
+
+```bash
+cat playbooks/roles/mysql/templates/override.cnf.j2
+
+```
+
+```ini
+# Version: 1.0.0
+# Description: MySQL custom configuration override template.
+
+[mysqld]
+bind-address = {{ mysql_bind_address }}
+port = {{ mysql_port }}
+datadir = /data/mysql
+```
+
+
 
 
 ## 2. Jinja2 Templates (.j2)
