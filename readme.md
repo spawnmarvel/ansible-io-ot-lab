@@ -36,7 +36,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Day-two support](#day-two-support)
   - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
   - [Use case support department](#use-case-support-department)
-    - [Ansible on Azure Microsoft](#ansible-on-azure-microsoft)
+    - [Ansible on Azure Microsoft (the POC lab)](#ansible-on-azure-microsoft-the-poc-lab)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
     - [Ansible Collection Index](#ansible-collection-index)
@@ -303,7 +303,7 @@ For those day-2 tasks across 10 VMs (patching, software installs, vulnerability 
 
 🟢 Biggest payoff: Tasks done often (patching, adding users, rotating certs, checking/fixing vulnerabilities) pay back the playbook writing time within just a few runs.
 
-### Ansible on Azure Microsoft
+### Ansible on Azure Microsoft (the POC lab)
 
 Red Hat Ansible integrates with Microsoft technologies to automate cloud infrastructure, Windows Server environments, and Active Directory (AD).
 
