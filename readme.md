@@ -29,6 +29,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Table of content](#table-of-content)
 - [Ansible for Infrastructure as Code](#ansible-for-infrastructure-as-code)
     - [Tools to automate data center](#tools-to-automate-data-center)
+    - [What Can Be Automated in a Data Center?](#what-can-be-automated-in-a-data-center)
     - [Introduction to Ansible](#introduction-to-ansible)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
@@ -182,7 +183,7 @@ Configuration Management & Image Building
 * Packer: Builds pre-configured machine and container images for consistent deployments
 
 
-What Can Be Automated in a Data Center?
+### What Can Be Automated in a Data Center?
 
 * https://www.aptlytech.com/data-center-automation/
 
