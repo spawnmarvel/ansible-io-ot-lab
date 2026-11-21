@@ -27,7 +27,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
 ## Table of content
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
-- [Ansible automation tool](#ansible-automation-tool)
+- [Ansible for Infrastructure as Code](#ansible-for-infrastructure-as-code)
     - [Tools to automate data center](#tools-to-automate-data-center)
     - [Introduction to Ansible](#introduction-to-ansible)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
@@ -151,7 +151,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 
-# Ansible automation tool
+# Ansible for Infrastructure as Code
 
 
 ### Tools to automate data center
@@ -160,9 +160,27 @@ The right automation tool depends on which part of the data center you want to a
 
 Infrastructure & Configuration Automation (IaC)
 
-* Terraform & Pulumi: Provision servers, virtual machines, and cloud/on-prem resources using version-controlled code.
-* Ansible: Automate server setup, configuration management, patching, and repeatable operational tasks
-* [...]
+Infrastructure as Code (IaC) tools automate provisioning and managing servers, networks, and cloud resources through code. Common options include Terraform, OpenTofu, Pulumi, AWS CloudFormation, AWS CDK, Azure Bicep / ARM, and Ansible
+
+
+Multi-Cloud & General Provisioning
+
+* Terraform: Declarative tool using HashiCorp Configuration Language (HCL) across major cloud providers and on-premises environments.
+* OpenTofu: Open-source fork of Terraform under the Linux Foundation with HCL compatibility and built-in state encryption.
+* Pulumi: Defines infrastructure using general-purpose languages like TypeScript, Python, Go, and C#.
+
+Cloud-Native Tools
+
+* Azure Bicep & ARM Templates: Native Azure infrastructure templates, with Bicep offering a cleaner domain-specific language over JSON ARM templates.
+* AWS CloudFormation & AWS CDK
+* Google Cloud Deployment Manager
+
+Configuration Management & Image Building
+
+* Ansible: Agentless automation using YAML playbooks, widely used for configuring servers and deploying software after provisioning
+* Puppet & Chef: Established configuration management tools for enforcing desired states and managing large-scale or complex environments.
+* Packer: Builds pre-configured machine and container images for consistent deployments
+
 
 What Can Be Automated in a Data Center?
 
