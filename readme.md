@@ -35,8 +35,8 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
-  - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
-  - [Use case support department](#use-case-support-department)
+      - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
+- [Use case support department](#use-case-support-department)
   - [Introduction to scenario for a support department](#introduction-to-scenario-for-a-support-department)
     - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
     - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
@@ -47,7 +47,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
     - [The Bottom Line](#the-bottom-line)
-- [Ansible](#ansible)
+- [Ansible technical information](#ansible-technical-information)
     - [Ansible on Azure Microsoft (the POC lab)](#ansible-on-azure-microsoft-the-poc-lab)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -206,7 +206,7 @@ Infrastructure as Code represents not just a technological advancement, but a cu
 
 * https://www.pluralsight.com/resources/blog/tech-operations/business-benefits-infrastructure-as-code-iac
 
-###  Introduction to Ansible IaC
+### Introduction to Ansible IaC
 
 
 Ansible provides open-source automation that reduces complexity and runs everywhere. Using Ansible lets you automate virtually any task. Here are some common use cases for Ansible:
@@ -259,7 +259,7 @@ https://www.redhat.com/en/technologies/management/ansible
 
 ### Why 10–30 VMs Is a Sweet Spot
 
-10 to 30 VMs across network configuration, Proxmox or VMware VM provisioning, mixed Ubuntu and Windows management, and some switches and routers is a strong fit for Ansible. At that scale, manual clicks and one-off scripts get repetitive and error-prone, while Ansible gives you repeatable playbooks, inventory grouping, and consistent state without needing agents on target nodes.
+10 to 30 VMs and devices across network configuration, Proxmox or VMware VM provisioning, mixed Ubuntu and Windows management, and some switches and routers is a strong fit for Ansible. At that scale, manual clicks and one-off scripts get repetitive and error-prone, while Ansible gives you repeatable playbooks, inventory grouping, and consistent state without needing agents on target nodes.
 
 * Ten to thirty nodes—plus a handful of switches and routers—is large enough that manual changes drift quickly, yet small enough that you can run playbooks cleanly against groups or batches (serial) with clear visibility.
 
@@ -282,7 +282,7 @@ Easier Handoffs & Team Support
 * Faster onboarding: New teammates can read structured playbooks and group_vars to understand the environment far faster than reading scattered notes or reverse-engineering live machines.
 
 
-## Red Hat Ansible Automation Platform delivers on high ROI expectations
+#### Red Hat Ansible Automation Platform delivers on high ROI expectations
 
 In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
 
@@ -290,7 +290,7 @@ Doing so frees up time and resources that can be better used to deliver the esse
 
 https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
 
-## Use case support department
+# Use case support department
 
 We will show that other departments can effectively use Ansible also, but let's focus on day-2 operations, support, and maintenance.
 
@@ -486,7 +486,7 @@ If you have a skilled technical team willing to manage your own setup, you never
 
 ---
 
-# Ansible 
+# Ansible technical information
 
 ### Ansible on Azure Microsoft (the POC lab)
 
