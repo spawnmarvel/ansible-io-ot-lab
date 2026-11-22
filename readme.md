@@ -41,6 +41,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Team 1 and Team 2 scenario today with datacenter handover](#team-1-and-team-2-scenario-today-with-datacenter-handover)
     - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
     - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
+      - [Analysis by Department's](#analysis-by-departments)
     - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
     - [2.2 Unified Infrastructure Automation](#22-unified-infrastructure-automation)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
@@ -373,7 +374,7 @@ This is the final set up (ip may change but the concept is the same)
 
 ### 2 What now and what about other departments?
 
-Analysis by Department
+#### Analysis by Department's
 
 Network Team
 
