@@ -247,7 +247,7 @@ When the system is in the state your playbook describes, Ansible does not change
 
 ### Ansible is owned and sponsored by Red Hat
 
-It is not new and it is no AI, it is an automation tool.
+It is not new and it is no AI, it is an IT automation tool.
 
 * Original creator: Michael DeHaan released the first version in February 2012 and co-founded AnsibleWorks, Inc. (later Ansible, Inc.) in 2013.
 * Red Hat acquisition: Red Hat announced its acquisition of Ansible, Inc. in October 2015.
