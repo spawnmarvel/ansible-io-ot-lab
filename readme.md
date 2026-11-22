@@ -53,7 +53,6 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
     - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
     - [The Bottom Line](#the-bottom-line)
-    - [Unified orchestration](#unified-orchestration)
     - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
     - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
     - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -434,7 +433,21 @@ By having every department manage their infrastructure through code within a sha
 ![now](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/now.png)
 
 
-IAC is the missing link.
+🚀 Domain Expertise: 
+
+Each specialized team focuses on the technical areas they master best whether:
+
+* Configuring network switches and firewalls
+* Managing Linux server deployments and patching
+* Orchestrating virtual machines
+
+🌀 Unified Orchestration: 
+
+Ansible acts as the central hub that bridges these distinct technical silos, allowing disparate infrastructure layers to be managed through a single automated workflow.
+
+🚤 End-to-End Delivery: 
+
+By combining their specialized knowledge and working in close harmony, the teams ensure that the entire technology stack functions reliably, securely, and efficiently as a cohesive end product.
 
 ![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
@@ -601,27 +614,6 @@ If you have a skilled technical team willing to manage your own setup, you never
 
 
 ---
-
-### Unified orchestration
-
-🚀 Domain Expertise: 
-
-Each specialized team focuses on the technical areas they master best whether:
-
-* Configuring network switches and firewalls
-* Managing Linux server deployments and patching
-* Orchestrating virtual machines
-
-🌀 Unified Orchestration: 
-
-Ansible acts as the central hub that bridges these distinct technical silos, allowing disparate infrastructure layers to be managed through a single automated workflow.
-
-🚤 End-to-End Delivery: 
-
-By combining their specialized knowledge and working in close harmony, the teams ensure that the entire technology stack functions reliably, securely, and efficiently as a cohesive end product.
-
-![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
-
 
 
 ### Official Ansible Documentation Portal
