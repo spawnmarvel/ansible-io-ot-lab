@@ -886,6 +886,9 @@ sudo apt install ansible
 
 # check v
 ansible --version
+
+# check collections
+ansible-galaxy collection list
 ```
 Log
 
