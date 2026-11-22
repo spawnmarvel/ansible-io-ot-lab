@@ -353,6 +353,7 @@ For those day-2 tasks across 10 VMs (patching, software installs, vulnerability 
 Team 1:
 
 * The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI.
+* Word documents, pdfs, etc
 
 Team 2:
 
