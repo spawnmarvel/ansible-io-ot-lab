@@ -138,6 +138,14 @@ bash azure_iac_bicep_create_or_tear_down/get_info_vms_disk_and_nsg.sh
 az disk show --resource-group "Rg-swc-dbs-02" --name "mysql01_DataDisk_0" --output json | grep -iE "diskSize|sku"
 ```
 
+## Run in check mode what-if
+
+```bash
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ 
+
+bash azure_iac_bicep_create_or_tear_down/scripts/check_what_if.sh
+
+```
 
 ## Tear down nodes
 
