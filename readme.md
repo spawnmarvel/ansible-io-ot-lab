@@ -141,7 +141,8 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Playbook deploy\_mysql.yml with Roles --check or limit or hosts:groups](#playbook-deploy_mysqlyml-with-roles---check-or-limit-or-hostsgroups)
     - [1 Role Directory Structure](#1-role-directory-structure)
     - [2. playbooks/deploy\_mysql\_check.yml](#2-playbooksdeploy_mysql_checkyml)
-    - [3. playbooks/deploy\_mysql.yml --limit mysql01](#3-playbooksdeploy_mysqlyml---limit-mysql01)
+    - [3. playbooks/deploy\_mysql.yml --limit mysql01 --check --diff](#3-playbooksdeploy_mysqlyml---limit-mysql01---check---diff)
+      - [Check AppArmor Reload Task Is Triggered --limit mysql01 --check --diff](#check-apparmor-reload-task-is-triggered---limit-mysql01---check---diff)
       - [Verify mysql as root and zabbix via ssh on localhost](#verify-mysql-as-root-and-zabbix-via-ssh-on-localhost)
     - [4. playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#4-playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
   - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
@@ -3015,91 +3016,78 @@ To allow remote hosts (such as zabbix01 at 10.68.68.5) to connect to your MySQL 
 
 2. User Privileges: MySQL user accounts must be granted access from remote hosts (either a specific IP like 10.68.68.5, a subnet like 10.68.68.%, or globally via %).
 
-### 3. playbooks/deploy_mysql.yml --limit mysql01
+### 3. playbooks/deploy_mysql.yml --limit mysql01 --check --diff
 
 
 Run in check mode
 ```bash
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
+ansible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql.yml --limit mysql01 --check --diff
 
 
 ```
+
 
 log
 
 ```console
-PLAY RECAP **********************************************************************************
-mysql01                    : ok=8    changed=0    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0
-
-
-TASKS RECAP *********************************************************************************
-Sunday 15 November 2026  21:18:28 +0000 (0:00:00.039)       0:00:09.558 *******
-===============================================================================
-Gathering Facts ---------------------------------------------------------------------- 1.87s
-mysql : Install MySQL server package ------------------------------------------------- 1.03s
-mysql : Stop MySQL service during data directory initialization check ---------------- 0.79s
-mysql : Apply custom MySQL configuration override ------------------------------------ 0.71s
-mysql : Ensure persistent MySQL data directory exists with correct permissions before init --- 0.51s
-mysql : Initialize MySQL data directory on persistent storage if uninitialized ------- 0.50s
-mysql : Update AppArmor profile to allow access to custom datadir -------------------- 0.50s
-mysql : Check if MySQL system database is initialized on persistent storage ---------- 0.50s
-mysql : Ensure correct ownership and permissions on persistent MySQL data directory --- 0.38s
-mysql : Check if test database exists ------------------------------------------------ 0.38s
-mysql : Check if root password is already configured --------------------------------- 0.38s
-mysql : Create remote-accessible Zabbix database user and database ------------------- 0.38s
-mysql : Check if anonymous MySQL users exist ----------------------------------------- 0.37s
-mysql : Create root user for 127.0.0.1 and ::1 --------------------------------------- 0.37s
-mysql : Check if Zabbix database user exists ----------------------------------------- 0.37s
-mysql : Check if root@127.0.0.1 user exists and is configured ------------------------ 0.37s
-mysql : Remove test database --------------------------------------------------------- 0.04s
-mysql : Remove anonymous MySQL users ------------------------------------------------- 0.04s
-mysql : Ensure AppArmor service is reloaded if profile changed ----------------------- 0.02s
-mysql : Set root password for MySQL root user on localhost --------------------------- 0.02s
-
-PLAYBOOK RECAP ******************************************************************************
+PLAY RECAP *************************************************************************************************************
+mysql01                    : ok=6    changed=1    unreachable=0    failed=1    skipped=1    rescued=0    ignored=0
 ```
+
+In --check mode, Ansible simulates the Install MySQL server package task without actually installing mysql-server. Because the package isn't installed yet on mysql01, the mysql system user and group do not exist on the machine—causing chown (owner: mysql, group: mysql) to fail when creating /data/mysql.
 
 Now deploy it
 
 ```bash
 
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
 ```
 log
 
 ```console
-TASKS RECAP ********************************************************************************************************
-Sunday 15 November 2026  22:00:58 +0000 (0:00:00.043)       0:00:10.572 *******
-===============================================================================
-Gathering Facts --------------------------------------------------------------------------------------------- 1.85s
-mysql : Install MySQL server package ------------------------------------------------------------------------ 1.46s
-mysql : Reload AppArmor service to apply new rules ---------------------------------------------------------- 0.96s
-mysql : Apply custom MySQL configuration override pointing to datadir --------------------------------------- 0.71s
-mysql : Ensure MySQL service is started and enabled --------------------------------------------------------- 0.56s
-mysql : Ensure correct ownership and permissions on persistent MySQL data directory ------------------------- 0.49s
-mysql : Check if root password is already configured -------------------------------------------------------- 0.49s
-mysql : Check if default MySQL system database exists in package path --------------------------------------- 0.48s
-mysql : Create root user for 127.0.0.1 and ::1 -------------------------------------------------------------- 0.48s
-mysql : Update AppArmor profile to allow access to custom datadir ------------------------------------------- 0.47s
-mysql : Create remote-accessible Zabbix database user and database ------------------------------------------ 0.42s
-mysql : Check if test database exists ----------------------------------------------------------------------- 0.40s
-mysql : Check if anonymous MySQL users exist ---------------------------------------------------------------- 0.39s
-mysql : Check if Zabbix database user exists ---------------------------------------------------------------- 0.39s
-mysql : Check if root@127.0.0.1 user exists and is configured ----------------------------------------------- 0.39s
-mysql : Check if MySQL system database is already initialized on persistent storage ------------------------- 0.39s
-mysql : Remove test database -------------------------------------------------------------------------------- 0.04s
-mysql : Remove anonymous MySQL users ------------------------------------------------------------------------ 0.04s
-mysql : Ensure MySQL service is restarted if configuration changed ------------------------------------------ 0.02s
-mysql : Set root password for MySQL root user on localhost -------------------------------------------------- 0.02s
+PLAY RECAP *************************************************************************************************************
+mysql01                    : ok=22   changed=12   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0
 
-PLAYBOOK RECAP *****************************************************************************************************
-Playbook run took 0 days, 0 hours, 0 minutes, 10 seconds
+
+TASKS RECAP ************************************************************************************************************
+Sunday 22 November 2026  09:48:59 +0000 (0:00:00.042)       0:00:46.791 *******
+===============================================================================
+mysql : Install MySQL server package --------------------------------------------------------------------------- 28.37s
+mysql : Ensure MySQL service is restarted if configuration changed ---------------------------------------------- 4.00s
+mysql : Stop MySQL service before migrating data directory ------------------------------------------------------ 2.41s
+mysql : Migrate default MySQL data directory to persistent storage using rsync ---------------------------------- 1.94s
+Gathering Facts ------------------------------------------------------------------------------------------------- 1.87s
+mysql : Apply custom MySQL configuration override pointing to datadir ------------------------------------------- 0.83s
+mysql : Reload AppArmor service to apply new rules -------------------------------------------------------------- 0.78s
+mysql : Ensure MySQL service is started and enabled ------------------------------------------------------------- 0.58s
+mysql : Ensure parent /data directory exists with correct permissions ------------------------------------------- 0.49s
+mysql : Check if default MySQL system database exists in package path ------------------------------------------- 0.49s
+mysql : Create root user for 127.0.0.1 and ::1 ------------------------------------------------------------------ 0.48s
+mysql : Update AppArmor profile to allow access to custom datadir ----------------------------------------------- 0.48s
+mysql : Create remote-accessible Zabbix database user and database ---------------------------------------------- 0.43s
+mysql : Check if test database exists --------------------------------------------------------------------------- 0.40s
+mysql : Check if root password is already configured ------------------------------------------------------------ 0.40s
+mysql : Check if anonymous MySQL users exist -------------------------------------------------------------------- 0.40s
+mysql : Check if Zabbix database user exists -------------------------------------------------------------------- 0.39s
+mysql : Ensure correct ownership and permissions on persistent MySQL data directory ----------------------------- 0.39s
+mysql : Check if root@127.0.0.1 user exists and is configured --------------------------------------------------- 0.39s
+mysql : Create persistent MySQL target directory ---------------------------------------------------------------- 0.39s
+
+PLAYBOOK RECAP *********************************************************************************************************
 
 ```
 
 Then we are done with installing myql, we introduced a lot of new key words.
 
 You can read about them in the playbook comments.
+
+#### Check AppArmor Reload Task Is Triggered --limit mysql01 --check --diff
+
+
+```bash
+
+ansible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql.yml --limit mysql01 --check --diff
+```
 
 
 #### Verify mysql as root and zabbix via ssh on localhost

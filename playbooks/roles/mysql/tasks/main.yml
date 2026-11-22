@@ -80,14 +80,20 @@
     block: |
       /data/mysql/ r,
       /data/mysql/** rwk,
-  check_mode: false
+  # Having check_mode: false on blockinfile and service 
+  # causes them to execute real changes even when you run --check
+  # check_mode: false
+  # Note: Register the result of the AppArmor profile update to determine if a reload is necessary.
+  register: apparmor_profile_result
 
 - name: Reload AppArmor service to apply new rules
   # Note: This task reloads the AppArmor service to apply the new rules for MySQL.
   ansible.builtin.service:
     name: apparmor
     state: reloaded
-  check_mode: false
+  when: apparmor_profile_result is changed
+  # so --check does not modify files or reload apparmor during a dry run.
+  # check_mode: false
 
 - name: Ensure correct ownership and permissions on persistent MySQL data directory
   # Note: This task ensures that the /data/mysql directory has the correct ownership and permissions for MySQL to function properly.
