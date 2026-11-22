@@ -35,7 +35,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
   - [Introduction to Ansible IaC](#introduction-to-ansible-iac)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
-    - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
+  - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
 - [Use case support department](#use-case-support-department)
   - [Introduction to scenario for a support department](#introduction-to-scenario-for-a-support-department)
@@ -296,7 +296,7 @@ IBM acquired Red Hat in 2019, making IBM the ultimate parent company while Red H
 
 https://www.redhat.com/en/technologies/management/ansible
 
-### Why 10–30 VMs Is a Sweet Spot
+## Why 10–30 VMs Is a Sweet Spot
 
 10 to 30 VMs and devices across network configuration, Proxmox or VMware VM provisioning, mixed Ubuntu and Windows management, and some switches and routers is a strong fit for Ansible. At that scale, manual clicks and one-off scripts get repetitive and error-prone, while Ansible gives you repeatable playbooks, inventory grouping, and consistent state without needing agents on target nodes.
 
