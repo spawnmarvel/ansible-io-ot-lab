@@ -153,6 +153,8 @@ In Bg we do the job manually, understand the case and document, then apply autom
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
   - [deploy\_mysql\_for\_zabbix.yml information on multiple deploy bg1](#deploy_mysql_for_zabbixyml-information-on-multiple-deploy-bg1)
 - [Playbook deploy\_zabbix.yml --check or limit --syntax-check](#playbook-deploy_zabbixyml---check-or-limit---syntax-check)
+  - [Requirements zabbix 7.0 LTS](#requirements-zabbix-70-lts)
+  - [deploy\_zabbix.yml --check or limit --syntax-check](#deploy_zabbixyml---check-or-limit---syntax-check)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 
@@ -3445,6 +3447,28 @@ roles/mysql/tasks/main.yml
 
 # Playbook deploy_zabbix.yml --check or limit --syntax-check
 
+## Requirements zabbix 7.0 LTS
+
+With mysql01 fully deployed, hardened, and pre-seeded with the Zabbix database and remote user privileges, your database backend is completely ready for the Zabbix server
+
+1. Mysql is deployed
+2. Zabbix user and database is created
+
+Whats missing:
+
+
+This must be turned on before and off after.
+
+```sql
+set global log_bin_trust_function_creators = 1
+```
+
+* https://www.zabbix.com/download?zabbix=7.0&os_distribution=ubuntu&os_version=26.04&components=server_frontend_agent_2&db=mysql&ws=apache
+
+
+
+
+## deploy_zabbix.yml --check or limit --syntax-check
 
 With mysql01 fully deployed, hardened, and pre-seeded with the Zabbix database and remote user privileges, your database backend is completely ready for the Zabbix server and proxy nodes.
 
