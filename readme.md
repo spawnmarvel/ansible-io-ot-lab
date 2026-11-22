@@ -234,7 +234,7 @@ While adopting IaC comes with its own set of challenges — such as:
 
 — these hurdles are outweighed by the long-term benefits of efficiency, reliability, and cost-effectiveness.
 
-* https://www.pluralsight.com/resources/blog/tech-operations/business-benefits-infrastructure-as-code-iac
+https://www.pluralsight.com/resources/blog/tech-operations/business-benefits-infrastructure-as-code-iac
 
 
 ### Red Hat Ansible Automation Platform delivers on high ROI expectations
