@@ -400,7 +400,7 @@ This is the final set up (ip may change but the concept is the same)
 
 ---
 
-![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
+![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology2.png)
 
 ### 2 What now and what about other departments?
 
