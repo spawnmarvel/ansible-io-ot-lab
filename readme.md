@@ -152,7 +152,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
   - [deploy\_mysql\_for\_zabbix.yml information on multiple deploy bg1](#deploy_mysql_for_zabbixyml-information-on-multiple-deploy-bg1)
-- [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
+- [Playbook deploy\_zabbix.yml --check or limit --syntax-check](#playbook-deploy_zabbixyml---check-or-limit---syntax-check)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 
@@ -3443,7 +3443,7 @@ roles/mysql/tasks/main.yml
 ```
 
 
-# Playbook deploy_zabbix.yml --check or limit or hosts:groups
+# Playbook deploy_zabbix.yml --check or limit --syntax-check
 
 
 With mysql01 fully deployed, hardened, and pre-seeded with the Zabbix database and remote user privileges, your database backend is completely ready for the Zabbix server and proxy nodes.
@@ -3458,7 +3458,7 @@ cd playbooks/roles/zabbix_server/
 ls
 defaults  handlers  tasks  templates
 
-# if the play is ok, remove --check with --diff and or --limit
+# if the play is ok, remove --check with --diff and or --limit, --syntax-check
 
 ansible-playbook -i inventory/hosts.ini playbooks/deploy_zabbix.yml
 
