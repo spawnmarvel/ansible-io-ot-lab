@@ -42,6 +42,9 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
     - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
       - [Analysis by Department's](#analysis-by-departments)
+        - [Network Team](#network-team)
+        - [Hypervisor Team](#hypervisor-team)
+        - [Cybersecurity Team](#cybersecurity-team)
     - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
     - [2.2 Unified Infrastructure Automation](#22-unified-infrastructure-automation)
     - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
@@ -377,7 +380,7 @@ This is the final set up (ip may change but the concept is the same)
 
 #### Analysis by Department's
 
-Network Team
+##### Network Team
 
 🟠 Why they should evaluate Ansible: 
 
@@ -391,7 +394,7 @@ Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab s
 
 Fewer configuration mismatches across network gear, faster troubleshooting when traffic fails between segments, and shared network facts/inventories for other teams.
 
-Hypervisor Team
+##### Hypervisor Team
 
 🟠 Why they should evaluate Ansible: 
 
@@ -406,7 +409,7 @@ Cloning from baseline templates, attaching disks/networks consistently, and hand
 Faster, uniform VM builds ("Day 1" handover) with fewer "snowflake" VMs and less back-and-forth during provisioning.
 
 
-Cybersecurity Team
+##### Cybersecurity Team
 
 🟠 Why they should evaluate Ansible: 
 
