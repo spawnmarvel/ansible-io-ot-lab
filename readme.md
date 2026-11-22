@@ -3454,7 +3454,7 @@ azureuser@ansiblectr01:
 
 cd ansible-io-ot-lab/
 
-cd playbooks/roles/zabbix/
+cd playbooks/roles/zabbix_server/
 ls
 defaults  handlers  tasks  templates
 
