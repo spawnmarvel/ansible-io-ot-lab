@@ -33,7 +33,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Business leaders: The benefits of Infrastructure as Code (IaC)](#business-leaders-the-benefits-of-infrastructure-as-code-iac)
     - [Conclusion](#conclusion)
     - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
-    - [Introduction to Ansible IaC](#introduction-to-ansible-iac)
+  - [Introduction to Ansible IaC](#introduction-to-ansible-iac)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
@@ -245,7 +245,7 @@ Doing so frees up time and resources that can be better used to deliver the esse
 
 https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
 
-### Introduction to Ansible IaC
+## Introduction to Ansible IaC
 
 
 Ansible provides open-source automation that reduces complexity and runs everywhere. Using Ansible lets you automate virtually any task. Here are some common use cases for Ansible:
