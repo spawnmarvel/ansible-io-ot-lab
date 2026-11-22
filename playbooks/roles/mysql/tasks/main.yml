@@ -1,6 +1,6 @@
 # Version: 2.0.3
 # Description: Complete and robust Ansible task file for installing, migrating, securing, and configuring MySQL 8.4 LTS with persistent /data/mysql storage.
-
+# Deploys for zabbix monitoring with a dedicated database and user, and includes security hardening steps to remove anonymous users and the test database.
 # ==============================================================================
 # Subsection 1: Package Installation & Directory Migration
 # ==============================================================================
