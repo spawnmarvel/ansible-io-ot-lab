@@ -131,6 +131,11 @@ Now run
 
 ```bash
 bash azure_iac_bicep_create_or_tear_down/get_info.sh
+
+bash azure_iac_bicep_create_or_tear_down/get_info_vms_disk_and_nsg.sh
+
+# Checking mysql01_DataDisk_0 Exact Size
+az disk show --resource-group "Rg-swc-dbs-02" --name "mysql01_DataDisk_0" --output json | grep -iE "diskSize|sku"
 ```
 
 
