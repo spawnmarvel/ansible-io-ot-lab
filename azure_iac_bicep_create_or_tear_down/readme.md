@@ -130,7 +130,7 @@ git pull origin main
 Now run
 
 ```bash
-
+bash azure_iac_bicep_create_or_tear_down/get_info.sh
 ```
 
 
