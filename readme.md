@@ -356,7 +356,7 @@ For those day-2 tasks across 10 VMs (patching, software installs, vulnerability 
 Team 1:
 
 * The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI.
-* Word documents, pdfs, etc
+* Word documents, pdfs, excel, etc.
 
 Team 2:
 
@@ -369,8 +369,8 @@ Team 2:
 
 This is the final set up (ip may change but the concept is the same)
 
-1. Team 1 can use Terraform / Ansible for network, firewall, provision servers etc.
-2. Team 2 will can use Ansible for configuration management, install, montitoring, patching etc for doing IaC.
+1. Team 1 can use Terraform / Ansible for network, firewall, provision servers, etc. for IaC
+2. Team 2 will use Ansible for configuration management, install, montitoring, patching, etc. for IaC.
 
 ---
 
