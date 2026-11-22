@@ -332,7 +332,7 @@ ansible-playbook -i inventory/hosts.ini playbooks/update_apt.yml --limit mysql01
 ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --syntax-check
 
 # verbose
- ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --limit mysql01 --check -vvv
+ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --limit mysql01 --check -vvv
 ```
 
 ## Semaphore UI

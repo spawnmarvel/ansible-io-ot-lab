@@ -90,6 +90,8 @@
         fstype: ext4
         opts: defaults,nofail,noatime
         state: mounted
+      # Added 'register' to capture the result of the mount operation for conditional reboot logic
+      register: mount_result
 
     # =========================================================================
     # Step 4: System Reboot & Post-Boot Mount Verification
@@ -102,7 +104,9 @@
         pre_reboot_delay: 2
         post_reboot_delay: 10
       # Note: The reboot task will only execute if the /data mount point is not already active.
-      when: ansible_facts.mounts | selectattr('mount', 'eq', '/data') | list | length == 0
+      # when: ansible_facts.mounts | selectattr('mount', 'eq', '/data') | list | length == 0
+      # These reboot task will only execute if the mount_result indicates a change (i.e., the mount was newly created or modified).
+      when: mount_result.changed | default(false) | bool
 
     - name: Verify mount point is active after reboot
       ansible.builtin.command: "df -h /data"
