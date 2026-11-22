@@ -1,0 +1,10 @@
+---
+# Version: 1.0.0
+# Description: Master playbook to deploy the zabiz server
+
+- name: Deploy zabbix server
+  hosts: zabbix_servers
+  become: true
+  # Note: This playbook deploys the Zabbix role to all hosts in the zabbix_servers group, ensuring that the Zabbix server is installed, configured, and ready for monitoring.
+  roles:
+    - zabbix
