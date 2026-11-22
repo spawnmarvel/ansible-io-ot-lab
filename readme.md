@@ -126,6 +126,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
       - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
   - [3. Restart mysql01 and verify datadisk](#3-restart-mysql01-and-verify-datadisk)
   - [4. Run the mount\_datadrive\_for\_mysql\_azure.yml with boot step](#4-run-the-mount_datadrive_for_mysql_azureyml-with-boot-step)
+    - [Re run the ount\_datadrive\_for\_mysql\_azure\_collections.yml](#re-run-the-ount_datadrive_for_mysql_azure_collectionsyml)
     - [The output from blkid and findmnt confirms that your storage configuration is working exactly as designed to handle Azure's device letter shuffling.](#the-output-from-blkid-and-findmnt-confirms-that-your-storage-configuration-is-working-exactly-as-designed-to-handle-azures-device-letter-shuffling)
 - [Set up github integration on ansiblectr01 for git pull origin main](#set-up-github-integration-on-ansiblectr01-for-git-pull-origin-main)
 - [Update Semaphore to use ansible-io-ot-lab and not io\_io\_lab folder](#update-semaphore-to-use-ansible-io-ot-lab-and-not-io_io_lab-folder)
@@ -2335,130 +2336,136 @@ Here is the finalized, fully robust playbook that completely eliminates kernel l
 
 ```bash
 # mount and run it
-ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
+ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure_collections.yml
 ```
 
 Log
 
 ```console
 
-azureuser@ansiblectr01:~/ansible-io-ot-lab$ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
+PLAY [Configure data disk storage at /data] ****************************************************************************
 
-PLAY [Configure data disk storage at /data] *****************************************************************************************************************************************
-
-TASK [Gathering Facts] **************************************************************************************************************************************************************
-Sunday 15 November 2026  18:22:00 +0000 (0:00:00.011)       0:00:00.011 *******
+TASK [Gathering Facts] *************************************************************************************************
+Sunday 22 November 2026  08:58:44 +0000 (0:00:00.011)       0:00:00.011 *******
 ok: [mysql01]
 
-TASK [Verify Azure LUN 0 symlink exists] ********************************************************************************************************************************************
-Sunday 15 November 2026  18:22:02 +0000 (0:00:01.872)       0:00:01.884 *******
+TASK [Verify Azure LUN 0 symlink exists] *******************************************************************************
+Sunday 22 November 2026  08:58:46 +0000 (0:00:01.845)       0:00:01.857 *******
 ok: [mysql01]
 
-TASK [Fail if Azure LUN 0 data disk is missing] *************************************************************************************************************************************
-Sunday 15 November 2026  18:22:03 +0000 (0:00:00.481)       0:00:02.365 *******
+TASK [Fail if Azure LUN 0 data disk is missing] ************************************************************************
+Sunday 22 November 2026  08:58:46 +0000 (0:00:00.490)       0:00:02.348 *******
 skipping: [mysql01]
 
-TASK [Display resolved data disk LUN path] ******************************************************************************************************************************************
-Sunday 15 November 2026  18:22:03 +0000 (0:00:00.018)       0:00:02.384 *******
+TASK [Display resolved data disk LUN path] *****************************************************************************
+Sunday 22 November 2026  08:58:46 +0000 (0:00:00.019)       0:00:02.367 *******
 ok: [mysql01] => {
     "msg": "Successfully anchored to persistent Azure LUN 0 path: /dev/disk/azure/scsi1/lun0"
 }
 
-TASK [Ensure partition 1 exists on data disk] ***************************************************************************************************************************************
-Sunday 15 November 2026  18:22:03 +0000 (0:00:00.020)       0:00:02.404 *******
+TASK [Ensure partition 1 exists on data disk] **************************************************************************
+Sunday 22 November 2026  08:58:46 +0000 (0:00:00.022)       0:00:02.390 *******
 ok: [mysql01]
 
-TASK [Format data partition to ext4 if not already formatted] ***********************************************************************************************************************
-Sunday 15 November 2026  18:22:03 +0000 (0:00:00.537)       0:00:02.941 *******
+TASK [Format data partition to ext4 if not already formatted] **********************************************************
+Sunday 22 November 2026  08:58:47 +0000 (0:00:00.562)       0:00:02.952 *******
 ok: [mysql01]
 
-TASK [Confirm before proceeding to Step 3 (UUID extraction and mounting)] ***********************************************************************************************************
-Sunday 15 November 2026  18:22:04 +0000 (0:00:00.562)       0:00:03.504 *******
+TASK [Confirm before proceeding to Step 3 (UUID extraction and mounting)] **********************************************
+Sunday 22 November 2026  08:58:48 +0000 (0:00:00.536)       0:00:03.489 *******
 [Confirm before proceeding to Step 3 (UUID extraction and mounting)]
 Ready to proceed with Step 3: UUID extraction and mounting at /data. Enter 'yes' to continue or anything else to abort.:
 ok: [mysql01]
 
-TASK [Abort playbook if user declined confirmation] *********************************************************************************************************************************
-Sunday 15 November 2026  18:22:27 +0000 (0:00:23.790)       0:00:27.294 *******
+TASK [Abort playbook if user declined confirmation] ********************************************************************
+Sunday 22 November 2026  08:58:51 +0000 (0:00:03.313)       0:00:06.802 *******
 skipping: [mysql01]
 
-TASK [Get UUID of the data disk partition] ******************************************************************************************************************************************
-Sunday 15 November 2026  18:22:27 +0000 (0:00:00.040)       0:00:27.334 *******
+TASK [Get UUID of the data disk partition] *****************************************************************************
+Sunday 22 November 2026  08:58:51 +0000 (0:00:00.043)       0:00:06.846 *******
 ok: [mysql01]
 
-TASK [Set fact for disk UUID] *******************************************************************************************************************************************************
-Sunday 15 November 2026  18:22:28 +0000 (0:00:00.526)       0:00:27.861 *******
+TASK [Set fact for disk UUID] ******************************************************************************************
+Sunday 22 November 2026  08:58:51 +0000 (0:00:00.481)       0:00:07.327 *******
 ok: [mysql01]
 
-TASK [Ensure /data mount point directory exists] ************************************************************************************************************************************
-Sunday 15 November 2026  18:22:28 +0000 (0:00:00.042)       0:00:27.903 *******
-ok: [mysql01]
-
-TASK [Ensure persistent mount using UUID in fstab for /data] ************************************************************************************************************************
-Sunday 15 November 2026  18:22:29 +0000 (0:00:00.481)       0:00:28.384 *******
+TASK [Ensure /data mount point directory exists] ***********************************************************************
+Sunday 22 November 2026  08:58:51 +0000 (0:00:00.045)       0:00:07.372 *******
 changed: [mysql01]
 
-TASK [Reboot target node to test fstab mount survival across boots] *****************************************************************************************************************
-Sunday 15 November 2026  18:22:30 +0000 (0:00:01.324)       0:00:29.709 *******
-changed: [mysql01]
-
-TASK [Verify mount point is active after reboot] ************************************************************************************************************************************
-Sunday 15 November 2026  18:22:53 +0000 (0:00:23.544)       0:00:53.253 *******
+TASK [Ensure persistent mount using UUID in fstab for /data] ***********************************************************
+Sunday 22 November 2026  08:58:52 +0000 (0:00:00.487)       0:00:07.860 *******
 ok: [mysql01]
 
-TASK [Display mount verification result] ********************************************************************************************************************************************
-Sunday 15 November 2026  18:22:55 +0000 (0:00:01.384)       0:00:54.637 *******
+TASK [Reboot target node to test fstab mount survival across boots] ****************************************************
+Sunday 22 November 2026  08:58:52 +0000 (0:00:00.497)       0:00:08.357 *******
+skipping: [mysql01]
+
+TASK [Verify mount point is active after reboot] ***********************************************************************
+Sunday 22 November 2026  08:58:52 +0000 (0:00:00.044)       0:00:08.402 *******
+ok: [mysql01]
+
+TASK [Display mount verification result] *******************************************************************************
+Sunday 22 November 2026  08:58:53 +0000 (0:00:00.387)       0:00:08.789 *******
 ok: [mysql01] => {
-    "msg": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        16G  2.1M   15G   1% /data"
+    "msg": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sdc1       7.8G  2.1M  7.4G   1% /data"
 }
 
-PLAY RECAP **************************************************************************************************************************************************************************
-mysql01                    : ok=13   changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+PLAY RECAP *************************************************************************************************************
+mysql01                    : ok=12   changed=1    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0
 
 
-TASKS RECAP *************************************************************************************************************************************************************************
-Sunday 15 November 2026  18:22:55 +0000 (0:00:00.024)       0:00:54.662 *******
+TASKS RECAP ************************************************************************************************************
+Sunday 22 November 2026  08:58:53 +0000 (0:00:00.025)       0:00:08.815 *******
 ===============================================================================
-Confirm before proceeding to Step 3 (UUID extraction and mounting) ---------------------------------------------------------------------------------------------------------- 23.79s
-Reboot target node to test fstab mount survival across boots ---------------------------------------------------------------------------------------------------------------- 23.54s
-Gathering Facts -------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.87s
-Verify mount point is active after reboot ------------------------------------------------------------------------------------------------------------------------------------ 1.38s
-Ensure persistent mount using UUID in fstab for /data ------------------------------------------------------------------------------------------------------------------------ 1.32s
-Format data partition to ext4 if not already formatted ----------------------------------------------------------------------------------------------------------------------- 0.56s
-Ensure partition 1 exists on data disk --------------------------------------------------------------------------------------------------------------------------------------- 0.54s
-Get UUID of the data disk partition ------------------------------------------------------------------------------------------------------------------------------------------ 0.53s
-Verify Azure LUN 0 symlink exists -------------------------------------------------------------------------------------------------------------------------------------------- 0.48s
-Ensure /data mount point directory exists ------------------------------------------------------------------------------------------------------------------------------------ 0.48s
-Set fact for disk UUID ------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Abort playbook if user declined confirmation --------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Display mount verification result -------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
-Display resolved data disk LUN path ------------------------------------------------------------------------------------------------------------------------------------------ 0.02s
-Fail if Azure LUN 0 data disk is missing ------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+Confirm before proceeding to Step 3 (UUID extraction and mounting) ---------------------------------------------- 3.31s
+Gathering Facts ------------------------------------------------------------------------------------------------- 1.85s
+Ensure partition 1 exists on data disk -------------------------------------------------------------------------- 0.56s
+Format data partition to ext4 if not already formatted ---------------------------------------------------------- 0.54s
+Ensure persistent mount using UUID in fstab for /data ----------------------------------------------------------- 0.50s
+Verify Azure LUN 0 symlink exists ------------------------------------------------------------------------------- 0.49s
+Ensure /data mount point directory exists ----------------------------------------------------------------------- 0.49s
+Get UUID of the data disk partition ----------------------------------------------------------------------------- 0.48s
+Verify mount point is active after reboot ----------------------------------------------------------------------- 0.39s
+Set fact for disk UUID ------------------------------------------------------------------------------------------ 0.05s
+Reboot target node to test fstab mount survival across boots ---------------------------------------------------- 0.04s
+Abort playbook if user declined confirmation -------------------------------------------------------------------- 0.04s
+Display mount verification result ------------------------------------------------------------------------------- 0.03s
+Display resolved data disk LUN path ----------------------------------------------------------------------------- 0.02s
+Fail if Azure LUN 0 data disk is missing ------------------------------------------------------------------------ 0.02s
 
-PLAYBOOK RECAP **********************************************************************************************************************************************************************
-
+PLAYBOOK RECAP *********************************************************************************************************
 ```
 
-Login to server:
+Do the check book
 
 ```bash
-azureuser@mysql01
-uptime
- 18:26:45 up 4 min,  1 user,  load average: 0.18, 0.36, 0.18
-
- lsblk
-NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-sda       8:0    0   16G  0 disk
-└─sda1    8:1    0   16G  0 part /data
-sdb       8:16   0   30G  0 disk
-├─sdb1    8:17   0 28.9G  0 part /
-├─sdb13   8:29   0 1023M  0 part /boot
-├─sdb14   8:30   0    4M  0 part
-└─sdb15   8:31   0  106M  0 part /boot/efi
-sdc       8:32   0    8G  0 disk
-└─sdc1    8:33   0    8G  0 part /mnt
+ansible-playbook -i inventory/hosts_azure.ini playbooks/mount_datadrive_check.yml
 ```
 
+log
+
+```console
+TASK [Display available block devices] *********************************************************************************
+Sunday 22 November 2026  09:03:15 +0000 (0:00:00.502)       0:00:02.356 *******
+ok: [mysql01] => {
+    "msg": [
+        "NAME     SIZE FSTYPE MOUNTPOINTS",
+        "sda       30G        ",
+        "├─sda1  28.9G ext4   /",
+        "├─sda13 1023M ext4   /boot",
+        "├─sda14    4M        ",
+        "└─sda15  106M vfat   /boot/efi",
+        "sdb        8G        ",
+        "└─sdb1     8G ext4   /mnt",
+        "sdc        8G        ",
+        "└─sdc1     8G ext4   /data"
+    ]
+}
+
+PLAY RECAP *************************************************************************************************************
+mysql01                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
 
 
 Unmount it 
@@ -2475,217 +2482,142 @@ Re run the playbook
 ```bash
 azureuser@ansiblectr01:~/ansible-io-ot-lab$
 
-ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
+ansible-playbook -i inventory/hosts_azure.ini playbooks/mount_datadrive_for_mysql_azure_collections.yml
 
 ```
+Rerun it again, now it will not boot
 
-Log
 
-```consoleazureuser@ansiblectr01:~/ansible-io-ot-lab$ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
+log
 
-PLAY [Configure data disk storage at /data] *****************************************************************************************************************************************
+```console
+PLAY [Configure data disk storage at /data] ****************************************************************************
 
-TASK [Gathering Facts] **************************************************************************************************************************************************************
-Sunday 15 November 2026  18:28:12 +0000 (0:00:00.011)       0:00:00.011 *******
+TASK [Gathering Facts] *************************************************************************************************
+Sunday 22 November 2026  09:05:24 +0000 (0:00:00.011)       0:00:00.011 *******
 ok: [mysql01]
 
-TASK [Verify Azure LUN 0 symlink exists] ********************************************************************************************************************************************
-Sunday 15 November 2026  18:28:14 +0000 (0:00:01.643)       0:00:01.655 *******
+TASK [Verify Azure LUN 0 symlink exists] *******************************************************************************
+Sunday 22 November 2026  09:05:25 +0000 (0:00:01.196)       0:00:01.208 *******
 ok: [mysql01]
 
-TASK [Fail if Azure LUN 0 data disk is missing] *************************************************************************************************************************************
-Sunday 15 November 2026  18:28:15 +0000 (0:00:00.481)       0:00:02.136 *******
+TASK [Fail if Azure LUN 0 data disk is missing] ************************************************************************
+Sunday 22 November 2026  09:05:25 +0000 (0:00:00.478)       0:00:01.687 *******
 skipping: [mysql01]
 
-TASK [Display resolved data disk LUN path] ******************************************************************************************************************************************
-Sunday 15 November 2026  18:28:15 +0000 (0:00:00.018)       0:00:02.154 *******
+TASK [Display resolved data disk LUN path] *****************************************************************************
+Sunday 22 November 2026  09:05:25 +0000 (0:00:00.019)       0:00:01.707 *******
 ok: [mysql01] => {
     "msg": "Successfully anchored to persistent Azure LUN 0 path: /dev/disk/azure/scsi1/lun0"
 }
 
-TASK [Ensure partition 1 exists on data disk] ***************************************************************************************************************************************
-Sunday 15 November 2026  18:28:15 +0000 (0:00:00.020)       0:00:02.175 *******
+TASK [Ensure partition 1 exists on data disk] **************************************************************************
+Sunday 22 November 2026  09:05:25 +0000 (0:00:00.022)       0:00:01.729 *******
 ok: [mysql01]
 
-TASK [Format data partition to ext4 if not already formatted] ***********************************************************************************************************************
-Sunday 15 November 2026  18:28:15 +0000 (0:00:00.535)       0:00:02.710 *******
+TASK [Format data partition to ext4 if not already formatted] **********************************************************
+Sunday 22 November 2026  09:05:26 +0000 (0:00:00.533)       0:00:02.263 *******
 ok: [mysql01]
 
-TASK [Confirm before proceeding to Step 3 (UUID extraction and mounting)] ***********************************************************************************************************
-Sunday 15 November 2026  18:28:16 +0000 (0:00:00.586)       0:00:03.297 *******
+TASK [Confirm before proceeding to Step 3 (UUID extraction and mounting)] **********************************************
+Sunday 22 November 2026  09:05:26 +0000 (0:00:00.577)       0:00:02.840 *******
 [Confirm before proceeding to Step 3 (UUID extraction and mounting)]
 Ready to proceed with Step 3: UUID extraction and mounting at /data. Enter 'yes' to continue or anything else to abort.:
 ok: [mysql01]
 
-TASK [Abort playbook if user declined confirmation] *********************************************************************************************************************************
-Sunday 15 November 2026  18:28:20 +0000 (0:00:04.437)       0:00:07.734 *******
+TASK [Abort playbook if user declined confirmation] ********************************************************************
+Sunday 22 November 2026  09:05:30 +0000 (0:00:03.058)       0:00:05.898 *******
 skipping: [mysql01]
 
-TASK [Get UUID of the data disk partition] ******************************************************************************************************************************************
-Sunday 15 November 2026  18:28:20 +0000 (0:00:00.040)       0:00:07.775 *******
+TASK [Get UUID of the data disk partition] *****************************************************************************
+Sunday 22 November 2026  09:05:30 +0000 (0:00:00.043)       0:00:05.942 *******
 ok: [mysql01]
 
-TASK [Set fact for disk UUID] *******************************************************************************************************************************************************
-Sunday 15 November 2026  18:28:21 +0000 (0:00:00.514)       0:00:08.289 *******
+TASK [Set fact for disk UUID] ******************************************************************************************
+Sunday 22 November 2026  09:05:30 +0000 (0:00:00.532)       0:00:06.474 *******
 ok: [mysql01]
 
-TASK [Ensure /data mount point directory exists] ************************************************************************************************************************************
-Sunday 15 November 2026  18:28:21 +0000 (0:00:00.043)       0:00:08.333 *******
-ok: [mysql01]
-
-TASK [Ensure persistent mount using UUID in fstab for /data] ************************************************************************************************************************
-Sunday 15 November 2026  18:28:21 +0000 (0:00:00.480)       0:00:08.813 *******
+TASK [Ensure /data mount point directory exists] ***********************************************************************
+Sunday 22 November 2026  09:05:30 +0000 (0:00:00.045)       0:00:06.519 *******
 changed: [mysql01]
 
-TASK [Reboot target node to test fstab mount survival across boots] *****************************************************************************************************************
-Sunday 15 November 2026  18:28:23 +0000 (0:00:01.315)       0:00:10.129 *******
+TASK [Ensure persistent mount using UUID in fstab for /data] ***********************************************************
+Sunday 22 November 2026  09:05:31 +0000 (0:00:00.485)       0:00:07.005 *******
 changed: [mysql01]
 
-TASK [Verify mount point is active after reboot] ************************************************************************************************************************************
-Sunday 15 November 2026  18:28:46 +0000 (0:00:23.254)       0:00:33.383 *******
+TASK [Reboot target node to test fstab mount survival across boots] ****************************************************
+Sunday 22 November 2026  09:05:32 +0000 (0:00:01.298)       0:00:08.304 *******
+changed: [mysql01]
+
+TASK [Verify mount point is active after reboot] ***********************************************************************
+Sunday 22 November 2026  09:05:55 +0000 (0:00:22.681)       0:00:30.985 *******
 ok: [mysql01]
 
-TASK [Display mount verification result] ********************************************************************************************************************************************
-Sunday 15 November 2026  18:28:46 +0000 (0:00:00.477)       0:00:33.861 *******
+TASK [Display mount verification result] *******************************************************************************
+Sunday 22 November 2026  09:05:56 +0000 (0:00:01.384)       0:00:32.370 *******
 ok: [mysql01] => {
-    "msg": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sdc1        16G  2.1M   15G   1% /data"
+    "msg": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sdc1       7.8G  2.1M  7.4G   1% /data"
 }
 
-PLAY RECAP **************************************************************************************************************************************************************************
-mysql01                    : ok=13   changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+PLAY RECAP *************************************************************************************************************
+mysql01                    : ok=13   changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 
 
-TASKS RECAP *************************************************************************************************************************************************************************
-Sunday 15 November 2026  18:28:46 +0000 (0:00:00.022)       0:00:33.883 *******
+TASKS RECAP ************************************************************************************************************
+Sunday 22 November 2026  09:05:56 +0000 (0:00:00.024)       0:00:32.394 *******
 ===============================================================================
-Reboot target node to test fstab mount survival across boots ---------------------------------------------------------------------------------------------------------------- 23.25s
-Confirm before proceeding to Step 3 (UUID extraction and mounting) ----------------------------------------------------------------------------------------------------------- 4.44s
-Gathering Facts -------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.64s
-Ensure persistent mount using UUID in fstab for /data ------------------------------------------------------------------------------------------------------------------------ 1.32s
-Format data partition to ext4 if not already formatted ----------------------------------------------------------------------------------------------------------------------- 0.59s
-Ensure partition 1 exists on data disk --------------------------------------------------------------------------------------------------------------------------------------- 0.54s
-Get UUID of the data disk partition ------------------------------------------------------------------------------------------------------------------------------------------ 0.51s
-Verify Azure LUN 0 symlink exists -------------------------------------------------------------------------------------------------------------------------------------------- 0.48s
-Ensure /data mount point directory exists ------------------------------------------------------------------------------------------------------------------------------------ 0.48s
-Verify mount point is active after reboot ------------------------------------------------------------------------------------------------------------------------------------ 0.48s
-Set fact for disk UUID ------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Abort playbook if user declined confirmation --------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Display mount verification result -------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
-Display resolved data disk LUN path ------------------------------------------------------------------------------------------------------------------------------------------ 0.02s
-Fail if Azure LUN 0 data disk is missing ------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+Reboot target node to test fstab mount survival across boots --------------------------------------------------- 22.68s
+Confirm before proceeding to Step 3 (UUID extraction and mounting) ---------------------------------------------- 3.06s
+Verify mount point is active after reboot ----------------------------------------------------------------------- 1.38s
+Ensure persistent mount using UUID in fstab for /data ----------------------------------------------------------- 1.30s
+Gathering Facts ------------------------------------------------------------------------------------------------- 1.20s
+Format data partition to ext4 if not already formatted ---------------------------------------------------------- 0.58s
+Ensure partition 1 exists on data disk -------------------------------------------------------------------------- 0.53s
+Get UUID of the data disk partition ----------------------------------------------------------------------------- 0.53s
+Ensure /data mount point directory exists ----------------------------------------------------------------------- 0.49s
+Verify Azure LUN 0 symlink exists ------------------------------------------------------------------------------- 0.48s
+Set fact for disk UUID ------------------------------------------------------------------------------------------ 0.05s
+Abort playbook if user declined confirmation -------------------------------------------------------------------- 0.04s
+Display mount verification result ------------------------------------------------------------------------------- 0.02s
+Display resolved data disk LUN path ----------------------------------------------------------------------------- 0.02s
+Fail if Azure LUN 0 data disk is missing ------------------------------------------------------------------------ 0.02s
 
-PLAYBOOK RECAP **********************************************************************************************************************************************************************
-
+PLAYBOOK RECAP *********************************************************************************************************
 ```
 
-Rerun it again, now it will not boot
+### Re run the ount_datadrive_for_mysql_azure_collections.yml
 
+Now there will be no changes when we run it.
 
 ```bash
-
-ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
-
+# Lest run it 2 times and put the log below, view time stamp
+ansible-playbook -i inventory/hosts_azure.ini playbooks/mount_datadrive_for_mysql_azure_collections.yml
 ```
 
 log
 
 ```console
-azureuser@ansiblectr01:~/ansible-io-ot-lab$ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
-
-PLAY [Configure data disk storage at /data] *****************************************************************************************************************************************
-
-TASK [Gathering Facts] **************************************************************************************************************************************************************
-Sunday 15 November 2026  18:30:04 +0000 (0:00:00.011)       0:00:00.011 *******
-ok: [mysql01]
-
-TASK [Verify Azure LUN 0 symlink exists] ********************************************************************************************************************************************
-Sunday 15 November 2026  18:30:08 +0000 (0:00:03.978)       0:00:03.990 *******
-ok: [mysql01]
-
-TASK [Fail if Azure LUN 0 data disk is missing] *************************************************************************************************************************************
-Sunday 15 November 2026  18:30:09 +0000 (0:00:00.477)       0:00:04.467 *******
-skipping: [mysql01]
-
-TASK [Display resolved data disk LUN path] ******************************************************************************************************************************************
-Sunday 15 November 2026  18:30:09 +0000 (0:00:00.018)       0:00:04.486 *******
-ok: [mysql01] => {
-    "msg": "Successfully anchored to persistent Azure LUN 0 path: /dev/disk/azure/scsi1/lun0"
-}
-
-TASK [Ensure partition 1 exists on data disk] ***************************************************************************************************************************************
-Sunday 15 November 2026  18:30:09 +0000 (0:00:00.022)       0:00:04.509 *******
-ok: [mysql01]
-
-TASK [Format data partition to ext4 if not already formatted] ***********************************************************************************************************************
-Sunday 15 November 2026  18:30:09 +0000 (0:00:00.570)       0:00:05.079 *******
-ok: [mysql01]
-
-TASK [Confirm before proceeding to Step 3 (UUID extraction and mounting)] ***********************************************************************************************************
-Sunday 15 November 2026  18:30:10 +0000 (0:00:00.517)       0:00:05.596 *******
-[Confirm before proceeding to Step 3 (UUID extraction and mounting)]
-Ready to proceed with Step 3: UUID extraction and mounting at /data. Enter 'yes' to continue or anything else to abort.:
-ok: [mysql01]
-
-TASK [Abort playbook if user declined confirmation] *********************************************************************************************************************************
-Sunday 15 November 2026  18:30:12 +0000 (0:00:02.145)       0:00:07.742 *******
-skipping: [mysql01]
-
-TASK [Get UUID of the data disk partition] ******************************************************************************************************************************************
-Sunday 15 November 2026  18:30:12 +0000 (0:00:00.040)       0:00:07.782 *******
-ok: [mysql01]
-
-TASK [Set fact for disk UUID] *******************************************************************************************************************************************************
-Sunday 15 November 2026  18:30:12 +0000 (0:00:00.477)       0:00:08.259 *******
-ok: [mysql01]
-
-TASK [Ensure /data mount point directory exists] ************************************************************************************************************************************
-Sunday 15 November 2026  18:30:12 +0000 (0:00:00.044)       0:00:08.304 *******
-ok: [mysql01]
-
-TASK [Ensure persistent mount using UUID in fstab for /data] ************************************************************************************************************************
-Sunday 15 November 2026  18:30:13 +0000 (0:00:00.487)       0:00:08.792 *******
-ok: [mysql01]
-
-TASK [Reboot target node to test fstab mount survival across boots] *****************************************************************************************************************
-Sunday 15 November 2026  18:30:13 +0000 (0:00:00.478)       0:00:09.270 *******
-skipping: [mysql01]
-
-TASK [Verify mount point is active after reboot] ************************************************************************************************************************************
-Sunday 15 November 2026  18:30:13 +0000 (0:00:00.043)       0:00:09.313 *******
-ok: [mysql01]
-
-TASK [Display mount verification result] ********************************************************************************************************************************************
-Sunday 15 November 2026  18:30:14 +0000 (0:00:00.378)       0:00:09.692 *******
-ok: [mysql01] => {
-    "msg": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sdc1        16G  2.1M   15G   1% /data"
-}
-
-PLAY RECAP **************************************************************************************************************************************************************************
+PLAY RECAP *************************************************************************************************************
 mysql01                    : ok=12   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0
 
 
-TASKS RECAP *************************************************************************************************************************************************************************
-Sunday 15 November 2026  18:30:14 +0000 (0:00:00.022)       0:00:09.715 *******
-===============================================================================
-Gathering Facts -------------------------------------------------------------------------------------------------------------------------------------------------------------- 3.98s
-Confirm before proceeding to Step 3 (UUID extraction and mounting) ----------------------------------------------------------------------------------------------------------- 2.15s
-Ensure partition 1 exists on data disk --------------------------------------------------------------------------------------------------------------------------------------- 0.57s
-Format data partition to ext4 if not already formatted ----------------------------------------------------------------------------------------------------------------------- 0.52s
-Ensure /data mount point directory exists ------------------------------------------------------------------------------------------------------------------------------------ 0.49s
-Ensure persistent mount using UUID in fstab for /data ------------------------------------------------------------------------------------------------------------------------ 0.48s
-Verify Azure LUN 0 symlink exists -------------------------------------------------------------------------------------------------------------------------------------------- 0.48s
-Get UUID of the data disk partition ------------------------------------------------------------------------------------------------------------------------------------------ 0.48s
-Verify mount point is active after reboot ------------------------------------------------------------------------------------------------------------------------------------ 0.38s
-Set fact for disk UUID ------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Reboot target node to test fstab mount survival across boots ----------------------------------------------------------------------------------------------------------------- 0.04s
-Abort playbook if user declined confirmation --------------------------------------------------------------------------------------------------------------------------------- 0.04s
-Display resolved data disk LUN path ------------------------------------------------------------------------------------------------------------------------------------------ 0.02s
-Display mount verification result -------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
-Fail if Azure LUN 0 data disk is missing ------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+TASKS RECAP ************************************************************************************************************
+Sunday 22 November 2026  09:07:14 +0000 (0:00:00.025)       0:00:09.848 *******
 
-PLAYBOOK RECAP **********************************************************************************************************************************************************************
+
+PLAY RECAP *************************************************************************************************************
+mysql01                    : ok=12   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0
+
+
+TASKS RECAP ************************************************************************************************************
+Sunday 22 November 2026  09:09:11 +0000 (0:00:00.025)       0:00:07.957 *******
+
 
 ```
+
+Lest put comments on the prompt section Interactive Confirmation Prompt before Step 3 (CLI vs Semaphore Survey)
+
+So we can run it in semeaphore.
 
 ### The output from blkid and findmnt confirms that your storage configuration is working exactly as designed to handle Azure's device letter shuffling.
 

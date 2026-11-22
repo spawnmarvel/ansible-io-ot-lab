@@ -37,6 +37,7 @@
         fs_type: ext4
 
     - name: Format data partition to ext4 if not already formatted
+      # Use community.general.filesystem module for formatting new
       community.general.filesystem:
         fstype: ext4
         dev: "/dev/disk/azure/scsi1/lun0-part1"
