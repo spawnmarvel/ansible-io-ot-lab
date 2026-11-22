@@ -365,7 +365,7 @@ Team 2:
 This is the final set up (ip may change but the concept is the same)
 
 1. Team 1 can use Terraform / Ansible for network, firewall, provision servers etc.
-2. Team 2 will can use Ansible for configuration management, install, montitoring, patching etc.
+2. Team 2 will can use Ansible for configuration management, install, montitoring, patching etc for doing IaC.
 
 ---
 
