@@ -2314,7 +2314,7 @@ ok: [mysql01] => {
 }
 ```
 
-![mount_ok_2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/mount_ok_2.png)
+![mount_ok_2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/mount_ok2.png)
 
 
 ## 4. Run the mount_datadrive_for_mysql_azure.yml with boot step
