@@ -124,7 +124,6 @@ In Bg we do the job manually, understand the case and document, then apply autom
 - [Playbook linux mount\_datadrive\_for\_mysql\_azure.yml (Azure spesific)](#playbook-linux-mount_datadrive_for_mysql_azureyml-azure-spesific)
   - [2 Add prompt before executing Step 3 ansible.builtin.pause](#2-add-prompt-before-executing-step-3-ansiblebuiltinpause)
       - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
-    - [Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.](#idempotent-data-disk-discovery-partitioning-ext4-formatting-uuid-extraction-persistent-fstab-mounting-at-mntdatadrive1-and-reboot-verification)
   - [3. Restart mysql01 and verify datadisk](#3-restart-mysql01-and-verify-datadisk)
   - [4. Run the mount\_datadrive\_for\_mysql\_azure.yml with boot step](#4-run-the-mount_datadrive_for_mysql_azureyml-with-boot-step)
     - [The output from blkid and findmnt confirms that your storage configuration is working exactly as designed to handle Azure's device letter shuffling.](#the-output-from-blkid-and-findmnt-confirms-that-your-storage-configuration-is-working-exactly-as-designed-to-handle-azures-device-letter-shuffling)
@@ -2201,88 +2200,60 @@ Run without check mode (Live Execution): Since partition creation and formatting
 
 ```bash
 ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
+
+# We have already mounted it and we have the fstab step, run the check mount after reboot.
+
+ansible-playbook -i inventory/hosts_azure.ini playbooks/mount_datadrive_check.yml
+
 ```
 
+We have already mounted it, now lets run the check playbook
 log
 ```console
-azureuser@ansiblectr01:~/ansible-io-ot-lab$ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
 
-PLAY [Configure data disk storage] ************************************************************************************************************************************************
+PLAY [Check mount secondary data drive] ********************************************************************************
 
-TASK [Gathering Facts] ************************************************************************************************************************************************************
-Sunday 15 November 2026  12:28:44 +0000 (0:00:00.012)       0:00:00.012 *******
+TASK [Gathering Facts] *************************************************************************************************
+Sunday 22 November 2026  08:47:40 +0000 (0:00:00.043)       0:00:00.043 *******
 ok: [mysql01]
 
-TASK [Discover secondary data disk dynamically] ***********************************************************************************************************************************
-Sunday 15 November 2026  12:28:46 +0000 (0:00:01.982)       0:00:01.995 *******
+TASK [Gather block device information] *********************************************************************************
+Sunday 22 November 2026  08:47:43 +0000 (0:00:03.069)       0:00:03.112 *******
 ok: [mysql01]
 
-TASK [Fail if secondary data disk could not be dynamically resolved] **************************************************************************************************************
-Sunday 15 November 2026  12:28:46 +0000 (0:00:00.052)       0:00:02.047 *******
-skipping: [mysql01]
-
-TASK [Display resolved data disk] *************************************************************************************************************************************************
-Sunday 15 November 2026  12:28:46 +0000 (0:00:00.028)       0:00:02.076 *******
+TASK [Display available block devices] *********************************************************************************
+Sunday 22 November 2026  08:47:43 +0000 (0:00:00.520)       0:00:03.633 *******
 ok: [mysql01] => {
-    "msg": "Successfully resolved secondary data disk: /dev/sdc"
+    "msg": [
+        "NAME     SIZE FSTYPE MOUNTPOINTS",
+        "sda       30G        ",
+        "├─sda1  28.9G ext4   /",
+        "├─sda13 1023M ext4   /boot",
+        "├─sda14    4M        ",
+        "└─sda15  106M vfat   /boot/efi",
+        "sdb        8G        ",
+        "└─sdb1     8G ext4   /mnt",
+        "sdc        8G        ",
+        "└─sdc1     8G ext4   /data"
+    ]
 }
 
-TASK [Ensure partition 1 exists on data disk] *************************************************************************************************************************************
-Sunday 15 November 2026  12:28:46 +0000 (0:00:00.028)       0:00:02.105 *******
-ok: [mysql01]
-
-TASK [Format data partition to ext4 if not already formatted] *********************************************************************************************************************
-Sunday 15 November 2026  12:28:47 +0000 (0:00:00.575)       0:00:02.680 *******
-ok: [mysql01]
-
-TASK [Confirm before proceeding to Step 3 (UUID extraction and mounting)] *********************************************************************************************************
-Sunday 15 November 2026  12:28:48 +0000 (0:00:00.613)       0:00:03.294 *******
-[Confirm before proceeding to Step 3 (UUID extraction and mounting)]
-Ready to proceed with Step 3: UUID extraction and mounting at /mnt/datadrive1. Enter 'yes' to continue or anything else to abort.:
-ok: [mysql01]
-
-TASK [Abort playbook if user declined confirmation] *******************************************************************************************************************************
-Sunday 15 November 2026  12:28:49 +0000 (0:00:01.786)       0:00:05.081 *******
-[ERROR]: Task failed: Action failed: Playbook execution aborted by user at Step 3 confirmation.
-
-```
-
-### Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.
-
-Lets build the fstab step
-
-```bash
-
-ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml
-
-```
-log
-
-```console
 PLAY RECAP *************************************************************************************************************
-mysql01                    : ok=10   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+mysql01                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 
 TASKS RECAP ************************************************************************************************************
-Sunday 15 November 2026  16:48:25 +0000 (0:00:00.478)       0:00:09.354 *******
+Sunday 22 November 2026  08:47:43 +0000 (0:00:00.024)       0:00:03.658 *******
 ===============================================================================
-Confirm before proceeding to Step 3 (UUID extraction and mounting) ---------------------------------------------- 4.76s
-Gathering Facts ------------------------------------------------------------------------------------------------- 1.86s
-Ensure partition 1 exists on data disk -------------------------------------------------------------------------- 0.56s
-Format data partition to ext4 if not already formatted ---------------------------------------------------------- 0.54s
-Ensure datadrive1 mount point directory exists ------------------------------------------------------------------ 0.48s
-Get UUID of the data disk partition ----------------------------------------------------------------------------- 0.48s
-Ensure persistent mount using UUID in fstab for datadrive1 ------------------------------------------------------ 0.48s
-Discover secondary data disk dynamically ------------------------------------------------------------------------ 0.05s
-Set fact for disk UUID ------------------------------------------------------------------------------------------ 0.04s
-Abort playbook if user declined confirmation -------------------------------------------------------------------- 0.04s
-Display resolved data disk -------------------------------------------------------------------------------------- 0.03s
-Fail if secondary data disk could not be dynamically resolved --------------------------------------------------- 0.02s
+Gathering Facts ------------------------------------------------------------------------------------------------- 3.07s
+Gather block device information --------------------------------------------------------------------------------- 0.52s
+Display available block devices --------------------------------------------------------------------------------- 0.02s
 
 PLAYBOOK RECAP *********************************************************************************************************
-Playbook run took 0 days, 0 hours, 0 minutes, 9 seconds
-
 ```
+
+It seems fine, azure can swap SDA, SDB tx but since we have done fstab, it is mapped to the UUID.
+
 
 Semaphore
 
@@ -2299,22 +2270,51 @@ ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_check.yml
 # or login to server
 
 azureuser@mysql01:~$ lsblk
-NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-sda       8:0    0   30G  0 disk
-├─sda1    8:1    0 28.9G  0 part /
-├─sda13   8:13   0 1023M  0 part /boot
-├─sda14   8:14   0    4M  0 part
-└─sda15   8:15   0  106M  0 part /boot/efi
-sdb       8:16   0    8G  0 disk
-└─sdb1    8:17   0    8G  0 part /mnt
-sdc       8:32   0   16G  0 disk
-└─sdc1    8:33   0   16G  0 part /mnt/datadrive1
 ```
 
+Log
+
+```console
+ok: [mysql01] => {
+    "msg": [
+        "NAME     SIZE FSTYPE MOUNTPOINTS",
+        "sda       30G        ",
+        "├─sda1  28.9G ext4   /",
+        "├─sda13 1023M ext4   /boot",
+        "├─sda14    4M        ",
+        "└─sda15  106M vfat   /boot/efi",
+        "sdb        8G        ",
+        "└─sdb1     8G ext4   /mnt",
+        "sdc        8G        ",
+        "└─sdc1     8G ext4   /data"
+    ]
+}
+```
+
+Ok, this look fine.
 
 ## 3. Restart mysql01 and verify datadisk
 
-![mount_ok](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/mount_ok.png)
+Log
+
+```console
+ok: [mysql01] => {
+    "msg": [
+        "NAME     SIZE FSTYPE MOUNTPOINTS",
+        "sda       30G        ",
+        "├─sda1  28.9G ext4   /",
+        "├─sda13 1023M ext4   /boot",
+        "├─sda14    4M        ",
+        "└─sda15  106M vfat   /boot/efi",
+        "sdb        8G        ",
+        "└─sdb1     8G ext4   /mnt",
+        "sdc        8G        ",
+        "└─sdc1     8G ext4   /data"
+    ]
+}
+```
+
+![mount_ok_2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/mount_ok_2.png)
 
 
 ## 4. Run the mount_datadrive_for_mysql_azure.yml with boot step
