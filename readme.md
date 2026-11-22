@@ -165,6 +165,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
 
 # Ansible for Infrastructure as Code
 
+We build data center's by hand, why not automate the job we already do?
 
 ### Tools to automate data center
 
