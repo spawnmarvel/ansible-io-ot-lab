@@ -31,6 +31,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Tools to automate data center](#tools-to-automate-data-center)
     - [What Can Be Automated in a Data Center?](#what-can-be-automated-in-a-data-center)
   - [Business leaders: The benefits of Infrastructure as Code (IaC)](#business-leaders-the-benefits-of-infrastructure-as-code-iac)
+    - [Conclusion](#conclusion)
     - [Introduction to Ansible IaC](#introduction-to-ansible-iac)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
@@ -208,6 +209,30 @@ Building a data center—whether on-premises bare-metal, a private cloud, or a v
 Infrastructure as Code is growing in importance for modern IT and business environments. Here's the benefits and limitations of adopting it at your organization.
 
 Infrastructure as Code represents not just a technological advancement, but a cultural and organizational shift, empowering businesses to deploy and manage IT infrastructure platforms in faster and more efficient ways compared to traditional infrastructure management.
+
+
+### Conclusion
+
+Infrastructure as Code represents not just a technological advancement, but a cultural and organizational shift, empowering businesses to deploy and manage IT infrastructure platforms in faster and more efficient ways compared to traditional infrastructure management. 
+
+The advantages are compelling: 
+
+* increased stability during staff changes, 
+* streamlined operations, 
+* the agility to respond to market shifts, 
+* cost savings, 
+* enhanced security, 
+* improved collaboration
+* and scalability for the future. 
+  
+While adopting IaC comes with its own set of challenges — such as:
+
+* cultural adjustments
+* learning curves
+* risks associated with automation
+* and initial financial outlay 
+
+— these hurdles are outweighed by the long-term benefits of efficiency, reliability, and cost-effectiveness.
 
 * https://www.pluralsight.com/resources/blog/tech-operations/business-benefits-infrastructure-as-code-iac
 
