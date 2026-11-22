@@ -68,15 +68,40 @@ Bicep CLI version 0.49.2 (b34271ac51)
 
 Authenticate and Query Existing Infrastructure
 
+1. Enable System-Assigned Managed Identity on the VM
+
 You can enable the identity from the Azure Portal (recommended for the initial bootstrap) or via a one-time interactive CLI login.
 
 ![managed_id](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/managed_id.png)
 
-Log in from your Ubuntu 26.04 terminal (use --use-device-code over SSH, or --identity if you assign a Managed Identity to this Ubuntu VM):
+Verification: An Object (principal) ID GUID appears on the Identity blade once saved.
+
+2. Assign RBAC Permissions
+
+Grant the Managed Identity permissions so it can query your existing VNet/VMs and create or delete dedicated per-VM Resource Groups.
+
+* Via Azure Portal (on the same Identity blade):
+* Click Azure role assignments under the System assigned tab.
+* Click + Add role assignment.
+* Set Scope to Subscription and Role to Contributor, then click Save.
+
+Verification: Contributor appears under the VM's role assignments list at the Subscription scope.
+
+3. Authenticate and Verify on Ubuntu 26.04
+
 
 ```bash
+# Clear any previous interactive session and log in using the VM Managed Identity
+az logout 2>/dev/null || true
+az login --identity --output json
 
+echo "=== RESOURCE GROUPS ==="
+az group list --query "[].{Name:name, Location:location}" --output table
 ```
+
+![rg](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/rg.png)
+
+
 
 ## Get information
 
