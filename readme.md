@@ -38,7 +38,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
       - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
 - [Use case support department](#use-case-support-department)
   - [Introduction to scenario for a support department](#introduction-to-scenario-for-a-support-department)
-    - [Team 1 and Team 2 scenario today with datacenter Handover](#team-1-and-team-2-scenario-today-with-datacenter-handover)
+    - [Team 1 and Team 2 scenario today with datacenter handover](#team-1-and-team-2-scenario-today-with-datacenter-handover)
     - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
     - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
     - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
@@ -347,7 +347,7 @@ For those day-2 tasks across 10 VMs (patching, software installs, vulnerability 
 
 3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
 
-### Team 1 and Team 2 scenario today with datacenter Handover
+### Team 1 and Team 2 scenario today with datacenter handover
 
 Team 1:
 
