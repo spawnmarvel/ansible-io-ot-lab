@@ -217,13 +217,13 @@ Infrastructure as Code represents not just a technological advancement, but a cu
 
 The advantages are compelling: 
 
-* increased stability during staff changes, 
+* increased stability during staff changes
 * streamlined operations, 
-* the agility to respond to market shifts, 
-* cost savings, 
-* enhanced security, 
+* the agility to respond to market shifts 
+* cost savings
+* enhanced security
 * improved collaboration
-* and scalability for the future. 
+* and scalability for the future
   
 While adopting IaC comes with its own set of challenges — such as:
 
