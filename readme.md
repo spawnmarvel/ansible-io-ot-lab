@@ -32,11 +32,11 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [What Can Be Automated in a Data Center?](#what-can-be-automated-in-a-data-center)
   - [Business leaders: The benefits of Infrastructure as Code (IaC)](#business-leaders-the-benefits-of-infrastructure-as-code-iac)
     - [Conclusion](#conclusion)
+    - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
     - [Introduction to Ansible IaC](#introduction-to-ansible-iac)
     - [Ansible is owned and sponsored by Red Hat](#ansible-is-owned-and-sponsored-by-red-hat)
     - [Why 10–30 VMs Is a Sweet Spot](#why-1030-vms-is-a-sweet-spot)
     - [Day-two support](#day-two-support)
-      - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
 - [Use case support department](#use-case-support-department)
   - [Introduction to scenario for a support department](#introduction-to-scenario-for-a-support-department)
     - [Team 1 and Team 2 scenario today with datacenter handover](#team-1-and-team-2-scenario-today-with-datacenter-handover)
@@ -236,6 +236,15 @@ While adopting IaC comes with its own set of challenges — such as:
 
 * https://www.pluralsight.com/resources/blog/tech-operations/business-benefits-infrastructure-as-code-iac
 
+
+### Red Hat Ansible Automation Platform delivers on high ROI expectations
+
+In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
+
+Doing so frees up time and resources that can be better used to deliver the essential technologies needed to drive business success.
+
+https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
+
 ### Introduction to Ansible IaC
 
 
@@ -310,15 +319,6 @@ Easier Handoffs & Team Support
 * Less "tribal knowledge": Support does not depend on remembering who built VM #12 or how a router interface was tweaked manually.
 * Clearer specialization across teams: Network engineers, Linux/Windows admins, and virtualization owners can work cleanly within their own inventories, roles, and variables without stepping on each other's changes.
 * Faster onboarding: New teammates can read structured playbooks and group_vars to understand the environment far faster than reading scattered notes or reverse-engineering live machines.
-
-
-#### Red Hat Ansible Automation Platform delivers on high ROI expectations
-
-In a world where organizations are continually asked to do more with less, IT leaders are always looking for new technologies and strategies that can help their teams become more agile and efficient. 
-
-Doing so frees up time and resources that can be better used to deliver the essential technologies needed to drive business success.
-
-https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-delivers-high-roi-expectations
 
 # Use case support department
 
