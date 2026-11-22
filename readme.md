@@ -43,6 +43,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
     - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
     - [2.2 Unified Infrastructure Automation](#22-unified-infrastructure-automation)
+- [Ansible](#ansible)
     - [Ansible on Azure Microsoft (the POC lab)](#ansible-on-azure-microsoft-the-poc-lab)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -436,6 +437,8 @@ By having every department manage their infrastructure through code within a sha
 IAC is the missing link.
 
 ![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
+
+# Ansible 
 
 ### Ansible on Azure Microsoft (the POC lab)
 
