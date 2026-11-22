@@ -147,8 +147,42 @@ bash azure_iac_bicep_create_or_tear_down/scripts/check_what_if.sh
 
 ```
 
+All three what-if checks returned Status: Succeeded with the exact expected resource topology:
+
+* Rg-swc-mysql-01 (mysql01): 10.68.68.6 (Static) on iDMZ, Standard_B2s, mysql01_OsDisk_1, 8 GiB mysql01_DataDisk_0 (LUN 0), mysql01-nic, and mysql01-nsg (TCP/22).
+
+* Rg-swc-zabbix-01 (zabbix01): 10.68.68.5 (Static) on iDMZ, Standard_B2s, zabbix01_OsDisk_1, zabbix01-nic, and zabbix01-nsg (TCP/22).
+
+* Rg-swc-zabbix-02 (zabbix02): 10.68.20.4 (Static) on OT, Standard_B2s, zabbix02_OsDisk_1, zabbix02-nic, and zabbix02-nsg (TCP/22).
+
+
+TODO Next Steps to Deploy
+
+
+Remove the old Resource Groups to free the static IPs (omit --no-wait so the command blocks until Azure releases 10.68.68.6, 10.68.68.5, and 10.68.20.4 from vnet_swc_01):
+
+```bash
+az group delete --name "Rg-swc-dbs-02" --yes
+az group delete --name "Rg-swc-vms-01" --yes
+
+# or do it in the portal
+
+```
+## Create nodes 27.08.2026
+
+Deploy all three VMs into their dedicated Resource Groups:
+
+```bash
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ 
+
+bash azure_iac_bicep_create_or_tear_down/scripts/deploy.sh
+```
+
 ## Tear down nodes after 27.08.2026
 
+```bash
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ 
 
-## Create nodes
+bash azure_iac_bicep_create_or_tear_down/scripts/teardown.sh
 
+``` 
