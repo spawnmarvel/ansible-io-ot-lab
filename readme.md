@@ -37,6 +37,12 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Day-two support](#day-two-support)
   - [Red Hat Ansible Automation Platform delivers on high ROI expectations](#red-hat-ansible-automation-platform-delivers-on-high-roi-expectations)
   - [Use case support department](#use-case-support-department)
+  - [Introduction to scenario for a support department](#introduction-to-scenario-for-a-support-department)
+    - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
+    - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
+    - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
+    - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
+    - [2.2 Unified Infrastructure Automation](#22-unified-infrastructure-automation)
     - [Ansible on Azure Microsoft (the POC lab)](#ansible-on-azure-microsoft-the-poc-lab)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
@@ -64,12 +70,6 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [Ansible can configure, provision, and manage several major hypervisors and virtualization platforms](#ansible-can-configure-provision-and-manage-several-major-hypervisors-and-virtualization-platforms)
 - [IT Automation in OT](#it-automation-in-ot)
   - [Octopus Deploy vs. Ansible at a Glance](#octopus-deploy-vs-ansible-at-a-glance)
-  - [Introduction to scenario for a suport department](#introduction-to-scenario-for-a-suport-department)
-    - [Team 1 and Team 2 scenario](#team-1-and-team-2-scenario)
-    - [1. Topology for the future for a support department](#1-topology-for-the-future-for-a-support-department)
-    - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
-    - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
-    - [2.2 Unified Infrastructure Automation](#22-unified-infrastructure-automation)
 - [Start IT/OT Lab](#start-itot-lab)
   - [Firewal and practical information](#firewal-and-practical-information)
   - [Whitelisted repo for ansiblectr01](#whitelisted-repo-for-ansiblectr01)
@@ -323,6 +323,119 @@ For those day-2 tasks across 10 VMs (patching, software installs, vulnerability 
 🟢 Biggest payoff: Tasks done often (patching, adding users, rotating certs, checking/fixing vulnerabilities) pay back the playbook writing time within just a few runs.
 
 ![before2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/before2.png)
+
+
+## Introduction to scenario for a support department
+
+🎯 Objectives & Key Highlights
+
+* Multi-Zone Network Segregation: Isolates management tasks in an internal DMZ (iDMZ / Zone 2.5) from operational technology targets (OT / Zone 2.0) using Azure Network Security Groups (NSGs).
+
+* Controlled Caching & Software Delivery: Implements an internal caching proxy (apt-cacher-ng) on the control node (ansiblectr01) to safely handle system packages, updates, and repository mirroring without exposing target nodes directly to the public internet.
+
+* Modern Web Orchestration: Deploys Ansible Semaphore UI fronted by an Apache HTTPS reverse proxy with TLS termination for secure, role-based pipeline and playbook execution.
+
+* Infrastructure as Code (IaC): MySQL, Zabbix Zabbix proxy, update Linux servers , etc,  and cross-platform configuration playbooks entirely through version-controlled automation.
+
+* Multi-Platform Support: Orchestrates management routines across both modern Linux distributions (Ubuntu Server) and Windows Server targets using native Ansible execution modules.
+
+🔄 Operational Scenario
+
+1. Day 1 (Infrastructure Provisioning): The core infrastructure team provisions clean Ubuntu and Windows Server virtual machines within Azure following standard deployment templates.
+
+2. Day 2 (Control Plane & Security Baseline): The automation team establishes ansiblectr01 as the central control node, configures secure SSH key-based authentication, sets up internal package caching, and deploys Semaphore UI.
+
+3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
+
+### Team 1 and Team 2 scenario
+
+Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI.
+
+Day-2 automation begins immediately after IP and credential handover.
+
+![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
+
+
+### 1. Topology for the future for a support department
+
+This is the final set up (ip may change but the concept is the same)
+
+1. Team 1 can use Terraform / Ansible for network, firewall, provision servers etc.
+2. Team 2 will can use Ansible for configuration management, install, montitoring, patching etc.
+
+---
+
+![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
+
+### 2 What now and what about other departments?
+
+Analysis by Department
+
+Network Team
+
+🟠 Why they should evaluate Ansible: 
+
+Switches, routers, VLANs, interfaces, and firewall/security group policies suffer heavily from manual CLI drift and high-risk typos. Using Ansible collections (cisco.ios, cisco.nxos, arista.eos, junipernetworks.junos, fortinet.fortios, or community.network) lets network engineers standardize configs and back up or audit state across zones.
+
+🟡 What they need to test: 
+
+Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab segment, and safe rollback/out-of-band precautions so nobody risks locking out a device or breaking iDMZ/OT segmentation.
+
+🟢 Expected payoff: 
+
+Fewer configuration mismatches across network gear, faster troubleshooting when traffic fails between segments, and shared network facts/inventories for other teams.
+
+Hypervisor Team
+
+🟠 Why they should evaluate Ansible: 
+
+Provisioning VMs, adjusting CPU/memory/disks, managing templates, and keeping hypervisor hosts consistent across Proxmox, VMware, Hyper-V, or KVM/Libvirt takes repetitive GUI work when scaling from a handful of VMs to dozens. Collections like community.proxmox, community.vmware / vmware.vmware, microsoft.hyperv, or community.libvirt let the hypervisor team standardize VM creation.
+
+🟡 What they need to test: 
+
+Cloning from baseline templates, attaching disks/networks consistently, and handing clean host details (IP, OS, role, zone) into inventory or downstream automation.
+
+🟢 Expected payoff: 
+
+Faster, uniform VM builds ("Day 1" handover) with fewer "snowflake" VMs and less back-and-forth during provisioning.
+
+
+Cybersecurity Team
+
+🟠 Why they should evaluate Ansible: 
+
+Security teams often spend time checking baseline hardening, verifying patch posture, enforcing firewall/access rules, or remediating vulnerabilities across mixed Linux and Windows hosts. Ansible lets security teams turn checklists and compliance requirements into repeatable audit (--check) and remediation playbooks instead of manual spot-checks.
+
+🟡 What they need to test: 
+
+Non-disruptive compliance/drift checks, targeted vulnerability fixes or configuration hardening on test VMs, certificate/key handling practices, and audit logging/approval controls (such as through Semaphore UI or Git reviews).
+
+🟢 Expected payoff: 
+
+Continuous, verifiable baseline checks rather than one-off audits, faster remediation when a vulnerability is announced, and clear records of what changed and when.
+
+### 2.1 How to Coordinate Across Departments Without Stepping on Toes
+
+🟢 Keep clear ownership boundaries: Let hypervisor and network teams own provisioning and network/firewall layers, let security define baselines and guardrails, and let support/operations run day-2 maintenance and service playbooks within agreed boundaries.
+
+🟢 Share conventions, not one giant messy playbook: Agree on common folder structure, naming, inventory layout, vault/secret handling, and testing habits (--syntax-check, --check, --diff), while keeping team-specific variables and playbooks modular.
+
+🟡 Measure whether it actually helps: After each department runs its trial, compare manual effort, error rates, and handoff speed—if Ansible makes daily work clearer and safer, expand it; if a task is too rare or risky to automate cleanly, keep it documented and manual.
+
+
+
+Having a dedicated Ansible control node in Purdue Zone 3.5 for the network team and another control node in Zone 2.5 (iDMZ) for the support team makes a lot of sense in a segmented IT/OT environment.
+
+### 2.2 Unified Infrastructure Automation
+
+By having every department manage their infrastructure through code within a shared repository, we are adopting a GitOps workflow. This means we achieve Unified Infrastructure Automation, where changes from the Network, Security, and Support teams are safely coordinated, documented, and deployed in a single, reliable steps.
+
+![now](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/now.png)
+
+
+IAC is the missing link.
+
+![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
 ### Ansible on Azure Microsoft (the POC lab)
 
@@ -651,115 +764,6 @@ Let Ansible prepare the baseline, and Octopus deploy on top: For example, Ansibl
 Yes—you can use Ansible alone for the entire scenario: provisioning VMs on Proxmox or VMware, configuring switches and routers, managing and updating Ubuntu and Windows VMs, and handling backup jobs or maintenance tasks.
 
 You only need another tool if you specifically want dedicated release/deployment pipelines, UI approval gates, or a separate operational runbook portal—otherwise, Ansible alone is more than enough to cover this whole environment.
-
-## Introduction to scenario for a suport department
-
-🎯 Objectives & Key Highlights
-
-* Multi-Zone Network Segregation: Isolates management tasks in an internal DMZ (iDMZ / Zone 2.5) from operational technology targets (OT / Zone 2.0) using Azure Network Security Groups (NSGs).
-
-* Controlled Caching & Software Delivery: Implements an internal caching proxy (apt-cacher-ng) on the control node (ansiblectr01) to safely handle system packages, updates, and repository mirroring without exposing target nodes directly to the public internet.
-
-* Modern Web Orchestration: Deploys Ansible Semaphore UI fronted by an Apache HTTPS reverse proxy with TLS termination for secure, role-based pipeline and playbook execution.
-
-* Infrastructure as Code (IaC): MySQL, Zabbix Zabbix proxy, update Linux servers , etc,  and cross-platform configuration playbooks entirely through version-controlled automation.
-
-* Multi-Platform Support: Orchestrates management routines across both modern Linux distributions (Ubuntu Server) and Windows Server targets using native Ansible execution modules.
-
-🔄 Operational Scenario
-
-1. Day 1 (Infrastructure Provisioning): The core infrastructure team provisions clean Ubuntu and Windows Server virtual machines within Azure following standard deployment templates.
-
-2. Day 2 (Control Plane & Security Baseline): The automation team establishes ansiblectr01 as the central control node, configures secure SSH key-based authentication, sets up internal package caching, and deploys Semaphore UI.
-
-3. Day 3 and Beyond (Day-2 Operations & Lifecycle Management): Routine maintenance, configuration enforcement, database storage provisioning, and targeted security patching (such as specific Windows KB updates) are executed reliably through automated playbooks with a single click.
-
-### Team 1 and Team 2 scenario
-
-Datacenter Handover: The datacenter build team manually provisions clean Ubuntu 26.04 and Windows Server VMs via GUI.
-
-Day-2 automation begins immediately after IP and credential handover.
-
-![days](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/days.png)
-
-
-### 1. Topology for the future for a support department
-
-This is the final set up (ip may change but the concept is the same)
-
-1. Team 1 can use Terraform / Ansible for network, firewall, provision servers etc.
-2. Team 2 will can use Ansible for configuration management, install, montitoring, patching etc.
-
----
-
-![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology.png)
-
-### 2 What now and what about other departments?
-
-Analysis by Department
-
-Network Team
-
-🟠 Why they should evaluate Ansible: 
-
-Switches, routers, VLANs, interfaces, and firewall/security group policies suffer heavily from manual CLI drift and high-risk typos. Using Ansible collections (cisco.ios, cisco.nxos, arista.eos, junipernetworks.junos, fortinet.fortios, or community.network) lets network engineers standardize configs and back up or audit state across zones.
-
-🟡 What they need to test: 
-
-Read-only/check-mode state checks, VLAN or ACL changes in a non-production/lab segment, and safe rollback/out-of-band precautions so nobody risks locking out a device or breaking iDMZ/OT segmentation.
-
-🟢 Expected payoff: 
-
-Fewer configuration mismatches across network gear, faster troubleshooting when traffic fails between segments, and shared network facts/inventories for other teams.
-
-Hypervisor Team
-
-🟠 Why they should evaluate Ansible: 
-
-Provisioning VMs, adjusting CPU/memory/disks, managing templates, and keeping hypervisor hosts consistent across Proxmox, VMware, Hyper-V, or KVM/Libvirt takes repetitive GUI work when scaling from a handful of VMs to dozens. Collections like community.proxmox, community.vmware / vmware.vmware, microsoft.hyperv, or community.libvirt let the hypervisor team standardize VM creation.
-
-🟡 What they need to test: 
-
-Cloning from baseline templates, attaching disks/networks consistently, and handing clean host details (IP, OS, role, zone) into inventory or downstream automation.
-
-🟢 Expected payoff: 
-
-Faster, uniform VM builds ("Day 1" handover) with fewer "snowflake" VMs and less back-and-forth during provisioning.
-
-
-Cybersecurity Team
-
-🟠 Why they should evaluate Ansible: 
-
-Security teams often spend time checking baseline hardening, verifying patch posture, enforcing firewall/access rules, or remediating vulnerabilities across mixed Linux and Windows hosts. Ansible lets security teams turn checklists and compliance requirements into repeatable audit (--check) and remediation playbooks instead of manual spot-checks.
-
-🟡 What they need to test: 
-
-Non-disruptive compliance/drift checks, targeted vulnerability fixes or configuration hardening on test VMs, certificate/key handling practices, and audit logging/approval controls (such as through Semaphore UI or Git reviews).
-
-🟢 Expected payoff: 
-
-Continuous, verifiable baseline checks rather than one-off audits, faster remediation when a vulnerability is announced, and clear records of what changed and when.
-
-### 2.1 How to Coordinate Across Departments Without Stepping on Toes
-
-🟢 Keep clear ownership boundaries: Let hypervisor and network teams own provisioning and network/firewall layers, let security define baselines and guardrails, and let support/operations run day-2 maintenance and service playbooks within agreed boundaries.
-
-🟢 Share conventions, not one giant messy playbook: Agree on common folder structure, naming, inventory layout, vault/secret handling, and testing habits (--syntax-check, --check, --diff), while keeping team-specific variables and playbooks modular.
-
-🟡 Measure whether it actually helps: After each department runs its trial, compare manual effort, error rates, and handoff speed—if Ansible makes daily work clearer and safer, expand it; if a task is too rare or risky to automate cleanly, keep it documented and manual.
-
-
-
-Having a dedicated Ansible control node in Purdue Zone 3.5 for the network team and another control node in Zone 2.5 (iDMZ) for the support team makes a lot of sense in a segmented IT/OT environment.
-
-### 2.2 Unified Infrastructure Automation
-
-By having every department manage their infrastructure through code within a shared repository, we are adopting a GitOps workflow. This means we achieve Unified Infrastructure Automation, where changes from the Network, Security, and Support teams are safely coordinated, documented, and deployed in a single, reliable steps.
-
-![now](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/now.png)
-
-
 
 # Start IT/OT Lab
 
