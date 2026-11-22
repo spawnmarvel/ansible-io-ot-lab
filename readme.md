@@ -43,16 +43,16 @@ In Bg we do the job manually, understand the case and document, then apply autom
     - [2 What now and what about other departments?](#2-what-now-and-what-about-other-departments)
     - [2.1 How to Coordinate Across Departments Without Stepping on Toes](#21-how-to-coordinate-across-departments-without-stepping-on-toes)
     - [2.2 Unified Infrastructure Automation](#22-unified-infrastructure-automation)
+    - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
+    - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
+    - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
+    - [The Bottom Line](#the-bottom-line)
 - [Ansible](#ansible)
     - [Ansible on Azure Microsoft (the POC lab)](#ansible-on-azure-microsoft-the-poc-lab)
     - [Ansible explained in 60 seconds youtube and other videos](#ansible-explained-in-60-seconds-youtube-and-other-videos)
     - [Ansible.Builtin](#ansiblebuiltin)
     - [Ansible Collection Index](#ansible-collection-index)
     - [Semaphore UI for Ansible](#semaphore-ui-for-ansible)
-    - [Ansible and Red Hat models 🎩](#ansible-and-red-hat-models-)
-    - [What You Can Do for Free 🆓](#what-you-can-do-for-free-)
-    - [Where You Hit a Wall (The Trade-offs) 💸](#where-you-hit-a-wall-the-trade-offs-)
-    - [The Bottom Line](#the-bottom-line)
     - [Official Ansible Documentation Portal](#official-ansible-documentation-portal)
     - [Ansible provides open-source automation that reduces complexity and runs everywhere.](#ansible-provides-open-source-automation-that-reduces-complexity-and-runs-everywhere)
     - [Introduction to Ansible Guide: Ansible Introduction \& Use Cases](#introduction-to-ansible-guide-ansible-introduction--use-cases)
@@ -451,6 +451,41 @@ By combining their specialized knowledge and working in close harmony, the teams
 
 ![ansible_circle2](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ansible_circle2.png)
 
+
+### Ansible and Red Hat models 🎩
+
+Ansible is owned by Red Hat, a subsidiary of IBM.
+
+You can go all the way to full-scale enterprise production with the open-source version of Ansible. There are no artificial limits on the number of servers, features, or automation tasks you can run for free.
+
+
+### What You Can Do for Free 🆓
+
+* Unlimited Scale: You can automate 5 servers or 50,000 servers without paying a dime.
+* Full Automation Power: Every core capability—like configuring servers, deploying apps, managing cloud infrastructure (AWS, Azure, Google Cloud), and configuring network hardware—works out of the box.
+* Access Community Modules: You get free access to thousands of pre-built automation scripts (called Collections) created by the community and major tech vendors on Ansible Galaxy.
+* Add a Free Web UI: If you outgrow the command line, you can install AWX (the free, open-source version of Red Hat's visual dashboard) or Semaphore UI (a lightweight, popular open-source web interface for Ansible).
+* Integrate with CI/CD: You can easily plug free Ansible into other free tools like GitLab CI, GitHub Actions, or Jenkins to schedule jobs, store passwords securely, and track who ran what.
+
+
+
+### Where You Hit a Wall (The Trade-offs) 💸
+
+While there are no technical walls, you will eventually face operational trade-offs as your team grows:
+
+* Maintenance Burden: Running free tools like AWX requires a dedicated Kubernetes cluster and regular manual upgrades, which takes time and expertise to maintain.
+* No Safety Net: If a critical production automation breaks at 2:00 AM, you have to fix it yourself using documentation and community forums rather than calling Red Hat support.
+* Compliance & Auditing: Strict industries (like banking or healthcare) often require legally certified software and guaranteed vendor accountability, which only comes with a paid subscription.
+
+
+
+### The Bottom Line
+
+If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
+
+
+---
+
 # Ansible 
 
 ### Ansible on Azure Microsoft (the POC lab)
@@ -571,49 +606,6 @@ Docs Getting started with Ansible
 
 ![ui](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/ui.png)
 
-
-### Ansible and Red Hat models 🎩
-
-Ansible is owned by Red Hat, a subsidiary of IBM.
-
-Open-Source Core: The core Ansible project (including Ansible Core) is free and open-source software licensed under the GNU General Public License version 3 (GPL-3.0)
-
-"The core Ansible project (including Ansible Core)"
-
-* The engine: This refers to the foundational software that actually runs your automation tasks from the command line.
-
-* The essentials: It includes the core engine, basic built-in tools, and the framework needed to automate servers, networks, and cloud setups without any paid add-ons.
-
-
-You can go all the way to full-scale enterprise production with the open-source version of Ansible. There are no artificial limits on the number of servers, features, or automation tasks you can run for free.
-
-
-### What You Can Do for Free 🆓
-
-* Unlimited Scale: You can automate 5 servers or 50,000 servers without paying a dime.
-* Full Automation Power: Every core capability—like configuring servers, deploying apps, managing cloud infrastructure (AWS, Azure, Google Cloud), and configuring network hardware—works out of the box.
-* Access Community Modules: You get free access to thousands of pre-built automation scripts (called Collections) created by the community and major tech vendors on Ansible Galaxy.
-* Add a Free Web UI: If you outgrow the command line, you can install AWX (the free, open-source version of Red Hat's visual dashboard) or Semaphore UI (a lightweight, popular open-source web interface for Ansible).
-* Integrate with CI/CD: You can easily plug free Ansible into other free tools like GitLab CI, GitHub Actions, or Jenkins to schedule jobs, store passwords securely, and track who ran what.
-
-
-
-### Where You Hit a Wall (The Trade-offs) 💸
-
-While there are no technical walls, you will eventually face operational trade-offs as your team grows:
-
-* Maintenance Burden: Running free tools like AWX requires a dedicated Kubernetes cluster and regular manual upgrades, which takes time and expertise to maintain.
-* No Safety Net: If a critical production automation breaks at 2:00 AM, you have to fix it yourself using documentation and community forums rather than calling Red Hat support.
-* Compliance & Auditing: Strict industries (like banking or healthcare) often require legally certified software and guaranteed vendor accountability, which only comes with a paid subscription.
-
-
-
-### The Bottom Line
-
-If you have a skilled technical team willing to manage your own setup, you never have to pay for Ansible. Companies usually only pay when they want to save engineering time on maintenance, pass compliance audits easily, or get 24/7 vendor support.
-
-
----
 
 
 ### Official Ansible Documentation Portal
