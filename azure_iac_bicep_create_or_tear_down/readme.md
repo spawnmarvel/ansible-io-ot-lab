@@ -120,6 +120,19 @@ az group list --query "[].{Name:name, Location:location}" --output table
 
 ```
 
+Pull the files from git
+
+```bash
+azureuser@ansiblectr01:~$ cd ansible-io-ot-lab/
+git pull origin main
+```
+
+Now run
+
+```bash
+
+```
+
 
 ## Tear down nodes
 
