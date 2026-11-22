@@ -147,7 +147,7 @@ bash azure_iac_bicep_create_or_tear_down/scripts/check_what_if.sh
 
 ```
 
-## Tear down nodes
+## Tear down nodes after 27.08.2026
 
 
 ## Create nodes
