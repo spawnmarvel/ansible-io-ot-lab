@@ -141,17 +141,17 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Playbook deploy\_mysql.yml with Roles --check or limit or hosts:groups](#playbook-deploy_mysqlyml-with-roles---check-or-limit-or-hostsgroups)
     - [1 Role Directory Structure](#1-role-directory-structure)
     - [2. playbooks/deploy\_mysql\_check.yml](#2-playbooksdeploy_mysql_checkyml)
-    - [3. playbooks/deploy\_mysql.yml --limit mysql01 --check --diff](#3-playbooksdeploy_mysqlyml---limit-mysql01---check---diff)
+    - [3. playbooks/deploy\_mysql\_for\_zabbix.yml --limit mysql01 --check --diff](#3-playbooksdeploy_mysql_for_zabbixyml---limit-mysql01---check---diff)
       - [Check AppArmor Reload Task Is Triggered --limit mysql01 --check --diff](#check-apparmor-reload-task-is-triggered---limit-mysql01---check---diff)
       - [Verify mysql as root and zabbix via ssh on localhost](#verify-mysql-as-root-and-zabbix-via-ssh-on-localhost)
     - [4. playbooks/login\_mysql\_check.yml --limit mysql01 with var zabbix\_password](#4-playbookslogin_mysql_checkyml---limit-mysql01-with-var-zabbix_password)
-  - [playbooks/deploy\_mysql.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysqlyml---limit-mysql01-ansible-vault)
+  - [playbooks/deploy\_mysql\_for\_zabbix.yml --limit mysql01 Ansible Vault](#playbooksdeploy_mysql_for_zabbixyml---limit-mysql01-ansible-vault)
     - [1. Encrypt Your Variables File (implemented)](#1-encrypt-your-variables-file-implemented)
       - [Option A: Interactive Prompt (Best for Manual Runs) --ask-vault-pass](#option-a-interactive-prompt-best-for-manual-runs---ask-vault-pass)
       - [Option B: Vault Password File (Best for Automation / CI/CD) implemented](#option-b-vault-password-file-best-for-automation--cicd-implemented)
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
-  - [deploy\_mysql.yml information on multiple deploy bg1](#deploy_mysqlyml-information-on-multiple-deploy-bg1)
+  - [deploy\_mysql\_for\_zabbix.yml information on multiple deploy bg1](#deploy_mysql_for_zabbixyml-information-on-multiple-deploy-bg1)
 - [Playbook deploy\_zabbix.yml --check or limit or hosts:groups](#playbook-deploy_zabbixyml---check-or-limit-or-hostsgroups)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
@@ -3016,12 +3016,12 @@ To allow remote hosts (such as zabbix01 at 10.68.68.5) to connect to your MySQL 
 
 2. User Privileges: MySQL user accounts must be granted access from remote hosts (either a specific IP like 10.68.68.5, a subnet like 10.68.68.%, or globally via %).
 
-### 3. playbooks/deploy_mysql.yml --limit mysql01 --check --diff
+### 3. playbooks/deploy_mysql_for_zabbix.yml --limit mysql01 --check --diff
 
 
 Run in check mode
 ```bash
-ansible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql.yml --limit mysql01 --check --diff
+ansible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql_for_zabbix.yml --limit mysql01 --check --diff
 
 
 ```
@@ -3040,7 +3040,7 @@ Now deploy it
 
 ```bash
 
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql_for_zabbix.yml --limit mysql01
 ```
 log
 
@@ -3090,7 +3090,7 @@ Run deploy_mysql.yml --limit mysql01 --check --diff once to confirm both tasks r
 
 ```bash
 
-ansible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql.yml --limit mysql01 --check --diff
+ansible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql_for_zabbix.yml --limit mysql01 --check --diff
 ```
 
 ```console
@@ -3130,7 +3130,7 @@ Run deploy_mysql.yml --limit mysql01 without --check --diff next so you confirm 
 
 
 ```bash
-nsible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql.yml --limit mysql01
+ansible-playbook -i inventory/hosts_azure.ini playbooks/deploy_mysql_for_zabbix.yml --limit mysql01
 ```
 
 log
@@ -3252,11 +3252,11 @@ Now all playbooks can use that password and it works.
 
 ```bash
 # Test deploy and check that is works, it does.
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01 --check
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql_for_zabbix.yml --limit mysql01 --check
 
 # Run deploy
 
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml --limit mysql01
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql_for_zabbix.yml --limit mysql01
 
 # Now back to verify user
 
@@ -3308,7 +3308,7 @@ Result:
 ![logi mysql](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/login_mysql.png)
 
 
-## playbooks/deploy_mysql.yml --limit mysql01 Ansible Vault
+## playbooks/deploy_mysql_for_zabbix.yml --limit mysql01 Ansible Vault
 
 What we did is bad, password in file....
 
@@ -3370,7 +3370,7 @@ vault_password_file = .vault_pass.txt
 3. Run your playbooks normally without needing any extra flags:
 
 ```bash
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql.yml
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_mysql_for_zabbix.yml
 ```
 
 Log
@@ -3429,7 +3429,7 @@ In the Ansible Semaphore UI, "Login with password" is the correct key type to us
 7. playbooks/deploy_mysql.yml
 8. playbooks/login_mysql_user_zabbix.yml
 
-## deploy_mysql.yml information on multiple deploy bg1
+## deploy_mysql_for_zabbix.yml information on multiple deploy bg1
 
 It if fixed view:
 
