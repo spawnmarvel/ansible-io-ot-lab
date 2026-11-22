@@ -152,6 +152,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
       - [Configure Semaphore with a Vault Password](#configure-semaphore-with-a-vault-password)
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
   - [deploy\_mysql\_for\_zabbix.yml information on multiple deploy bg1](#deploy_mysql_for_zabbixyml-information-on-multiple-deploy-bg1)
+- [Azure IAC Bicep for Ansible lab](#azure-iac-bicep-for-ansible-lab)
 - [Playbook deploy\_zabbix.yml --check or limit --syntax-check](#playbook-deploy_zabbixyml---check-or-limit---syntax-check)
   - [Requirements zabbix 7.0 LTS](#requirements-zabbix-70-lts)
   - [deploy\_zabbix.yml --check or limit --syntax-check](#deploy_zabbixyml---check-or-limit---syntax-check)
@@ -3443,6 +3444,16 @@ roles/mysql/tasks/main.yml
 
 # fixed app armor
 ```
+
+# Azure IAC Bicep for Ansible lab
+
+Lets create IAC with bicep for quick tear down and provision of the 3 vms
+
+* zabbix01, zabbix02, mysql01, other vms in the future.
+
+Then we can run the playbooks over and over and over again.
+
+GOTO azure_iac_bicep_create_or_tear_down
 
 
 # Playbook deploy_zabbix.yml --check or limit --syntax-check
