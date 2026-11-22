@@ -102,8 +102,23 @@ az group list --query "[].{Name:name, Location:location}" --output table
 ![rg](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/rg.png)
 
 
+Managed Identity authentication and Subscription read access are working. Your lab infrastructure is located in swedencentral across Rg-swc-ansiblestack-01, Rg-swc-vms-01, and Rg-swc-dbs-02.
 
 ## Get information
+
+
+```bash
+SUB_ID=$(az account show --query "id" --output tsv)
+
+echo "=== SUBSCRIPTION ==="
+echo "SUB_ID loaded (length: ${#SUB_ID})"
+
+az login --identity --output json
+
+echo "=== RESOURCE GROUPS ==="
+az group list --query "[].{Name:name, Location:location}" --output table
+
+```
 
 
 ## Tear down nodes
