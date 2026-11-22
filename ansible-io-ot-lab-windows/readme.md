@@ -5,6 +5,7 @@
 
 - [Ansible stack in Azure Proof of Concept (PoC)](#ansible-stack-in-azure-proof-of-concept-poc)
   - [Table of content](#table-of-content)
+  - [DO417LS: Microsoft Windows Automation with Red Hat Ansible](#do417ls-microsoft-windows-automation-with-red-hat-ansible)
   - [15 Ansible Playbooks Example for Windows Administration](#15-ansible-playbooks-example-for-windows-administration)
   - [Ansible handles Windows updates natively example](#ansible-handles-windows-updates-natively-example)
 - [Using Ansible and Windows](#using-ansible-and-windows)
@@ -12,6 +13,13 @@
     - [What is WinRM?](#what-is-winrm)
     - [WinRM Setup 5985](#winrm-setup-5985)
 
+
+
+## DO417LS: Microsoft Windows Automation with Red Hat Ansible
+
+Learn how to automate administration on Windows Server to enable your DevOps workflow. Microsoft Windows Automation with Red Hat Ansible is designed for Windows Server professionals without previous Ansible experience. 
+
+https://www.glasspaper.no/en/courses/do417-microsoft-windows-automation-with-red-hat-ansible/
 
 ## 15 Ansible Playbooks Example for Windows Administration
 
