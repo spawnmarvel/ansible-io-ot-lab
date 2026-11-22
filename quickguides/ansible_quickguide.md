@@ -17,6 +17,7 @@
     - [Ansible Galaxy](#ansible-galaxy)
     - [How to Check and Install a Collection When You Only Have ansible-core](#how-to-check-and-install-a-collection-when-you-only-have-ansible-core)
   - [Getting Started with Ansible: A Beginner’s Guide](#getting-started-with-ansible-a-beginners-guide)
+  - [Install](#install)
   - [Inventory](#inventory)
   - [SSH key-based authentication](#ssh-key-based-authentication)
     - [host\_key\_checking ansible.cfg](#host_key_checking-ansiblecfg)
@@ -157,6 +158,46 @@ ansible-galaxy collection install ./community-general-*.tar.gz
 ## Getting Started with Ansible: A Beginner’s Guide
 
 https://docs.ansible.com/projects/ansible-core/2.13/getting_started/index.html
+
+
+## Install
+
+
+```bash
+azureuser@ansiblectr01
+
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+
+# install
+sudo apt install ansible
+
+# check v
+ansible --version
+
+
+# list collections
+ansible-galaxy collection list
+
+
+```
+
+There are many
+
+```console
+
+Collection                               Version
+---------------------------------------- -------
+amazon.aws                               11.4.0
+ansible.mariadb                          6.0.2
+ansible.mysql                            5.2.0
+ansible.netcommon                        8.7.1
+ansible.posix                            2.2.2
+ansible.utils                            6.1.1
+ansible.windows                          3.8.0
+```
 
 ## Inventory
 

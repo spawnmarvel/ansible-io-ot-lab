@@ -121,8 +121,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Playbook get\_linux\_version.yml](#playbook-get_linux_versionyml)
   - [Playbook linux mount\_datadrive\_check.yml](#playbook-linux-mount_datadrive_checkyml)
 - [Manually attach a data disk to a Linux VM UUID](#manually-attach-a-data-disk-to-a-linux-vm-uuid)
-- [Playbook linux mount\_datadrive\_for\_mysql.yml (risky Azure spesific)](#playbook-linux-mount_datadrive_for_mysqlyml-risky-azure-spesific)
-  - [1. Jinja2 expression is extremely close to a generic template](#1-jinja2-expression-is-extremely-close-to-a-generic-template)
+- [Playbook linux mount\_datadrive\_for\_mysql\_azure.yml (Azure spesific)](#playbook-linux-mount_datadrive_for_mysql_azureyml-azure-spesific)
   - [2 Add prompt before executing Step 3 ansible.builtin.pause](#2-add-prompt-before-executing-step-3-ansiblebuiltinpause)
       - [We can add prompts to semaphore later, let's continue cli](#we-can-add-prompts-to-semaphore-later-lets-continue-cli)
     - [Idempotent data disk discovery, partitioning, ext4 formatting, UUID extraction, persistent fstab mounting at /mnt/datadrive1, and reboot verification.](#idempotent-data-disk-discovery-partitioning-ext4-formatting-uuid-extraction-persistent-fstab-mounting-at-mntdatadrive1-and-reboot-verification)
@@ -2149,17 +2148,7 @@ This step is very risky to automate, we muste make sure that.
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal?tabs=scsi
 
-# Playbook linux mount_datadrive_for_mysql.yml (risky Azure spesific)
-
-
-
-Take a snapshot of the OS disk.
-
-![snap_vm](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_disk.png)
-
-Snap done, we have it at the bottom.
-
-![snap_done](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/snap_done1.png)
+# Playbook linux mount_datadrive_for_mysql_azure.yml (Azure spesific)
 
 
 We need to dynamically find the target disk based on size and mount it to /mnt/datadrive1
@@ -2180,37 +2169,12 @@ cd io_ot_lab/
 
 # if the play is ok, remove --check with --diff and or --limit
 
-ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive.yml --check NA
+ansible-playbook -i inventory/hosts.ini playbooks/mount_datadrive_for_mysql_azure.yml --check NA
 
 ```
 
 The error occurred because you ran the playbook with the --check (dry run) flag. When running in check mode, Ansible simulates the partitioning task (parted), but it does not actually create /dev/sda1 on the system.
 
-
-## 1. Jinja2 expression is extremely close to a generic template
-
-Yes, the loop-free Jinja2 expression is extremely close to a generic template, but with one hardcoded detail—reject('in', ['sda', 'sdb'])—it is currently Azure-specific rather than truly hypervisor-agnostic.
-
-Here is an analysis of how it behaves and how to make it a true generic template that works across KVM, VMware, AWS, and Azure.
-
-
-Here is an analysis of how it behaves and how to make it a true generic template that works across KVM, VMware, AWS, and Azure.
-
-The Catch with Cross-Platform Reuse
-
-* Azure Naming: Uses sda for the OS root disk and sdb for the ephemeral temp storage drive, leaving sdc as your secondary data drive. Hardcoding ['sda', 'sdb'] works perfectly here.
-* KVM / Proxmox / OpenStack Naming: Often uses VirtIO disks (vda, vdb) where vda is the OS root, or NVMe naming (nvme0n1). If you run an Azure-tuned template on a KVM host where vda is root, hardcoding sda/sdb means the filter won't recognize vda as the root device, risking a critical mis-selection.
-
-
-We create two playbooks
-
-* mount_datadrive_for_mysql_azure.yml
-
-* mount_datadrive_for_mysql_generic_hyperv.yml
-
-This shall work on all, but we focus first on the azure template and when that works we do the same exercies and focus on the generic one.
-
-So we need to restore a couple of times.
 
 ## 2 Add prompt before executing Step 3 ansible.builtin.pause
 
