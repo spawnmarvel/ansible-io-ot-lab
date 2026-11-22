@@ -400,7 +400,13 @@ This is the final set up (ip may change but the concept is the same)
 
 ---
 
+We add a controlnode vm (2 Cpu's, 6~8 GB Ram and 50GB OS disk) and that is where we do all the work from with Ansible IaC.
+
+The rest stays the same.
+
 ![topology](https://github.com/spawnmarvel/ansible-io-ot-lab/blob/main/images/topology2.png)
+
+---
 
 ### 2 What now and what about other departments?
 
