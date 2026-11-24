@@ -65,6 +65,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Modules and scenarios](#modules-and-scenarios)
     - [This module is able to Download and install Windows update](#this-module-is-able-to-download-and-install-windows-update)
     - [This module is able to configure a FortiGate or FortiOS (FOS) device](#this-module-is-able-to-configure-a-fortigate-or-fortios-fos-device)
+    - [Infrastructure-as-Code (IaC): Benefits And Best Practices Fortinet](#infrastructure-as-code-iac-benefits-and-best-practices-fortinet)
     - [How to automate devices using the Ansible CIP collection Rockwell Automation and Red Hat](#how-to-automate-devices-using-the-ansible-cip-collection-rockwell-automation-and-red-hat)
     - [Collection to manage Programmable Logic Controllers (PLC) via the Common Industrial Protocol (CIP).](#collection-to-manage-programmable-logic-controllers-plc-via-the-common-industrial-protocol-cip)
     - [Siemens automates communication security with Red Hat Ansible](#siemens-automates-communication-security-with-red-hat-ansible)
@@ -689,6 +690,10 @@ ansible.windows.win_updates:
 This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the user to set and modify system feature and interface category. Examples include all parameters and values need to be adjusted to datasources before usage. Tested with FOS v6.0.0
 
 https://docs.ansible.com/projects/ansible/latest/collections/fortinet/fortios/fortios_system_interface_module.html
+
+### Infrastructure-as-Code (IaC): Benefits And Best Practices Fortinet
+
+https://www.fortinet.com/resources/cyberglossary/infrastructure-as-code
 
 
 ### How to automate devices using the Ansible CIP collection Rockwell Automation and Red Hat
