@@ -169,6 +169,10 @@ In Bg we do the job manually, understand the case and document, then apply autom
 
 We build data center's by hand, why not automate the job we already do?
 
+Ansible is a free, open-source IT automation tool, written in Python and created by Red
+Hat. You write instructions once in a file, and Ansible applies them to as many servers as
+you want.
+
 ### Tools to automate data center
 
 The right automation tool depends on which part of the data center you want to automate—infrastructure provisioning, workload scheduling, networking, or physical facilities.
