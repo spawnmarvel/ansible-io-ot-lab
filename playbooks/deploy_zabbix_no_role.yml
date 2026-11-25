@@ -47,10 +47,12 @@
 
     - name: On Mysql set global log_bin_trust_function_creators on
 
+    # this will go to defaults/main.yml
     - name: Configure the database for Zabbix server
 
     - name: On Mysql set global log_bin_trust_function_creators off
 
+    # this will go to handler/main.yml
     - name: Start Zabbix server and agent processes
 
     - name: Go to the Zabbix web interface and complete the setup wizard
