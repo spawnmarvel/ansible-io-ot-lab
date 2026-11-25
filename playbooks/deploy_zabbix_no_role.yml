@@ -14,6 +14,7 @@
         # This module collects information about installed packages, which can be used to determine the installation status of specific packages.
         # It does not know anything about "zabbix" in particular—package_facts simply pulls the entire list of installed packages into ansible_facts.packages.
         manager: auto
+      when
     - name: Print zabbix-server package installation status
       ansible.builtin.debug:
         # and then your expression ('zabbix-server' in ansible_facts.packages) checks whether a 
@@ -21,7 +22,10 @@
         msg: "Zabbix server package is installed: {{ 'zabbix-server' in ansible_facts.packages }}"
     - name: Get the lates zabbix packet and download on ansible control node
       ansible.builtin.get_url:
+        become: false
         # Download the latest Zabbix package from the official Zabbix repository to the /tmp/ directory on the Ansible control node.
         url: "https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.0+ubuntu26.04_all.deb"
         dest: "/tmp/zabbix-release_latest_7.0+ubuntu26.04_all.deb"
+        run_once: true
       delegate_to: localhost
+      when: "'zabbix-server' not in ansible_facts.packages"
