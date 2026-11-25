@@ -34,25 +34,32 @@
       when: "'zabbix-server' not in ansible_facts.packages"
 
     - name: Copy the zabbix package to the target host 
+      ansible.builtin.copy:
+        # Copy the downloaded Zabbix package from the Ansible control node to the /tmp/ directory on the target hosts.
+        src: "/tmp/zabbix-release_latest_7.0+ubuntu26.04_all.deb"
+        dest: "/tmp/zabbix-release_latest_7.0+ubuntu26.04_all.deb"
+        mode: '0644'
+      # This task is executed only once, so we dontt waste time copying the package to each target host if it is already present.
+      run_once: true
+      
+    # - name: Install the zabbix package on the target host with dpkg
 
-    - name: Install the zabbix package on the target host with dpkg
+    # - name: Update apt package lists on the target host
 
-    - name: Update apt package lists on the target host
+    # - name: Install the zabbix package on the target host with apt
 
-    - name: Install the zabbix package on the target host with apt
+    #- name: Check that initial data zabbix is created in mysql host
 
-    - name: Check that initial data zabbix is created in mysql host
+    # - name: On Mysql host import initial schema and data from the zabbix server package into the zabbix database
 
-    - name: On Mysql host import initial schema and data from the zabbix server package into the zabbix database
-
-    - name: On Mysql set global log_bin_trust_function_creators on
+    # - name: On Mysql set global log_bin_trust_function_creators on
 
     # this will go to defaults/main.yml
-    - name: Configure the database for Zabbix server
+    # - name: Configure the database for Zabbix server
 
-    - name: On Mysql set global log_bin_trust_function_creators off
+    # - name: On Mysql set global log_bin_trust_function_creators off
 
     # this will go to handler/main.yml
-    - name: Start Zabbix server and agent processes
+    # - name: Start Zabbix server and agent processes
 
-    - name: Go to the Zabbix web interface and complete the setup wizard
+    # - name: Go to the Zabbix web interface and complete the setup wizard
