@@ -1,0 +1,16 @@
+---
+# Version: 1.0.0
+# Author: aspen
+# Description: Master playbook to deploy the zabbix server withoput using a role. 
+# This playbook is designed to install and configure the Zabbix server on all hosts in the zabbix_servers group, 
+# ensuring that the monitoring system is set up correctly and ready for use.
+- name: Deploy zabbix server
+  hosts: zabbix_servers
+  become: true
+  - tasks:
+    - name: Check if zabbix-server package is installed
+      ansible.builtin.package_facts:
+        manager: auto
+    - name: Print zabbix-server package installation status
+      ansible.builtin.debug:
+        msg: "Zabbix server package is installed: {{ 'zabbix-server' in ansible_facts.packages }}"

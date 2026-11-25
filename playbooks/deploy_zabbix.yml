@@ -1,7 +1,7 @@
 ---
 # Version: 1.0.0
-# Description: Master playbook to deploy the zabiz server
-
+# Author: aspen
+# Description:  This playbook is designed to install and configure the Zabbix server on all hosts in the zabbix_servers group, 
 - name: Deploy zabbix server
   hosts: zabbix_servers
   become: true
