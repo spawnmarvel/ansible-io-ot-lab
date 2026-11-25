@@ -30,4 +30,5 @@
       run_once: true
       become: false
       delegate_to: localhost
+      # The task will only run if the zabbix-server package is not already installed on the target hosts, as determined by the previous package_facts check.
       when: "'zabbix-server' not in ansible_facts.packages"
