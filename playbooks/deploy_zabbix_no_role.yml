@@ -10,7 +10,12 @@
   tasks:
     - name: Check if zabbix-server package is installed
       ansible.builtin.package_facts:
+        # Gather package facts to check if the zabbix-server package is installed on the target hosts.
+        # This module collects information about installed packages, which can be used to determine the installation status of specific packages.
+        # It does not know anything about "zabbix" in particular—package_facts simply pulls the entire list of installed packages into ansible_facts.packages.
         manager: auto
     - name: Print zabbix-server package installation status
       ansible.builtin.debug:
+        # and then your expression ('zabbix-server' in ansible_facts.packages) checks whether a 
+        # package literally named zabbix-server is in that dictionary.
         msg: "Zabbix server package is installed: {{ 'zabbix-server' in ansible_facts.packages }}"
