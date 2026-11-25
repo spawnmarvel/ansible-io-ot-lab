@@ -7,7 +7,7 @@
 - name: Deploy zabbix server
   hosts: zabbix_servers
   become: true
-  - tasks:
+  tasks:
     - name: Check if zabbix-server package is installed
       ansible.builtin.package_facts:
         manager: auto
