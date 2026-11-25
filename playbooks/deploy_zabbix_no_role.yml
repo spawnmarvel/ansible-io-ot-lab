@@ -40,8 +40,10 @@
         dest: "/tmp/zabbix-release_latest_7.0+ubuntu26.04_all.deb"
         mode: '0644'
       # This task is executed only once, so we dontt waste time copying the package to each target host if it is already present.
+      # Fine for a single host like zabbix01, though if zabbix_servers ever has multiple hosts, omitting run_once: 
+      # true ensures every host in the group gets the .deb copied to it.
       run_once: true
-      
+
     # - name: Install the zabbix package on the target host with dpkg
 
     # - name: Update apt package lists on the target host

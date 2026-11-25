@@ -33,6 +33,7 @@
     - [8. Understand the serial keyword for rolling updates](#8-understand-the-serial-keyword-for-rolling-updates)
 - [Development with Ai tips](#development-with-ai-tips)
 - [Playbook Keywords](#playbook-keywords)
+  - [failed\_when, Most of the time, you should not set it](#failed_when-most-of-the-time-you-should-not-set-it)
 - [Ansible vault](#ansible-vault)
   - [How to test and understand sys admin](#how-to-test-and-understand-sys-admin)
   - [Ansible test in Azure](#ansible-test-in-azure)
@@ -376,8 +377,31 @@ https://www.redhat.com/en/blog/10-great-ansible-practices
 
 These are the keywords available on common playbook objects. Keywords are one of several sources for configuring Ansible behavior. See Controlling how Ansible behaves: precedence rules for details on the relative precedence of each source.
 
-
 https://docs.ansible.com/projects/ansible/latest/reference_appendices/playbooks_keywords.html
+
+## failed_when, Most of the time, you should not set it
+
+In Ansible, failed_when lets you override the default rule that a task fails only when its return code is non-zero or the module reports failed: true. Most of the time, you should not set failed_when at all—Ansible's default failure handling is usually what you want.
+
+When failed_when: false Makes Sense
+
+Use failed_when: false only when a non-zero exit code or error message is expected or harmless during a probe/check, and you will inspect the registered result yourself:
+
+* State probes where "not found / not initialized" returns exit code 1 or 2 (for example, checking whether a Zabbix database table/schema already exists on mysql01 before running the schema import, or checking a service/command status).
+
+* Cleanup or optional checks where a missing item shouldn't abort the rest of the playbook.
+
+Avoid putting failed_when: false on installation, copy, apt, or schema-import tasks—if those fail, you want the playbook to stop immediately rather than silently continuing with a broken state.
+
+When failed_when: true Makes Sense
+
+Use failed_when: true when a task exits with 0 (so Ansible thinks it succeeded), but the output indicates failure:
+
+* A shell/command check that returns exit code 0 even when stdout/stderr contains an error keyword or missing expected output.
+
+* A precondition check (such as verifying /data is mounted or mysql01 is reachable before importing schema) where you explicitly want to fail the play if a condition isn't met.
+
+
 
 # Ansible vault
 
