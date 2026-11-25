@@ -162,7 +162,8 @@ In Bg we do the job manually, understand the case and document, then apply autom
 - [Azure IAC Bicep for Ansible lab](#azure-iac-bicep-for-ansible-lab)
 - [Playbook deploy\_zabbix.yml --check or limit --syntax-check](#playbook-deploy_zabbixyml---check-or-limit---syntax-check)
   - [Requirements zabbix 7.0 LTS](#requirements-zabbix-70-lts)
-  - [deploy\_zabbix.yml --check or limit --syntax-check](#deploy_zabbixyml---check-or-limit---syntax-check)
+  - [deploy\_zabbix\_server\_no\_role.yml --check or limit --syntax-check](#deploy_zabbix_server_no_roleyml---check-or-limit---syntax-check)
+  - [deploy\_zabbix\_server.yml --check or limit --syntax-check](#deploy_zabbix_serveryml---check-or-limit---syntax-check)
 - [Windows new project ansible-io-ot-lab-windows](#windows-new-project-ansible-io-ot-lab-windows)
 
 
@@ -3536,9 +3537,27 @@ set global log_bin_trust_function_creators = 1
 
 
 
-## deploy_zabbix.yml --check or limit --syntax-check
+## deploy_zabbix_server_no_role.yml --check or limit --syntax-check
 
 With mysql01 fully deployed, hardened, and pre-seeded with the Zabbix database and remote user privileges, your database backend is completely ready for the Zabbix server and proxy nodes.
+
+Lets learn all about roles first, so let snot use them and build a big playbook, when that works we have learned.
+
+Then we can start to make the roles/zabbix_server
+```bash
+
+azureuser@ansiblectr01:
+
+cd ansible-io-ot-lab/
+
+# if the play is ok, remove --check with --diff and or --limit, --syntax-check
+
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_zabbix_server_no_role.yml
+
+```
+## deploy_zabbix_server.yml --check or limit --syntax-check
+
+Use roles/zabbix_server
 
 ```bash
 
@@ -3552,10 +3571,9 @@ defaults  handlers  tasks  templates
 
 # if the play is ok, remove --check with --diff and or --limit, --syntax-check
 
-ansible-playbook -i inventory/hosts.ini playbooks/deploy_zabbix.yml
+ansible-playbook -i inventory/hosts.ini playbooks/deploy_zabbix_server.yml
 
 ```
-
 
 
 # Windows new project ansible-io-ot-lab-windows
