@@ -21,11 +21,12 @@
         # package literally named zabbix-server is in that dictionary.
         msg: "Zabbix server package is installed: {{ 'zabbix-server' in ansible_facts.packages }}"
 
-    - name: Get the lates zabbix packet and download on ansible control node
+    - name: Get the latest zabbix package and download on ansible control node
       ansible.builtin.get_url:
         # Download the latest Zabbix package from the official Zabbix repository to the /tmp/ directory on the Ansible control node.
         url: "https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.0+ubuntu26.04_all.deb"
         dest: "/tmp/zabbix-release_latest_7.0+ubuntu26.04_all.deb"
+      # This task is executed only once (run_once: true) and is delegated to the localhost (the Ansible control node) to avoid downloading the package multiple times on each target host.
       run_once: true
       become: false
       delegate_to: localhost
