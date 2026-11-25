@@ -3,6 +3,8 @@
 # Author: aspen
 # Description: Updates package cache, safely upgrades system packages, 
 # and correctly displays change status and output details.
+# This is also for testing via apt-cacher-n from the internal caching proxy server, ansiblectr01 is proxy server and zabbix01,02, mysql01 is the client node. 
+# The proxy server is configured to cache packages for faster installation across multiple nodes.
 
 - name: Update and Upgrade System Packages
   hosts: ot_nodes:idmz_nodes

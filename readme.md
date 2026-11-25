@@ -94,6 +94,7 @@ In Bg we do the job manually, understand the case and document, then apply autom
   - [Playbook linux ping\_hosts.yml](#playbook-linux-ping_hostsyml)
   - [Set up apt-cacher-ng and Apache on ansiblectr01](#set-up-apt-cacher-ng-and-apache-on-ansiblectr01)
     - [Allowed remote repositories](#allowed-remote-repositories)
+      - [Scenario](#scenario)
   - [Playbook linux configure\_apt\_proxy.yml](#playbook-linux-configure_apt_proxyyml)
     - [Veriy manual update on zabbix01](#veriy-manual-update-on-zabbix01)
   - [Playbook linux update\_apt.yml with callbacks\_enabled = profile\_tasks, timer](#playbook-linux-update_aptyml-with-callbacks_enabled--profile_tasks-timer)
@@ -1201,6 +1202,20 @@ sudo systemctl restart apt-cacher-ng
 
 sudo systemctl status apt-cacher-ng
 ```
+
+/etc/apt/apt.conf.d/01proxy only configures APT (apt, apt-get, apt-cache). Tools outside APT—such as wget, curl, Python, and ansible.builtin.get_url—do not read /etc/apt/apt.conf.d/.
+
+What your acng.conf changes on ansiblectr01 do for you:
+
+* Remap-zabbix: repo.zabbix.com ; [repo.zabbix.com/](https://repo.zabbix.com/) lets APT cache and serve packages from repo.zabbix.com through apt-cacher-ng once the Zabbix repository is added to APT sources.
+
+* PassThroughPattern: .* allows HTTPS/CONNECT traffic to pass through apt-cacher-ng for APT repositories that use HTTPS.
+
+#### Scenario
+
+Download the .deb on ansiblectr01 (or delegate_to: ansiblectr01) and copy it to /tmp/ on zabbix01 with ansible.builtin.copy
+
+Once zabbix-release_latest_7.0+ubuntu26.04_all.deb is staged onto /tmp/ on zabbix01 and installed with ansible.builtin.apt (deb: ...), APT will read the new Zabbix repository configuration and route future apt update and apt upgrade / package installs for Zabbix through your /etc/apt/apt.conf.d/01proxy setting and apt-cacher-ng on ansiblectr01 (10.68.68.4:3142).
 
 
 ## Playbook linux configure_apt_proxy.yml

@@ -2,7 +2,7 @@
 # Version: 1.0.0
 # Author: aspen
 # Description: Downloads the Zabbix package using wget for installation on Ubuntu 26.04
-# This is also for testing via apt-cacher-n from the internal caching proxy server, ansiblectr01 is proxy server and zabbix01,02 is the client node. 
+# This is also for testing via apt-cacher-n from the internal caching proxy server, ansiblectr01 is proxy server and zabbix01,02, mysql01 is the client node. 
 # The proxy server is configured to cache packages for faster installation across multiple nodes.
 # https://www.zabbix.com/download?zabbix=7.0&os_distribution=ubuntu&os_version=26.04&components=server_frontend_agent_2&db=mysql&ws=apache
 - name: Download Zabbix via wget

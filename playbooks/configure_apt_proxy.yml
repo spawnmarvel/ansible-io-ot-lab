@@ -2,7 +2,12 @@
 # Version: 1.0.3
 # Author: aspen
 # Description: Configures APT HTTP and HTTPS proxy settings for internal caching across nodes.
-
+# /etc/apt/apt.conf.d/01proxy only configures APT (apt, apt-get, apt-cache). 
+# Tools outside APT—such as wget, curl, Python, and ansible.builtin.get_url—do not read /etc/apt/apt.conf.d/.
+# example
+# Once zabbix-release_latest_7.0+ubuntu26.04_all.deb is staged onto /tmp/ on zabbix01 and installed with ansible.builtin.apt (deb: ...), 
+# APT will read the new Zabbix repository configuration and route future apt update and apt upgrade / package installs for Zabbix through 
+# your /etc/apt/apt.conf.d/01proxy setting and apt-cacher-ng on ansiblectr01 (10.68.68.4:3142).
 - name: Configure Internal APT Caching Proxy
   hosts: ot_nodes:idmz_nodes
   # become is set to true to allow the playbook to execute tasks with elevated privileges, 
