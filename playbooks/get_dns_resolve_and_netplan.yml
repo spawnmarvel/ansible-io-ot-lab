@@ -17,5 +17,6 @@
 
     - name: Display DNS host or ip address from resolv.conf
       ansible.builtin.debug:
-        # iterate over stdout
-        msg: "{% for line in resolved_output.stdout_lines %}{{ line }}{% if not loop.last %}\n{% endif %}{% else %}No DNS= lines found{% endfor %}"
+        msg: "Resolved.conf {{ resolved_output.stdout }}"
+
+    # - name: Get DNS or servers used in netplan, first check what the filename is, then use it to grep
