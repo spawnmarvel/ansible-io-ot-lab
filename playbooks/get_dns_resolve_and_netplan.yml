@@ -17,4 +17,4 @@
 
     - name: Display DNS host or ip address from resolv.conf
       ansible.builtin.debug:
-        msg: "Resolved.conf {{ resolved_output }}"
+        msg: "Resolved.conf {{ resolved_output.stdout }}"
