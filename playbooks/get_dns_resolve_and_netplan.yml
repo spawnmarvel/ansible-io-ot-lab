@@ -6,7 +6,7 @@
   hosts: ot_nodes:idmz_nodes
 
   gather_facts: true
-  become: false
+  become: true
   tasks:
     - name: Get DNS configuration details via resolved.conf
       ansible.builtin.command: grep 'DNS' /etc/systemd/resolved.conf
