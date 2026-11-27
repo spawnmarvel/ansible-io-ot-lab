@@ -186,3 +186,36 @@ azureuser@ansiblectr01:~/ansible-io-ot-lab$
 bash azure_iac_bicep_create_or_tear_down/scripts/teardown.sh
 
 ``` 
+
+## Add autoshutdown to vms
+
+Add autoshutdown with mail at 01:00 AM.
+
+## Add ssh keys to vms
+
+
+```bash
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.6
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.5
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.20.4
+
+# We must remove it first
+
+
+# Now try logging into the machine, with:
+# ssh login with key no pass
+ssh azureuser@10.68.68.6
+
+ssh azureuser@10.68.68.5
+
+ssh azureuser@10.68.20.4
+
+```
+
+Now we can just run Ansible as normal.
+
+
+
