@@ -9,7 +9,7 @@
   become: false
   tasks:
     - name: Get DNS configuration details via resolved.conf
-      ansible.builtin.command: grep 'DNS' /etc/systemd/resolve.conf
+      ansible.builtin.command: grep 'DNS' /etc/systemd/resolved.conf
       # Register the output to a variable for later use
       register: resolved_output
       # Indicate that this task does not change the system state
