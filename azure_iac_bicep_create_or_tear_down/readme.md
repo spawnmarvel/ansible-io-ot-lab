@@ -162,6 +162,8 @@ TODO Next Steps to Deploy
 Remove the old Resource Groups to free the static IPs (omit --no-wait so the command blocks until Azure releases 10.68.68.6, 10.68.68.5, and 10.68.20.4 from vnet_swc_01):
 
 ```bash
+# This is a one time only, to remove the manual environment.
+
 az group delete --name "Rg-swc-dbs-02" --yes
 az group delete --name "Rg-swc-vms-01" --yes
 
@@ -177,15 +179,27 @@ azureuser@ansiblectr01:~/ansible-io-ot-lab$
 
 bash azure_iac_bicep_create_or_tear_down/scripts/deploy.sh
 ```
+Log
 
-## Tear down nodes after 27.08.2026
-
-```bash
-azureuser@ansiblectr01:~/ansible-io-ot-lab$ 
-
-bash azure_iac_bicep_create_or_tear_down/scripts/teardown.sh
-
-``` 
+```console
+Enter admin password for VMs:
+Creating Resource Group: Rg-swc-mysql-01
+Deploying mysql01.bicepparam into Rg-swc-mysql-01...
+Name    State      Timestamp                         Mode         ResourceGroup
+------  ---------  --------------------------------  -----------  ---------------
+vm      Succeeded  2026-11-27T22:10:03.330457+00:00  Incremental  Rg-swc-mysql-01
+Creating Resource Group: Rg-swc-zabbix-01
+Deploying zabbix01.bicepparam into Rg-swc-zabbix-01...
+Name    State      Timestamp                         Mode         ResourceGroup
+------  ---------  --------------------------------  -----------  ----------------
+vm      Succeeded  2026-11-27T22:10:40.342067+00:00  Incremental  Rg-swc-zabbix-01
+Creating Resource Group: Rg-swc-zabbix-02
+Deploying zabbix02.bicepparam into Rg-swc-zabbix-02...
+Name    State      Timestamp                         Mode         ResourceGroup
+------  ---------  --------------------------------  -----------  ----------------
+vm      Succeeded  2026-11-27T22:11:46.882922+00:00  Incremental  Rg-swc-zabbix-02
+All VM deployments completed.
+```
 
 ## Add autoshutdown to vms
 
@@ -195,6 +209,16 @@ Add autoshutdown with mail at 01:00 AM.
 
 
 ```bash
+# we hav ealready generated the rsa key on ansiblectr01
+
+# remove old know hosts
+ssh-keygen -f '/home/azureuser/.ssh/known_hosts' -R '10.68.68.6'
+
+ssh-keygen -f '/home/azureuser/.ssh/known_hosts' -R '10.68.68.6'
+
+ssh-keygen -f '/home/azureuser/.ssh/known_hosts' -R '10.68.20.4'
+
+# add current key to host
 
 ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.6
 
@@ -202,8 +226,15 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.68.5
 
 ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@10.68.20.4
 
-# We must remove it first
+# login one time normal with password
+ssh azureuser@10.68.68.6
+# password
 
+ssh azureuser@10.68.68.5
+# password
+
+ssh azureuser@10.68.20.4
+# password
 
 # Now try logging into the machine, with:
 # ssh login with key no pass
@@ -218,4 +249,18 @@ ssh azureuser@10.68.20.4
 Now we can just run Ansible as normal.
 
 
+## Tear down nodes after 27.08.2026
+
+```bash
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ 
+
+bash azure_iac_bicep_create_or_tear_down/scripts/teardown.sh
+
+``` 
+
+Log
+
+```console
+
+```
 

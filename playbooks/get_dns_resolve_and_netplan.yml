@@ -1,0 +1,20 @@
+---
+# Version: 1.1.1
+# Author: aspen
+# Description: 
+- name: Gather and Display DNS Resolution and Netplan Configuration
+  hosts: ot_nodes:idmz_nodes
+
+  gather_facts: true
+  become: false
+  tasks:
+    - name: Get DNS configuration details via resolv.conf
+      ansible.builtin.command: grep 'DNS' /etc/systemd/resolve.conf
+      # Register the output to a variable for later use
+      register: resolve_output
+      # Indicate that this task does not change the system state
+      changed_when: false
+
+    - name: Display DNS host or ip address from resolv.conf
+      ansible.builtin.debug:
+        msg: "{{ resolve_output }}

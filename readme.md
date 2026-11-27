@@ -160,6 +160,8 @@ In Bg we do the job manually, understand the case and document, then apply autom
 - [Reboot mysql01 and verify all playbooks before install zabbix](#reboot-mysql01-and-verify-all-playbooks-before-install-zabbix)
   - [deploy\_mysql\_for\_zabbix.yml information on multiple deploy bg1](#deploy_mysql_for_zabbixyml-information-on-multiple-deploy-bg1)
 - [Azure IAC Bicep for Ansible lab](#azure-iac-bicep-for-ansible-lab)
+- [Azure IaC: Removed all nodes and ran Bicep](#azure-iac-removed-all-nodes-and-ran-bicep)
+  - [Test all current playbook 100% coverage](#test-all-current-playbook-100-coverage)
 - [Playbook deploy\_zabbix.yml --check or limit --syntax-check](#playbook-deploy_zabbixyml---check-or-limit---syntax-check)
   - [Requirements zabbix 7.0 LTS](#requirements-zabbix-70-lts)
   - [deploy\_zabbix\_server\_no\_role.yml --check or limit --syntax-check](#deploy_zabbix_server_no_roleyml---check-or-limit---syntax-check)
@@ -3513,6 +3515,57 @@ Then we can run the playbooks over and over and over again.
 
 GOTO azure_iac_bicep_create_or_tear_down
 
+# Azure IaC: Removed all nodes and ran Bicep
+
+We deleted all vms, but not ansiblectr01 and made sure we can create them with Azure IaC Bicep.
+
+Look in folder azure_iac_bicep_create_or_teardown
+
+Deploy all three VMs into their dedicated Resource Groups:
+
+```bash
+azureuser@ansiblectr01:~/ansible-io-ot-lab$ 
+
+bash azure_iac_bicep_create_or_tear_down/scripts/deploy.sh
+```
+Log
+
+```console
+Enter admin password for VMs:
+Creating Resource Group: Rg-swc-mysql-01
+Deploying mysql01.bicepparam into Rg-swc-mysql-01...
+Name    State      Timestamp                         Mode         ResourceGroup
+------  ---------  --------------------------------  -----------  ---------------
+vm      Succeeded  2026-11-27T22:10:03.330457+00:00  Incremental  Rg-swc-mysql-01
+Creating Resource Group: Rg-swc-zabbix-01
+Deploying zabbix01.bicepparam into Rg-swc-zabbix-01...
+Name    State      Timestamp                         Mode         ResourceGroup
+------  ---------  --------------------------------  -----------  ----------------
+vm      Succeeded  2026-11-27T22:10:40.342067+00:00  Incremental  Rg-swc-zabbix-01
+Creating Resource Group: Rg-swc-zabbix-02
+Deploying zabbix02.bicepparam into Rg-swc-zabbix-02...
+Name    State      Timestamp                         Mode         ResourceGroup
+------  ---------  --------------------------------  -----------  ----------------
+vm      Succeeded  2026-11-27T22:11:46.882922+00:00  Incremental  Rg-swc-zabbix-02
+All VM deployments completed.
+```
+
+## Test all current playbook 100% coverage
+
+Now before we deploy zabbix and the rest of the stack, we make sure that all our playbooks works on fresh clean vms befor we proceed.
+
+* ping_host.yml = passed
+* get_linux_version = passed
+* verify_firewall_isolation.yml = passed
+* configure_apt_proxy.yml = passed
+* update_apt.yml = passed = passed
+* mount_datadrive_check.yml = passed
+* mount_datadrive_for_mysql_azure_collections.yml = passed (with boot first time)
+* mount_datadrive_check.yml = passed (fstab ok)
+* deploy_mysql_check.yml = passed
+* deploy_mysql_for_zabbix.yml = passed
+* login_mysql_user_zabbix.yml = passed
+* deploy_zabbix_server_no_role.yml = passed
 
 # Playbook deploy_zabbix.yml --check or limit --syntax-check
 
